@@ -18,7 +18,8 @@
     "paths": {
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      // "@common-components": ["src/components/common/index.ts"],
+      "@common/*": ["src/common/*"],
+      "@common-components": ["src/components/common/index.ts"],
       // "@hooks/*": ["src/common/hooks/*"],
       // "@utils/*": ["src/common/utils/*"],
       // "@constants/*": ["src/common/constants/*"],
