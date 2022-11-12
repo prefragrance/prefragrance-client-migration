@@ -18,10 +18,7 @@
     "paths": {
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      // "@common-components": ["src/components/common/index.ts"],
-      // "@hooks/*": ["src/common/hooks/*"],
-      // "@utils/*": ["src/common/utils/*"],
-      // "@constants/*": ["src/common/constants/*"],
+      "@common-components": ["src/components/common/index.ts"],
       "@styles/*": ["src/styles/*"],
       "@public/*": ["public/*"],
       "@pages/*": ["src/pages/*"]
