@@ -12,6 +12,7 @@ type VStackProps = {
   alignItems?: "stretch" | "flex-start" | "flex-end" | "center";
   wrap?: "wrap" | "no-wrap" | "wrap-reverse";
   padding?: string;
+  className?: string;
   children: React.ReactNode;
 };
 
@@ -22,6 +23,7 @@ const VStack = ({
   gap = "sm",
   padding = "0px",
   children,
+  className,
 }: VStackProps) => {
   const getGap = () => {
     switch (gap) {
@@ -47,6 +49,7 @@ const VStack = ({
       wrap={wrap}
       gap={getGap()}
       padding={padding}
+      className={className}
     >
       {children}
     </Container>
@@ -61,6 +64,7 @@ const Container = styled.div<{
   padding: string;
 }>`
   display: flex;
+  flex-direction: column;
   justify-content: ${({ align }) => align};
   align-items: ${({ alignItems }) => alignItems};
   flex-wrap: ${({ wrap }) => wrap};
