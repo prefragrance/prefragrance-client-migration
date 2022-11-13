@@ -2,13 +2,13 @@ import styled from "@emotion/styled";
 import React from "react";
 import { fontSize, palette } from "@src/styles/styles";
 import Link from "next/link";
-import { BaseUrl } from "@src/constants/path";
 import { Icon, Logo } from "@common-components";
+import { RouteUrl } from "@src/common/constants/path";
 
 const Navbar = () => {
   return (
     <Container>
-      <Link href={BaseUrl.Base}>
+      <Link href={RouteUrl.Base}>
         <a>
           <Logo />
         </a>
@@ -28,8 +28,6 @@ const Container = styled.div`
   width: 100%;
   height: 80px;
   background-color: ${palette.green.primary};
-  position: fixed;
-  top: 0px;
 `;
 
 export default Navbar;
