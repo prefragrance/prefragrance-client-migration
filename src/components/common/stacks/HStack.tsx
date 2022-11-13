@@ -7,6 +7,7 @@ type HStackProps = {
   alignItems?: "stretch" | "flex-start" | "flex-end" | "center";
   wrap?: "wrap" | "no-wrap" | "wrap-reverse";
   padding?: string;
+  className?: string;
   children: React.ReactNode;
 };
 
@@ -17,6 +18,7 @@ const HStack = ({
   wrap = "no-wrap",
   padding = "0px",
   children,
+  className,
 }: HStackProps) => {
   const getGap = () => {
     switch (gap) {
@@ -42,6 +44,7 @@ const HStack = ({
       wrap={wrap}
       gap={getGap()}
       padding={padding}
+      className={className}
     >
       {children}
     </Container>
