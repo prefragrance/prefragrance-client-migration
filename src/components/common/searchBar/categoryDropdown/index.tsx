@@ -66,7 +66,7 @@ const CategoryDropdown = React.forwardRef(
 );
 
 const Wrapper = styled.div`
-  margin: 100px auto;
+  /* margin: 100px auto; */
   display: flex;
   justify-content: space-around;
   align-items: center;

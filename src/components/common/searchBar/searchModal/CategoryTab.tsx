@@ -21,6 +21,7 @@ const CategoryTab = ({ currentTab, setCurrentTab }: ICurrentTab) => {
   const handleTabClick = (category: IOption) => {
     setCurrentTab(category);
   };
+  console.log(currentTab);
 
   return (
     <Wrapper>
