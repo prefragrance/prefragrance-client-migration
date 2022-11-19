@@ -5,7 +5,7 @@ const SearchResultPage = () => {
   const { useSearchQuery } = useSearch();
   const searchResult = useSearchQuery();
 
-  return <div>{searchResult.productName}</div>;
+  return <div>{searchResult.name}</div>;
 };
 
 export default SearchResultPage;

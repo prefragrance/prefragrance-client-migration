@@ -18,7 +18,18 @@ const useSearch = () => {
       () => SearchApi.getSearchData(apiQuery),
       {
         initialData: {
-          productName: "",
+          id: 0,
+          name: "",
+          producer: "",
+          category: "",
+          feedback_cnt: 0,
+          review_cnt: 0,
+          visit_cnt: 0,
+          thumbnail_url: "",
+          rate_sum: 0,
+          rate: 0,
+          tags: "",
+          codes: [],
         },
       }
     );
