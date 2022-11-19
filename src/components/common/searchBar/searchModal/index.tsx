@@ -3,9 +3,13 @@ import KeywordList from "./KeywordList";
 import styled from "@emotion/styled";
 import useRecentSearch from "../useRecentSearch";
 import { palette } from "@src/styles/styles";
-import CategoryTab, { Categories } from "./CategoryTab";
+import CategoryTab, { SearchModalCategoriesName } from "./CategoryTab";
 import { IOption } from "../categoryDropdown";
-import { ISearchKeywords } from "@src/common/types/search";
+import {
+  emptyLocalStorage,
+  LocalStorageName,
+} from "@src/common/hooks/useLocalStorage";
+import useSearch from "../useSearch";
 
 export interface ICurrentTab {
   currentTab: IOption;
@@ -15,7 +19,6 @@ export interface ICurrentTab {
 export interface ISearchModal extends ICurrentTab {
   recentUpdate: number;
   setRecentUpdate: Dispatch<SetStateAction<number>>;
-  searchKeywords: ISearchKeywords;
 }
 
 const SearchModal = ({
@@ -23,9 +26,13 @@ const SearchModal = ({
   setRecentUpdate,
   currentTab,
   setCurrentTab,
-  searchKeywords,
 }: ISearchModal) => {
   const { deleteRecentSearchAll } = useRecentSearch();
+  const { useSearchKeywordQuery } = useSearch();
+  const searchKeywords = useSearchKeywordQuery(currentTab);
+  const recentSearchKeywords: string[] = emptyLocalStorage(
+    LocalStorageName.RecentSearchList
+  );
 
   const handleDeleteRecentSearchAll = () => {
     deleteRecentSearchAll();
@@ -41,9 +48,13 @@ const SearchModal = ({
         setCurrentTab={setCurrentTab}
         recentUpdate={recentUpdate}
         setRecentUpdate={setRecentUpdate}
-        searchKeywords={searchKeywords}
+        searchKeywords={
+          currentTab.value === SearchModalCategoriesName.Recent
+            ? recentSearchKeywords
+            : searchKeywords
+        }
       />
-      {currentTab.label === Categories.Recent && (
+      {currentTab.value === SearchModalCategoriesName.Recent && (
         <BtnSection>
           <DeleteAllBtn onClick={handleDeleteRecentSearchAll}>
             전체 삭제

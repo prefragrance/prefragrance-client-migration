@@ -4,16 +4,16 @@ import React from "react";
 import { ICurrentTab } from ".";
 import { IOption } from "../categoryDropdown";
 
-export enum Categories {
+export enum SearchModalCategoriesName {
   Recommend = "recommend",
   Popular = "popular",
   Recent = "recent",
 }
 
-export const categories: IOption[] = [
-  { label: "추천 검색어", value: Categories.Recommend },
-  { label: "인기 검색어", value: Categories.Popular },
-  { label: "최근 검색어", value: Categories.Recent },
+export const SearchModalCategories: IOption[] = [
+  { label: "추천 검색어", value: SearchModalCategoriesName.Recommend },
+  { label: "인기 검색어", value: SearchModalCategoriesName.Popular },
+  { label: "최근 검색어", value: SearchModalCategoriesName.Recent },
 ];
 
 const CategoryTab = ({ currentTab, setCurrentTab }: ICurrentTab) => {
@@ -21,11 +21,10 @@ const CategoryTab = ({ currentTab, setCurrentTab }: ICurrentTab) => {
   const handleTabClick = (category: IOption) => {
     setCurrentTab(category);
   };
-  console.log(currentTab);
 
   return (
     <Wrapper>
-      {categories.map((category) => (
+      {SearchModalCategories.map((category) => (
         <Tab
           key={category.label}
           className={

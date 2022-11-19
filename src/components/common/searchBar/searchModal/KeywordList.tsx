@@ -4,16 +4,20 @@ import { ISearchModal } from ".";
 import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
 
+interface IKeywordList extends ISearchModal {
+  searchKeywords: string[];
+}
+
 const KeywordList = ({
   currentTab,
   recentUpdate,
   setRecentUpdate,
   searchKeywords,
-}: ISearchModal) => {
+}: IKeywordList) => {
   return (
     <Wrapper>
-      {searchKeywords.keywords.length > 0 ? (
-        searchKeywords.keywords.map((keyword) => (
+      {searchKeywords && searchKeywords.length > 0 ? (
+        searchKeywords.map((keyword) => (
           <KeywordItem
             key={keyword}
             text={keyword}

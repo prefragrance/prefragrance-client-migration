@@ -1,7 +1,11 @@
+import useSearch from "@src/components/common/searchBar/useSearch";
 import React from "react";
 
 const SearchResultPage = () => {
-  return <div>검색 결과 페이지</div>;
+  const { useSearchQuery } = useSearch();
+  const searchResult = useSearchQuery();
+
+  return <div>{searchResult.productName}</div>;
 };
 
 export default SearchResultPage;

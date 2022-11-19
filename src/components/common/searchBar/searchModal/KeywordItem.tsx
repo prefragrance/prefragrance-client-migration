@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { IOption } from "../categoryDropdown";
-import Icon from "../../icon/Icon";
 import { palette } from "@src/styles/styles";
-import { Categories } from "./CategoryTab";
+import { SearchModalCategoriesName } from "./CategoryTab";
+import { Icon } from "@common-components";
 import styled from "@emotion/styled";
 import useRecentSearch from "../useRecentSearch";
 
@@ -30,12 +30,14 @@ const KeywordItem = ({
   return (
     <Wrapper>
       <QuerySection>
-        <Icon color={palette.gray.dark}>Search</Icon>
+        <Icon color={palette.gray.dark}>search</Icon>
         <span>{text}</span>
       </QuerySection>
-      <DeleteBtnSection disabled={currentTab.label !== Categories.Recent}>
+      <DeleteBtnSection
+        disabled={currentTab.value !== SearchModalCategoriesName.Recent}
+      >
         <Icon color={palette.gray.dark} onClick={onDeleteRecentKeyword}>
-          Close
+          close
         </Icon>
       </DeleteBtnSection>
     </Wrapper>
@@ -47,6 +49,7 @@ const Wrapper = styled.li`
   justify-content: space-between;
   align-items: center;
   padding: 13px 15px;
+  cursor: pointer;
   &:hover {
     background-color: ${palette.gray.light};
   }

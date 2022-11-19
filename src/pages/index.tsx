@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import { Logo, VStack } from "@src/components/common";
-import SearchBar from "@src/components/common/searchBar";
+import { Logo, SearchBar, VStack } from "@common-components";
 import BestReview from "@src/components/home/bestReview";
 import Magazine from "@src/components/home/magazine";
 import Recommendation from "@src/components/home/recommendation";

@@ -1,7 +1,9 @@
 import {
   deleteLocalStorage,
+  emptyLocalStorage,
   getLocalStorage,
   ILocalStorage,
+  LocalStorageName,
   setLocalStorage,
 } from "@src/common/hooks/useLocalStorage";
 
@@ -9,9 +11,7 @@ const useRecentSearch = () => {
   // 최근검색어 업데이트
   const updateRecentSearch = ({ value }: ILocalStorage) => {
     // localStorage에서 가져오고 validation check
-    let recentSearchList = JSON.parse(
-      getLocalStorage("recentSearchList") || ""
-    );
+    let recentSearchList = emptyLocalStorage(LocalStorageName.RecentSearchList);
     // recentSearchList에 value가 이미 있는지 check
     const already = recentSearchList.indexOf(value);
     // recentSearchList에 value가 이미 있으면
@@ -29,7 +29,7 @@ const useRecentSearch = () => {
       recentSearchList = recentSearchList.slice(0, 5);
     }
     setLocalStorage({
-      name: "recentSearchList",
+      name: LocalStorageName.RecentSearchList,
       value: JSON.stringify(recentSearchList),
     });
   };
@@ -37,21 +37,21 @@ const useRecentSearch = () => {
   // 최근검색어 하나 삭제
   const deleteRecentSearchEach = ({ value }: ILocalStorage) => {
     const recentSearchList = JSON.parse(
-      getLocalStorage("recentSearchList") || ""
+      getLocalStorage(LocalStorageName.RecentSearchList) || ""
     );
     const already = recentSearchList.indexOf(value);
     if (already >= 0) {
       recentSearchList.splice(already, 1);
     }
     setLocalStorage({
-      name: "recentSearchList",
+      name: LocalStorageName.RecentSearchList,
       value: JSON.stringify(recentSearchList),
     });
   };
 
   // 최근검색어 전체삭제
   const deleteRecentSearchAll = () => {
-    deleteLocalStorage("recentSearchList");
+    deleteLocalStorage(LocalStorageName.RecentSearchList);
   };
 
   return { updateRecentSearch, deleteRecentSearchEach, deleteRecentSearchAll };
