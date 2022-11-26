@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 
 type VStackProps = {
-  gap?: "none" | "xs" | "sm" | "md" | "lg";
+  gap?: "none" | "xs" | "sm" | "md" | "lg" | number;
   align?:
     | "flex-start"
     | "flex-end"
@@ -38,7 +38,7 @@ const VStack = ({
       case "lg":
         return "2rem";
       default:
-        throw new Error("invalid gap");
+        return `${gap}px`;
     }
   };
 

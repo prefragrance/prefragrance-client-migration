@@ -14,6 +14,7 @@ interface IIcon {
   backgroundColor?: string;
   onClick?: () => void;
   children: React.ReactNode;
+  asButton?: boolean;
 }
 
 const Icon = ({
@@ -23,6 +24,7 @@ const Icon = ({
   backgroundColor = "",
   onClick,
   children,
+  asButton,
 }: IIcon) => {
   return (
     <IconContainer
@@ -31,6 +33,7 @@ const Icon = ({
       color={color}
       backgroundColor={backgroundColor}
       onClick={onClick}
+      asButton={asButton}
     >
       {children}
     </IconContainer>
@@ -41,6 +44,7 @@ interface IIconContainer {
   color: string;
   size: string;
   backgroundColor: string;
+  asButton?: boolean;
 }
 
 const IconContainer = styled.span<IIconContainer>`
@@ -48,6 +52,7 @@ const IconContainer = styled.span<IIconContainer>`
   color: ${({ color }) => color};
   background-color: ${({ backgroundColor }) => backgroundColor};
   vertical-align: middle;
+  cursor: ${({ asButton }) => asButton && "pointer"};
 `;
 
 export default Icon;

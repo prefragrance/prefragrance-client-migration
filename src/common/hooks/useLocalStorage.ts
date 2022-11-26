@@ -5,6 +5,7 @@ export interface ILocalStorage {
 
 export enum LocalStorageName {
   RecentSearchList = "recentSearchList",
+  LoginUser = "loginUser",
 }
 
 export function emptyLocalStorage(name: LocalStorageName) {

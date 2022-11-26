@@ -6,6 +6,12 @@ interface IText {
   fontWeight?: string;
 }
 
+export const Span = styled.span<IText>`
+  font-size: ${fontSize.body};
+  color: ${({ color }) => color};
+  font-weight: ${({ fontWeight }) => fontWeight};
+`;
+
 export const Paragraph = styled.p<IText>`
   font-size: ${fontSize.paragraph};
   white-space: pre-wrap;
