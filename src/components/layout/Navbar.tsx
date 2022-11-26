@@ -6,6 +6,12 @@ import { Icon, Logo, SearchBar } from "@common-components";
 import { RouteUrl } from "@src/common/constants/path";
 import { useRouter } from "next/router";
 
+enum NoneSearchBarUrl {
+  Base = RouteUrl.Base,
+  Login = RouteUrl.Login,
+  Register = RouteUrl.Register,
+}
+
 const Navbar = () => {
   const router = useRouter();
 
@@ -16,7 +22,7 @@ const Navbar = () => {
           <Logo />
         </a>
       </Link>
-      {router.pathname !== RouteUrl.Base && <SearchBar />}
+      {!(router.pathname in NoneSearchBarUrl) && <SearchBar />}
       <Icon color={palette.white} size={fontSize.extraBigText}>
         person
       </Icon>
