@@ -1,20 +1,12 @@
 import styled from "@emotion/styled";
-import SearchApi from "@src/common/api/search";
 import { RouteUrl } from "@src/common/constants/path";
-import { ISearchKeywords, ISearchResult } from "@src/common/types/search";
 import { useComponentVisible } from "@src/common/utils/useComponentVisible";
 import { fontSize, palette } from "@src/styles/styles";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React, {
-  ChangeEvent,
-  FormEvent,
-  MutableRefObject,
-  useState,
-} from "react";
+import React, { ChangeEvent, RefObject, useState } from "react";
 import CategoryDropdown, { categoryList, IOption } from "./categoryDropdown";
 import SearchModal from "./searchModal";
-import { categories } from "./searchModal/CategoryTab";
+import { SearchModalCategories } from "./searchModal/CategoryTab";
 import useRecentSearch from "./useRecentSearch";
 
 export interface ISearchPayload {
@@ -23,7 +15,6 @@ export interface ISearchPayload {
 }
 
 const SearchBar = () => {
-  const router = useRouter();
   const {
     componentRef: modalRef,
     isVisible: isModalOpen,
@@ -33,69 +24,29 @@ const SearchBar = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [category, setCategory] = useState<IOption>(categoryList[0]);
   const [recentUpdate, setRecentUpdate] = useState<number>(0);
-  const [currentTab, setCurrentTab] = useState<IOption>(categories[0]);
+  const [currentTab, setCurrentTab] = useState<IOption>(
+    SearchModalCategories[0]
+  );
+  const router = useRouter();
 
-  const useSearchQuery = ({ category, searchInput }: ISearchPayload) => {
-    const { data, refetch } = useQuery<ISearchResult>(
-      ["search"],
-      () =>
-        SearchApi.getSearchData({
-          category: category,
-          searchInput: searchInput,
-        }),
-      {
-        initialData: {
-          productName: "",
-        },
-        enabled: false,
-        onSuccess: () => {
-          setSearchInput("");
-          router.push(RouteUrl.SearchResult);
-        },
-      }
-    );
-
-    return { data, refetch };
-  };
-  const { data: searchResult, refetch } = useSearchQuery({
-    category: category.value,
-    searchInput: searchInput,
-  });
-
-  const useSearchKeywordQuery = () => {
-    const { data } = useQuery<ISearchKeywords>(
-      ["search-keywords"],
-      () => SearchApi.getSearchKeywords(currentTab.value),
-      {
-        initialData: {
-          keywords: [],
-        },
-        enabled: false,
-      }
-    );
-
-    return data;
-  };
-  const searchKeywords = useSearchKeywordQuery();
-
-  const handleSearchSubmit = (e: FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSearchSubmit = () => {
     if (searchInput.trim().length === 0) {
       alert("검색어를 입력해주세요.");
       return;
     }
     updateRecentSearch({ value: searchInput });
     setRecentUpdate(recentUpdate + 1);
-    refetch();
+    router.push({
+      pathname: RouteUrl.SearchResult,
+      query:
+        category.value === "whole"
+          ? { search: searchInput }
+          : { q_field: category.value, search: searchInput },
+    });
   };
 
-  console.log(searchResult);
-
   return (
-    <Form
-      ref={modalRef as MutableRefObject<HTMLFormElement>}
-      onSubmit={() => handleSearchSubmit}
-    >
+    <Container ref={modalRef as RefObject<HTMLDivElement>}>
       <CategoryDropdown category={category} setCategory={setCategory} />
       <Input
         type="text"
@@ -106,21 +57,20 @@ const SearchBar = () => {
           setSearchInput(e.target.value)
         }
       />
-      <SearchButton type="submit">검색</SearchButton>
+      <SearchButton onClick={() => handleSearchSubmit()}>검색</SearchButton>
       {isModalOpen && (
         <SearchModal
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}
           recentUpdate={recentUpdate}
           setRecentUpdate={setRecentUpdate}
-          searchKeywords={searchKeywords}
         />
       )}
-    </Form>
+    </Container>
   );
 };
 
-const Form = styled.form`
+const Container = styled.div`
   display: flex;
   align-items: center;
   border: none;

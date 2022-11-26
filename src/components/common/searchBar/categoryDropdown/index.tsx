@@ -21,49 +21,47 @@ interface ICategoryDropdown {
   setCategory: Dispatch<SetStateAction<IOption>>;
 }
 
-const CategoryDropdown = React.forwardRef(
-  ({ category, setCategory }: ICategoryDropdown) => {
-    const { componentRef, isVisible, handleComponentVisible } =
-      useComponentVisible();
+const CategoryDropdown = ({ category, setCategory }: ICategoryDropdown) => {
+  const { componentRef, isVisible, handleComponentVisible } =
+    useComponentVisible();
 
-    return (
-      <Wrapper>
-        <DropdownContainer>
-          <DropdownButton
-            ref={componentRef as MutableRefObject<HTMLDivElement>}
-            onClick={handleComponentVisible}
-          >
-            {category.label}
-          </DropdownButton>
-          <Menu isVisible={isVisible}>
-            <Ul>
-              <Li>
-                <LinkWrapper onClick={() => setCategory(categoryList[0])}>
-                  통합검색
-                </LinkWrapper>
-              </Li>
-              <Li>
-                <LinkWrapper onClick={() => setCategory(categoryList[1])}>
-                  제품명
-                </LinkWrapper>
-              </Li>
-              <Li>
-                <LinkWrapper onClick={() => setCategory(categoryList[2])}>
-                  브랜드
-                </LinkWrapper>
-              </Li>
-              <Li>
-                <LinkWrapper onClick={() => setCategory(categoryList[3])}>
-                  키워드
-                </LinkWrapper>
-              </Li>
-            </Ul>
-          </Menu>
-        </DropdownContainer>
-      </Wrapper>
-    );
-  }
-);
+  return (
+    <Wrapper>
+      <DropdownContainer>
+        <DropdownButton
+          ref={componentRef as MutableRefObject<HTMLDivElement>}
+          onClick={handleComponentVisible}
+        >
+          {category.label}
+        </DropdownButton>
+        <Menu isVisible={isVisible}>
+          <Ul>
+            <Li>
+              <LinkWrapper onClick={() => setCategory(categoryList[0])}>
+                통합검색
+              </LinkWrapper>
+            </Li>
+            <Li>
+              <LinkWrapper onClick={() => setCategory(categoryList[1])}>
+                제품명
+              </LinkWrapper>
+            </Li>
+            <Li>
+              <LinkWrapper onClick={() => setCategory(categoryList[2])}>
+                브랜드
+              </LinkWrapper>
+            </Li>
+            <Li>
+              <LinkWrapper onClick={() => setCategory(categoryList[3])}>
+                키워드
+              </LinkWrapper>
+            </Li>
+          </Ul>
+        </Menu>
+      </DropdownContainer>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   /* margin: 100px auto; */
@@ -149,7 +147,5 @@ const LinkWrapper = styled.a`
   text-decoration: none;
   color: ${palette.black};
 `;
-
-CategoryDropdown.displayName = "categoryDropdown";
 
 export default CategoryDropdown;
