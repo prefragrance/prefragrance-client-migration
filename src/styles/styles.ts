@@ -1,6 +1,9 @@
 export const palette = {
   white: "#FFFFFF",
   black: "#333333",
+  red: {
+    primary: "#CC1900",
+  },
   gray: {
     lighter: "#E0E0E0",
     light: "#F0F0F0",

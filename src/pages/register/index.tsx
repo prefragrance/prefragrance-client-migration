@@ -1,7 +1,7 @@
 import React from "react";
 
-const SignUpPage = () => {
+const RegisterPage = () => {
   return <div>회원가입 페이지</div>;
 };
 
-export default SignUpPage;
+export default RegisterPage;
