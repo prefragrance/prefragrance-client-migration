@@ -12,7 +12,6 @@ const useSearch = () => {
     const apiQuery = query.q_field
       ? `q_field=${query.q_field}&search=${query.search}`
       : `search=${query.search}`;
-    console.log(apiQuery);
     const { data } = useQuery<ISearchResult>(
       ["search", query.search],
       () => SearchApi.getSearchData(apiQuery),

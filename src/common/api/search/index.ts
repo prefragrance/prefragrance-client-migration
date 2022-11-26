@@ -4,7 +4,9 @@ import apiCall from "../apiCall";
 
 class SearchApi {
   static async getSearchData(query: string): Promise<ISearchResult> {
-    const response = await apiCall.get(`${ApiUrl.Search}/?${query}`);
+    const response = await apiCall.get(
+      `${ApiUrl.base}${ApiUrl.search}/?${query}`
+    );
 
     if (response.status !== 200) {
       throw new Error("Unable to get search result data");
@@ -14,7 +16,9 @@ class SearchApi {
   }
 
   static async getSearchKeywords(tab: string): Promise<ISearchKeywords> {
-    const response = await apiCall.get(`${ApiUrl.Search}/?tab=${tab}`);
+    const response = await apiCall.get(
+      `${ApiUrl.base}${ApiUrl.search}/?tab=${tab}`
+    );
 
     if (response.status !== 200) {
       throw new Error("Unable to get search keywords");
