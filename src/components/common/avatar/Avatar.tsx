@@ -17,7 +17,7 @@ const Avatar = ({
 }: AvatarProps) => {
   return (
     <Container width={width} height={height}>
-      <Image src={url} alt="Picture of me" layout="fill" />
+      <Image src={url} alt="Picture of me" width={width} height={height} />
     </Container>
   );
 };
