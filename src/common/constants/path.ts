@@ -23,4 +23,9 @@ export const ApiUrl = {
     magazine: "/product/magazine/",
     userMagazine: "/product/user-magazine/",
   },
+  product: {
+    hot: "/product/hot/",
+    magazine: "/product/magazine/",
+    userMagazine: "/product/user-magazine/",
+  },
 };
