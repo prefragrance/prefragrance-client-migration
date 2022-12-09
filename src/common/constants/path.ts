@@ -14,4 +14,5 @@ export const ApiUrl = {
     passwordChange: "/accounts/password/change/",
     register: "/accounts/register/",
   },
+  magazine: "/product/magazine",
 };
