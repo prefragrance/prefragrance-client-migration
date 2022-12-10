@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { Icon } from "@src/components/common";
 import { fontSize, palette } from "@src/styles/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MagazineItem from "./MagazineItem";
+import { ApiUrl } from "@src/common/constants/path";
+import apiCall from "@src/common/api/apiCall";
 
 // text가 12개씩 들어온다 가정
 const text = [
@@ -26,6 +28,14 @@ const Magazine = () => {
   const offset = (num: number) => (num - 1) * limit;
   const pages = [0, 1];
 
+  useEffect(() => {
+    apiCall
+      .get(ApiUrl.product.magazine)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       <Button onClick={() => setNowPage(nowPage - 1)} disabled={nowPage === 1}>
