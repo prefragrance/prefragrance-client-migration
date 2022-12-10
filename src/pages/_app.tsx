@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState, useEffect } from "react";
 import Layout from "@src/components/layout/Layout";
 import "@public/assets/fonts/fonts.css";
+import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -21,12 +22,14 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <div></div>;
   } else {
     return (
-      <QueryClientProvider client={queryClient}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </RecoilRoot>
     );
   }
 }

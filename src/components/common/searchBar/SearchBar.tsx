@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { RouteUrl } from "@src/common/constants/path";
+import { RouterUrl } from "@src/common/constants/path";
 import { useComponentVisible } from "@src/common/utils/useComponentVisible";
 import { fontSize, palette } from "@src/styles/styles";
 import { useRouter } from "next/router";
@@ -37,7 +37,7 @@ const SearchBar = () => {
     updateRecentSearch({ value: searchInput });
     setRecentUpdate(recentUpdate + 1);
     router.push({
-      pathname: RouteUrl.SearchResult,
+      pathname: RouterUrl.SearchResult,
       query:
         category.value === "whole"
           ? { search: searchInput }

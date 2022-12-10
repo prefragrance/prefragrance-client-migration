@@ -1,34 +1,84 @@
+import { HStack, Icon, Logo, SearchBar } from "@common-components";
 import styled from "@emotion/styled";
-import React from "react";
+import AuthApi from "@src/common/api/auth";
+import { RouterUrl } from "@src/common/constants/path";
+import { useIsLoggedIn } from "@src/common/hooks/useAuth";
+import { deleteLocalStorageAll } from "@src/common/hooks/useLocalStorage";
+import { checkLogin, currentUser } from "@src/common/store/user";
 import { fontSize, palette } from "@src/styles/styles";
 import Link from "next/link";
-import { Icon, Logo, SearchBar } from "@common-components";
-import { RouteUrl } from "@src/common/constants/path";
 import { useRouter } from "next/router";
+import { useResetRecoilState } from "recoil";
 
 enum NoneSearchBarUrl {
-  Base = RouteUrl.Base,
-  Login = RouteUrl.Login,
-  Register = RouteUrl.Register,
+  Base = RouterUrl.Base,
+  Login = RouterUrl.Login,
+  Register = RouterUrl.Register,
 }
 
 const Navbar = () => {
   const router = useRouter();
+  const isLoggedIn = useIsLoggedIn();
 
   return (
     <Container>
-      <Link href={RouteUrl.Base}>
+      <Link href={RouterUrl.Base}>
         <a>
           <Logo />
         </a>
       </Link>
       {!(router.pathname in NoneSearchBarUrl) && <SearchBar />}
+      <TemporaryAuthBox isLoggedIn={isLoggedIn} />
       <Icon color={palette.white} size={fontSize.extraBigText}>
         person
       </Icon>
     </Container>
   );
 };
+
+const TemporaryAuthBox = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+  const resetUser = useResetRecoilState(currentUser);
+  const resetIsLoggedIn = useResetRecoilState(checkLogin);
+
+  const handleLogout = async () => {
+    try {
+      await AuthApi.getLogout();
+    } finally {
+      deleteLocalStorageAll();
+      resetUser();
+      resetIsLoggedIn();
+    }
+  };
+
+  return (
+    <>
+      {!isLoggedIn && (
+        <HStack gap={"xs"}>
+          <Link href={RouterUrl.Login}>
+            <a>
+              <AuthButton>로그인</AuthButton>
+            </a>
+          </Link>
+          <Link href={RouterUrl.Register}>
+            <a>
+              <AuthButton>회원가입</AuthButton>
+            </a>
+          </Link>
+        </HStack>
+      )}
+      {isLoggedIn && <AuthButton onClick={handleLogout}>로그아웃</AuthButton>}
+    </>
+  );
+};
+
+const AuthButton = styled.button`
+  width: 100px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: ${fontSize.body};
+  color: ${palette.white};
+`;
 
 const Container = styled.div`
   display: flex;
