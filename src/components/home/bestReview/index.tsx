@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import React from "react";
 import ReviewBox from "./ReviewBox";
+// import { HStack, VStack } from "@src/components/common";
 
 const RAW_DATA = [
   {
@@ -94,10 +94,8 @@ const BestReview = () => {
 };
 
 const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
+  justify-content: flex-start;
 `;
 
 const Title = styled.div`
