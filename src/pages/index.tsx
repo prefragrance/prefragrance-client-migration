@@ -10,7 +10,7 @@ import React from "react";
 
 const Home: NextPage = () => {
   return (
-    <HomeWrapper gap="none">
+    <HomeWrapper gap="lg">
       <BannerSection gap="lg">
         <Logo size="80px" spacing="-20px" />
         <Paragraph color={palette.white} style={{ marginLeft: "20px" }}>
@@ -48,11 +48,12 @@ const HomeSection = styled(VStack)`
 `;
 
 const MagazineSection = styled(VStack)`
-  height: 550px;
+  padding: 40px 0px;
 `;
 
-const RecommendationSection = styled.div`
+const RecommendationSection = styled(VStack)`
   height: 400px;
+  width: 100%;
 `;
 
 const BestReviewSection = styled.div``;
