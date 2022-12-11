@@ -90,7 +90,7 @@ const BoxSection = styled.div`
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
-  gap: 1rem;
+  gap: 3rem;
 `;
 
 const Button = styled.button`
@@ -107,7 +107,7 @@ const Button = styled.button`
   &:last-of-type {
     right: -5rem;
   }
-  ${(props) => props.disabled && "display: none"};
+  ${(props) => props.disabled && "opacity: 0.2; pointer-events: none;"};
 `;
 
 const RadioSection = styled.div`
