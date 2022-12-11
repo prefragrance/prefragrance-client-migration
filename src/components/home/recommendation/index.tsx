@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import React from "react";
 import InfoBox from "./InfoBox";
 import { HStack } from "@common-components";
-import { fontSize, fontWeight } from "@src/styles/styles";
+import { fontWeight } from "@src/styles/styles";
+import { BigTitle } from "@src/styles/textComponents";
 
 const Recommendation = () => {
   return (
@@ -29,8 +30,7 @@ const Header = styled(HStack)`
   width: 100%;
 `;
 
-const Title = styled.div`
-  font-size: ${fontSize.bigTitle};
+const Title = styled(BigTitle)`
   font-weight: ${fontWeight.bold};
 `;
 
