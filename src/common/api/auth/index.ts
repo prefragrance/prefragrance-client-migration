@@ -3,6 +3,8 @@ import {
   ILogin,
   ILoginResponse,
   ILogoutResponse,
+  IRegisterPayload,
+  IRegisterResponse,
   ITokenRefreshResponse,
   IUser,
 } from "@src/common/types/user";
@@ -69,6 +71,21 @@ class AuthApi {
 
     if (response.status !== 200) {
       throw new Error("Unable to get user");
+    }
+
+    return response.data;
+  }
+
+  static async postRegister(
+    payload: IRegisterPayload
+  ): Promise<IRegisterResponse> {
+    const response = await apiCall.post(
+      `${ApiUrl.base}${ApiUrl.accounts.register}`,
+      payload
+    );
+
+    if (response.status !== 201) {
+      throw new Error("Unable to post register");
     }
 
     return response.data;

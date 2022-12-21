@@ -1,8 +1,8 @@
-import useSearch from "@src/components/common/searchBar/useSearch";
 import React, { useState } from "react";
 import Categories from "@src/components/search-result/Categories";
 import { SelectTab } from "@src/components/search-result";
 import SearchResultList from "@src/components/search-result/SearchResultList";
+import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
 
 export interface ISearchResultData {
   id: number;
@@ -51,10 +51,9 @@ export interface ICurrentCategory {
 }
 
 const SearchResultPage = () => {
-  const { useSearchQuery } = useSearch();
-  const searchResult = useSearchQuery();
-  console.log(searchResult);
+  const { searchResult } = useSearchQuery();
   const [currentCate, setCurrentCate] = useState<string>("향수");
+  console.log(searchResult);
 
   return (
     <>
