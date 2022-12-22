@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Icon } from "@src/components/common";
 import { fontSize, palette } from "@src/styles/styles";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MagazineItem from "./MagazineItem";
 // import { ApiUrl } from "@src/common/constants/path";
 // import apiCall from "@src/common/api/apiCall";
