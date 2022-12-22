@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IUser } from "../types/user";
+import { Gender, IUser } from "../types/user";
 
 export const currentUser = atom<IUser>({
   key: "current-user",
@@ -10,7 +10,7 @@ export const currentUser = atom<IUser>({
     nickname: "",
     name: "",
     age: 0,
-    gender: "M",
+    gender: Gender.M,
     agree_prefragrance: false,
     agree_personal_required: false,
     agree_personal_optional: false,

@@ -1,3 +1,8 @@
+export enum Gender {
+  M = "M",
+  F = "F",
+  NB = "NB",
+}
 export interface IUser {
   id: number;
   username: string;
@@ -5,7 +10,7 @@ export interface IUser {
   nickname: string;
   name: string;
   age: number;
-  gender: "M" | "F";
+  gender: Gender;
   agree_prefragrance: boolean;
   agree_personal_required: boolean;
   agree_personal_optional: boolean;
@@ -29,4 +34,24 @@ export interface ILogoutResponse {
 export interface ITokenRefreshResponse {
   access: string;
   access_token_expiration: Date;
+}
+
+export interface IRegisterPayload {
+  username: string;
+  email: string;
+  password1: string;
+  password2: string;
+  nickname: string;
+  name: string;
+  age: number;
+  gender: Gender;
+  agree_prefragrance: boolean;
+  agree_personal_required: boolean;
+  agree_personal_optional: boolean;
+}
+
+export interface IRegisterResponse {
+  access_token: string;
+  refresh_token: string;
+  user: IUser;
 }
