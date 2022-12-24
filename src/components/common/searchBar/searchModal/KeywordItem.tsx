@@ -5,6 +5,8 @@ import { SearchModalCategoriesName } from "./CategoryTab";
 import { Icon } from "@common-components";
 import styled from "@emotion/styled";
 import useRecentSearch from "../useRecentSearch";
+import { useRouter } from "next/router";
+import { RouterUrl } from "@src/common/constants/path";
 
 interface IKeywordItem {
   text: string;
@@ -20,6 +22,7 @@ const KeywordItem = ({
   setRecentUpdate,
 }: IKeywordItem) => {
   const { deleteRecentSearchEach } = useRecentSearch();
+  const router = useRouter();
 
   // 최근검색어 개별 삭제 -> 검색어 바껴야하니까 recentUpdate + 1
   const onDeleteRecentKeyword = () => {
@@ -27,8 +30,16 @@ const KeywordItem = ({
     setRecentUpdate(recentUpdate + 1);
   };
 
+  // 검색어블록 클릭했을 때도 검색되도록 함
+  const submitSearchQuery = () => {
+    router.push({
+      pathname: RouterUrl.SearchResult,
+      query: { search: text },
+    });
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onClick={submitSearchQuery}>
       <QuerySection>
         <Icon color={palette.gray.dark}>search</Icon>
         <span>{text}</span>
