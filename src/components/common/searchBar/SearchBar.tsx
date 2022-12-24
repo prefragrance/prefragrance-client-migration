@@ -25,7 +25,7 @@ const SearchBar = () => {
   const [category, setCategory] = useState<IOption>(categoryList[0]); // 통합검색/제품명/브랜드/키워드 확인 상태값
   const [recentUpdate, setRecentUpdate] = useState<number>(0); // 업데이트 여부 확인용 상태값
   const [currentTab, setCurrentTab] = useState<IOption>(
-    SearchModalCategories[0]
+    SearchModalCategories[2]
   ); // 추천/인기/최근검색어 확인 상태값
   const router = useRouter();
 
