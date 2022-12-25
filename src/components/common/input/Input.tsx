@@ -15,13 +15,15 @@ interface IInput {
   placeholder?: string;
   value?: string | number;
   hasResetIcon?: boolean;
+  padding?: string;
   onChange?: (value: string) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  fontSize?: string;
 }
 
 const Input = ({
   width = "480px",
-  height = "70px",
+  height,
   isError,
   type = "text",
   labelText,
@@ -30,6 +32,8 @@ const Input = ({
   placeholder,
   value,
   hasResetIcon,
+  padding = "10px 16px",
+  fontSize = "1.125rem",
   onChange,
   onBlur,
 }: IInput) => {
@@ -59,13 +63,19 @@ const Input = ({
       )}
       <InputContainer>
         <StyledInput
-          type={type}
+          type={
+            type === "password" ? (isPasswordVisible ? "text" : type) : type
+          }
           value={isValueReset ? "" : value}
           placeholder={placeholder}
           isClicked={isClicked}
           isError={isError}
           onChange={handleChange}
           onBlur={handleBlur}
+          width={width}
+          height={height}
+          padding={padding}
+          fontSize={fontSize}
         />
         {hasResetIcon && (
           <IconContainer>
@@ -113,15 +123,17 @@ const InputContainer = styled.div`
 const StyledInput = styled.input<{
   isError?: boolean;
   isClicked?: boolean;
+  padding?: string;
+  fontSize?: string;
 }>`
   width: 100%;
-  height: 70px;
-  padding: 10px 16px;
+  height: ${({ height }) => height};
+  padding: ${({ padding }) => padding};
   border: 1px solid
     ${({ isError, isClicked }) =>
       isError && isClicked ? palette.red.primary : palette.gray.light};
   border-radius: 8px;
-  font-size: ${fontSize.smallTitle};
+  font-size: ${({ fontSize }) => fontSize};
   line-height: ${fontSize.body};
   color: ${palette.black};
 

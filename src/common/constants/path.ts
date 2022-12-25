@@ -1,4 +1,4 @@
-export enum RouteUrl {
+export enum RouterUrl {
   Base = "/",
   SearchResult = "/search-result",
   Login = "/login",
@@ -13,6 +13,9 @@ export const ApiUrl = {
     logout: "/accounts/logout/",
     passwordChange: "/accounts/password/change/",
     register: "/accounts/register/",
+    tokenVerify: "/accounts/token/verify/",
+    tokenRefresh: "/accounts/token/refresh",
+    user: "/accounts/user",
   },
   magazine: "/product/magazine",
 };

@@ -3,7 +3,7 @@ import { fontSize } from "./styles";
 
 interface IText {
   color?: string;
-  fontWeight?: string;
+  fontWeight?: number;
 }
 
 export const Span = styled.span<IText>`

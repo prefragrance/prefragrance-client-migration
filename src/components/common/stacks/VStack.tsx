@@ -13,6 +13,7 @@ type VStackProps = {
   wrap?: "wrap" | "no-wrap" | "wrap-reverse";
   padding?: string;
   className?: string;
+  width?: string;
   children: React.ReactNode;
 };
 
@@ -22,6 +23,7 @@ const VStack = ({
   wrap = "no-wrap",
   gap = "sm",
   padding = "0px",
+  width,
   children,
   className,
 }: VStackProps) => {
@@ -44,6 +46,7 @@ const VStack = ({
 
   return (
     <Container
+      width={width}
       align={align}
       alignItems={alignItems}
       wrap={wrap}
@@ -62,6 +65,7 @@ const Container = styled.div<{
   alignItems: string;
   wrap: string;
   padding: string;
+  width?: string;
 }>`
   display: flex;
   flex-direction: column;
@@ -70,6 +74,7 @@ const Container = styled.div<{
   flex-wrap: ${({ wrap }) => wrap};
   gap: ${({ gap }) => gap};
   padding: ${({ padding }) => padding};
+  width: ${({ width }) => width};
 `;
 
 export default VStack;

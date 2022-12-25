@@ -5,7 +5,8 @@ export interface ILocalStorage {
 
 export enum LocalStorageName {
   RecentSearchList = "recentSearchList",
-  LoginUser = "loginUser",
+  AccessToken = "user_access_token",
+  RefreshToken = "user_refresh_token",
 }
 
 export function emptyLocalStorage(name: LocalStorageName) {
@@ -28,4 +29,8 @@ export function getLocalStorage(name: LocalStorageName) {
 
 export function deleteLocalStorage(name: LocalStorageName) {
   window.localStorage.removeItem(name);
+}
+
+export function deleteLocalStorageAll() {
+  window.localStorage.clear();
 }
