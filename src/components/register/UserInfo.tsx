@@ -5,11 +5,17 @@ import {
   Select,
   VStack,
 } from "@common-components";
+import {
+  LocalStorageName,
+  setLocalStorage,
+} from "@src/common/hooks/useLocalStorage";
+import { checkLogin, currentUser } from "@src/common/store/user";
 import { Gender, IRegisterPayload } from "@src/common/types/user";
 import { RegisterSteps } from "@src/pages/register";
 import { fontSize } from "@src/styles/styles";
 import { Paragraph } from "@src/styles/textComponents";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { ITerms } from "./Terms";
 import { useRegister } from "./useRegister";
 
@@ -34,6 +40,9 @@ const genderOptionList: Record<"label" | "value", string>[] = [
 ];
 
 const UserInfo = ({ payload, handleChangeStep }: IUserInfo) => {
+  const setIsLoggedIn = useSetRecoilState(checkLogin);
+  const setCurrentUser = useSetRecoilState(currentUser);
+
   const [userInfo, setUserInfo] = useState<UserInfo>({
     age: payload.age,
     email: payload.email,
@@ -45,7 +54,19 @@ const UserInfo = ({ payload, handleChangeStep }: IUserInfo) => {
     username: payload.username,
   });
   const { postRegister, isRegisterLoading } = useRegister({
-    onSuccess: () => handleChangeStep(RegisterSteps.Done),
+    onSuccess: (data) => {
+      setLocalStorage({
+        name: LocalStorageName.AccessToken,
+        value: data.access_token,
+      });
+      setLocalStorage({
+        name: LocalStorageName.RefreshToken,
+        value: data.refresh_token,
+      });
+      setIsLoggedIn(true);
+      setCurrentUser(data.user);
+      handleChangeStep(RegisterSteps.Done);
+    },
   });
 
   const handleInputChange = (value: string | number, info: keyof UserInfo) => {
@@ -62,7 +83,7 @@ const UserInfo = ({ payload, handleChangeStep }: IUserInfo) => {
       email: userInfo.email,
       gender: userInfo.gender,
       name: userInfo.name,
-      nickname: "nickname",
+      nickname: `nickname${Math.random()}`,
       password1: userInfo.password1,
       password2: userInfo.password2,
       username: userInfo.username,
