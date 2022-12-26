@@ -35,15 +35,17 @@ const LoginPage = () => {
               placeholder={"Username"}
               hasResetIcon
               onChange={(value) => setUsername(value)}
+              padding={"20px"}
             />
             <Input
               type={"password"}
               placeholder={"Password"}
               onChange={(value) => setPassword(value)}
+              padding={"20px"}
             />
             <ButtonContainer>
               <ForgetPasswordButton>
-                <Span>비밀번호를 잊으셨나요?</Span>
+                <Span>아이디 / 비밀번호를 잊으셨나요?</Span>
               </ForgetPasswordButton>
             </ButtonContainer>
           </VStack>
@@ -86,8 +88,7 @@ const RightContainer = styled.section`
   width: 40vw;
   height: calc(100vh - 80px);
   background-color: ${palette.gray.light};
-  padding: 150px 100px;
-  padding-left: 0px;
+  padding: 50px;
 `;
 
 const Form = styled.div`
@@ -96,7 +97,7 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 160px;
+  gap: 100px;
 `;
 
 const SubmitButton = styled.button<{ backgroundColor?: string }>`

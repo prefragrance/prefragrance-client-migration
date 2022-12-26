@@ -21,7 +21,7 @@ export const RegisterStepLabel: Record<RegisterSteps, string> = {
 
 const RegisterPage = () => {
   const [currentStep, setCurrentStep] = useState<RegisterSteps>(
-    RegisterSteps.Done
+    RegisterSteps.Terms
   );
   const [registerPayload, setRegisterPayload] = useState<IRegisterPayload>({
     username: "",
