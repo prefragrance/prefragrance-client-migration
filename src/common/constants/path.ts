@@ -17,5 +17,9 @@ export const ApiUrl = {
     tokenRefresh: "/accounts/token/refresh",
     user: "/accounts/user",
   },
-  magazine: "/product/magazine",
+  product: {
+    hot: "/product/hot/",
+    magazine: "/product/magazine/",
+    userMagazine: "/product/user-magazine/",
+  },
 };
