@@ -1,15 +1,15 @@
-import React, { Dispatch, SetStateAction } from "react";
-import KeywordList from "./KeywordList";
 import styled from "@emotion/styled";
-import useRecentSearch from "../useRecentSearch";
-import { palette } from "@src/styles/styles";
-import CategoryTab, { SearchModalCategoriesName } from "./CategoryTab";
-import { IOption } from "../categoryDropdown";
 import {
   emptyLocalStorage,
   LocalStorageName,
 } from "@src/common/hooks/useLocalStorage";
-import useSearch from "../useSearch";
+import { palette } from "@src/styles/styles";
+import { Dispatch, SetStateAction } from "react";
+import { IOption } from "../categoryDropdown";
+import useRecentSearch from "../useRecentSearch";
+import { useSearchKeywordQuery } from "../useSearch";
+import CategoryTab, { SearchModalCategoriesName } from "./CategoryTab";
+import KeywordList from "./KeywordList";
 
 export interface ICurrentTab {
   currentTab: IOption;
@@ -28,8 +28,7 @@ const SearchModal = ({
   setCurrentTab,
 }: ISearchModal) => {
   const { deleteRecentSearchAll } = useRecentSearch();
-  const { useSearchKeywordQuery } = useSearch();
-  const searchKeywords = useSearchKeywordQuery(currentTab);
+  const { searchKeywords } = useSearchKeywordQuery(currentTab);
   const recentSearchKeywords: string[] = emptyLocalStorage(
     LocalStorageName.RecentSearchList
   );

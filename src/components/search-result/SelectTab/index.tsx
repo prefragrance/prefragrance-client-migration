@@ -17,7 +17,7 @@ const SelectTab = ({ searchResultCount }: { searchResultCount: number }) => {
   return (
     <Container>
       <span>검색결과: 총 {searchResultCount}개</span>
-      <Select optionList={orderList} />
+      <Select optionList={orderList} value={""} />
     </Container>
   );
 };
