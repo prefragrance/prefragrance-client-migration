@@ -56,6 +56,8 @@ const RecommendationSection = styled(VStack)`
   width: 100%;
 `;
 
-const BestReviewSection = styled.div``;
+const BestReviewSection = styled(VStack)`
+  width: 100%;
+`;
 
 export default Home;
