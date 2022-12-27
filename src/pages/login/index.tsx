@@ -1,51 +1,72 @@
 import { HStack, Input, VStack } from "@common-components";
 import styled from "@emotion/styled";
-import { RouteUrl } from "@src/common/constants/path";
+import { RouterUrl } from "@src/common/constants/path";
+import { useIsLoggedIn } from "@src/common/hooks/useAuth";
+import LoadingSpinner from "@src/components/common/loading-spinner/LoadingSpinner";
 import useLogin from "@src/components/login/useLogin";
 import { fontSize, palette } from "@src/styles/styles";
 import { Span } from "@src/styles/textComponents";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 const LoginPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { postLogin } = useLogin();
+  const { postLogin, isLoginLoading } = useLogin();
+  const isLoggedIn = useIsLoggedIn();
   const router = useRouter();
+
+  if (isLoggedIn) {
+    router.push(RouterUrl.Base);
+  }
+
+  if (isLoginLoading && !isLoggedIn) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <HStack>
       <LeftContainer>이미지</LeftContainer>
       <RightContainer>
-        <Form
-          onSubmit={() => postLogin({ username: username, password: password })}
-        >
+        <Form>
           <VStack gap={24}>
             <Input
               placeholder={"Username"}
               hasResetIcon
               onChange={(value) => setUsername(value)}
+              padding={"20px"}
             />
             <Input
               type={"password"}
               placeholder={"Password"}
               onChange={(value) => setPassword(value)}
+              padding={"20px"}
             />
             <ButtonContainer>
               <ForgetPasswordButton>
-                <Span>비밀번호를 잊으셨나요?</Span>
+                <Span>아이디 / 비밀번호를 잊으셨나요?</Span>
               </ForgetPasswordButton>
             </ButtonContainer>
           </VStack>
           <VStack gap={20}>
-            <SubmitButton type={"submit"}>로그인</SubmitButton>
             <SubmitButton
-              type={"button"}
-              backgroundColor={palette.gray.dark}
-              onClick={() => router.push(RouteUrl.Register)}
+              onClick={() =>
+                postLogin({ username: username, password: password })
+              }
             >
-              회원가입
+              로그인
             </SubmitButton>
+            <Link href={RouterUrl.Register}>
+              <a>
+                <SubmitButton
+                  type={"button"}
+                  backgroundColor={palette.gray.dark}
+                >
+                  회원가입
+                </SubmitButton>
+              </a>
+            </Link>
           </VStack>
         </Form>
       </RightContainer>
@@ -67,22 +88,21 @@ const RightContainer = styled.section`
   width: 40vw;
   height: calc(100vh - 80px);
   background-color: ${palette.gray.light};
-  padding: 150px 100px;
-  padding-left: 0px;
+  padding: 50px;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 160px;
+  gap: 100px;
 `;
 
 const SubmitButton = styled.button<{ backgroundColor?: string }>`
   width: 330px;
-  height: 60px;
+  padding: 20px 30px;
   background-color: ${({ backgroundColor = palette.green.primary }) =>
     backgroundColor};
   color: ${palette.white};

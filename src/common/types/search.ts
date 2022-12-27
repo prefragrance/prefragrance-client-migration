@@ -14,5 +14,5 @@ export interface ISearchResult {
 }
 
 export interface ISearchKeywords {
-  keywords: Array<string>;
+  keywords: string[];
 }
