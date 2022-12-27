@@ -2,19 +2,23 @@ import React from "react";
 import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
 import SearchResultBlock from "./SearchResultBlock";
-import { ISearchResultData } from "@src/pages/search-result";
+import { ISearchResult } from "@src/common/types/search";
 
 const SearchResultList = ({
-  searchResultData,
+  searchResult,
 }: {
-  searchResultData: ISearchResultData[];
+  searchResult: ISearchResult;
 }) => {
+  console.log(searchResult);
   return (
     <Container>
-      {searchResultData &&
-        searchResultData.map((result: ISearchResultData) => (
+      {Object(searchResult).length > 1 ? (
+        Object(searchResult).map((result: ISearchResult) => (
           <SearchResultBlock key={result.id} data={result} />
-        ))}
+        ))
+      ) : (
+        <SearchResultBlock key={searchResult.id} data={searchResult} />
+      )}
     </Container>
   );
 };

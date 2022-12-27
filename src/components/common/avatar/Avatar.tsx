@@ -17,7 +17,7 @@ const Avatar = ({
 }: AvatarProps) => {
   return (
     <Container width={width} height={height}>
-      <Image src={url} alt="Picture of me" width={width} height={height} />
+      <Image src={url} alt="Picture of me" layout="fill" />
     </Container>
   );
 };
@@ -25,6 +25,7 @@ const Avatar = ({
 const Container = styled.div<AvatarProps>`
   display: inline-flex;
   align-items: center;
+  position: relative;
   vertical-align: middle;
   overflow: hidden;
   width: ${({ width }) => width};
