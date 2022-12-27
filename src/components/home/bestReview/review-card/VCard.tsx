@@ -54,6 +54,7 @@ const ImgSection = styled.div`
   width: 100px;
   height: 100px;
   border: 1px solid ${palette.black};
+  position: relative;
 `;
 
 const InfoSection = styled(HStack)`
