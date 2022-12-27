@@ -30,7 +30,9 @@ const HCard = ({
       </ImgSection>
       <InfoSection gap="sm" alignItems="flex-start">
         <TextBox alignItems="flex-start">
-          <QuoteIcon size="2rem">format_quote</QuoteIcon>
+          <QuoteIcon size="2rem" rotateDeg={180}>
+            format_quote
+          </QuoteIcon>
           <Content>{content}</Content>
           <ReviewInfo>
             <span>{nickname}</span>
