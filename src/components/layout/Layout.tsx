@@ -17,6 +17,9 @@ const Layout = ({ children }: ILayout) => {
 
 const PageContainer = styled.section`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Layout;
