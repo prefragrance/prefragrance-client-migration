@@ -15,6 +15,7 @@ interface IIcon {
   onClick?: () => void;
   children: React.ReactNode;
   asButton?: boolean;
+  rotateDeg?: number;
 }
 
 const Icon = ({
@@ -25,6 +26,7 @@ const Icon = ({
   onClick,
   children,
   asButton,
+  rotateDeg,
 }: IIcon) => {
   return (
     <IconContainer
@@ -34,24 +36,21 @@ const Icon = ({
       backgroundColor={backgroundColor}
       onClick={onClick}
       asButton={asButton}
+      rotateDeg={rotateDeg}
     >
       {children}
     </IconContainer>
   );
 };
 
-interface IIconContainer {
-  color: string;
-  size: string;
-  backgroundColor: string;
-  asButton?: boolean;
-}
-
-const IconContainer = styled.span<IIconContainer>`
+const IconContainer = styled.span<
+  Pick<IIcon, "color" | "size" | "backgroundColor" | "asButton" | "rotateDeg">
+>`
   font-size: ${({ size }) => size};
   color: ${({ color }) => color};
   background-color: ${({ backgroundColor }) => backgroundColor};
   vertical-align: middle;
+  transform: ${({ rotateDeg }) => rotateDeg && `rotate(${rotateDeg}deg)`};
   cursor: ${({ asButton }) => asButton && "pointer"};
 `;
 
