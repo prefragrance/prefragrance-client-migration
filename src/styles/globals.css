@@ -27,3 +27,7 @@ input {
   box-shadow: none;
   border-color: transparent;
 }
+
+li {
+  list-style: none;
+}
