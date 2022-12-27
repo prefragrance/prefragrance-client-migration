@@ -10,7 +10,7 @@ const Done = () => {
   return (
     <VStack gap={"lg"}>
       <BiggestText>회원가입이 완료되었습니다.</BiggestText>
-      <Link href={RouterUrl.Login}>
+      <Link href={RouterUrl.Base}>
         <a>
           <Button>취향 탐색하러 가기</Button>
         </a>
