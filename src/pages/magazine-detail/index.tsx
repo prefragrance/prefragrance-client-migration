@@ -7,7 +7,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 
 // import { useQuery } from "@tanstack/react-query";
 // import { useState } from "react";
-// import MagazineApi from "@src/common/api/magazine";
+import MagazineApi from "@src/common/api/magazine";
 
 export interface IMagazineProductData {
   movieData: {
