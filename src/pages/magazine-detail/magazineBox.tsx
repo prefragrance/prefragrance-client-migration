@@ -1,30 +1,20 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { palette } from "../../styles/styles";
-
-interface IReviewBox {
-  product_id: number;
-  thumbnail_url: string;
-  content: string;
-  nickname: string;
-  pub_date: string;
-  producer: string;
-  name: string;
-}
+import { IMagazineProduct } from '@src/common/types/magazine';
 
 const MagazineBox = ({
-  thumbnail_url,
-  content,
-  producer,
+  id,
   name,
-  product_id,
-}: IReviewBox) => {
+  producer,
+  thumbnail_url,
+}: IMagazineProduct) => {
   return (
     <ReviewSection>
       <Img src={thumbnail_url} />
       <InfoSection>
         <Name>
-          {product_id}. {name}
+          {id}. {name}
         </Name>
         <Rate>별점</Rate>
       </InfoSection>
@@ -32,7 +22,7 @@ const MagazineBox = ({
         <Producer>{producer}</Producer>
       </InfoSection>
       <ProfileImg src={thumbnail_url} />
-      <Content>{content}</Content>
+      <Content>내용 ~.~</Content>
       <InfoSection>
         <ToDetail>제품 자세히 보기</ToDetail>
       </InfoSection>

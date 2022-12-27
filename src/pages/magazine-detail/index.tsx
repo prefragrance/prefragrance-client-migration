@@ -1,10 +1,26 @@
 import styled from "@emotion/styled";
 import React from "react";
 import MagazineBox from "./magazineBox";
+import { IMagazineProduct } from '@src/common/types/magazine';
+import { QueryClient } from "@tanstack/query-core";
+import { QueryClientProvider } from "@tanstack/react-query";
+
+// import { useQuery } from "@tanstack/react-query";
+// import { useState } from "react";
+// import MagazineApi from "@src/common/api/magazine";
+
+export interface IMagazineProductData {
+  movieData: {
+    magazineProductArr: IMagazineProduct[];
+    productName: string;
+  };
+}
+
+const client = new QueryClient();
 
 const RAW_DATA = [
   {
-    product_id: 1,
+    id: 1,
     thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
@@ -15,7 +31,7 @@ const RAW_DATA = [
     pub_date: "2022.08.19",
   },
   {
-    product_id: 2,
+    id: 2,
     thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
@@ -26,7 +42,7 @@ const RAW_DATA = [
     pub_date: "2022.08.19",
   },
   {
-    product_id: 3,
+    id: 3,
     thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
@@ -37,7 +53,7 @@ const RAW_DATA = [
     pub_date: "2022.08.19",
   },
   {
-    product_id: 4,
+    id: 4,
     thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
@@ -48,7 +64,7 @@ const RAW_DATA = [
     pub_date: "2022.08.19",
   },
   {
-    product_id: 5,
+    id: 5,
     thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
@@ -59,7 +75,7 @@ const RAW_DATA = [
     pub_date: "2022.08.19",
   },
   {
-    product_id: 6,
+    id: 6,
     thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
@@ -72,8 +88,17 @@ const RAW_DATA = [
 ];
 
 const MagazineDetail = () => {
+  
+  // const [mIndex, setMIndex] = useState(0);
+  // const IncreaseMIndex = () => setMIndex((prev: number)=>(prev+1));
+  // // const navigate = useNavigate();
+  // // const onBoxClicked = (id: number) => {
+  // //   navigate(`/product/${RAW_DATA.id}`);
+  // // };
+
+
   return (
-    <>
+    <QueryClientProvider client={client}>
       <Theme>
         <Title>상큼한 향 베스트 20</Title>
       </Theme>
@@ -81,13 +106,15 @@ const MagazineDetail = () => {
       <Body>
         <RowSection>
           {RAW_DATA.slice().map((obj) => (
-            <MagazineBox key={obj.product_id} {...obj} />
+            <MagazineBox key={obj.id} {...obj} />
           ))}
         </RowSection>
       </Body>
-    </>
+    </QueryClientProvider>
   );
 };
+
+
 
 const Theme = styled.div`
   display: flex;
