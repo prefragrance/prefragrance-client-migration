@@ -12,6 +12,7 @@ interface IButton {
   onClick?: () => void;
   padding?: string;
   fontSize?: string;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -24,6 +25,7 @@ const Button = ({
   onClick,
   padding = "10px 12px",
   fontSize,
+  disabled,
 }: IButton) => {
   return (
     <StyledButton
@@ -36,6 +38,7 @@ const Button = ({
       onClick={onClick}
       padding={padding}
       fontSize={fontSize}
+      disabled={disabled}
     >
       {text}
     </StyledButton>
@@ -51,6 +54,10 @@ const StyledButton = styled.button<IButton>`
   padding: ${({ padding }) => padding};
   font-size: ${({ fontSize }) => fontSize};
   text-align: center;
+  :disabled {
+    background-color: ${palette.gray.background};
+    color: ${palette.gray.dark};
+  }
 `;
 
 export default Button;
