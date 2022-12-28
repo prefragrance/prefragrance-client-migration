@@ -17,16 +17,23 @@ const SearchResultPage = () => {
   console.log(searchResult);
 
   return (
-    <PageWrapper>
-      <Categories currentCate={currentCate} setCurrentCate={setCurrentCate} />
-      <SelectTab searchResultCount={Object(searchResult).length} />
-      <SearchResultList searchResult={searchResult} />
-    </PageWrapper>
+    <CenterWrapper>
+      <PageWrapper>
+        <Categories currentCate={currentCate} setCurrentCate={setCurrentCate} />
+        <SelectTab searchResultCount={Object(searchResult).length} />
+        <SearchResultList searchResult={searchResult} />
+      </PageWrapper>
+    </CenterWrapper>
   );
 };
 
 const PageWrapper = styled(VStack)`
   width: 1000px;
+`;
+const CenterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default SearchResultPage;
