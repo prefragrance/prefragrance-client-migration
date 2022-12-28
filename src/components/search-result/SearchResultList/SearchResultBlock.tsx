@@ -3,28 +3,28 @@ import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
 import Avatar from "@src/components/common/avatar/Avatar";
 import { Icon } from "@src/components/common";
-import { ISearchResultData } from "@src/pages/search-result";
+import { ISearchResult } from "@src/common/types/search";
 
-const SearchResultBlock = ({ data }: { data: ISearchResultData }) => {
-  // key, data props 중 data prop만 구조분해한 뒤 가져옴
+const SearchResultBlock = ({ data }: { data: ISearchResult }) => {
   return (
     <Container>
       <ImgWrapper>
-        <Avatar url={data?.url} width="5rem" height="5rem" />
+        <Avatar url={data?.thumbnail_url} width="5rem" height="5rem" />
       </ImgWrapper>
       <Wrapper>
         <ProductTitle>
-          <ProductName>{data.product}</ProductName>
+          <ProductName>{data.name}</ProductName>
           <ProductRate>
-            <Icon>{data.star}</Icon>
+            <Icon>{data.rate_sum}</Icon>
           </ProductRate>
         </ProductTitle>
         <Producer>{data.producer} </Producer>
         <ProductInfo>
-          조회수 {data.watch} / 리뷰 수 {data.comment}
+          조회수 {data.visit_cnt} / 리뷰 수 {data.review_cnt}
         </ProductInfo>
       </Wrapper>
     </Container>
+    // <Link href={pathname: RouteUrl.ProductDetail, query: {id: id}}
   );
 };
 

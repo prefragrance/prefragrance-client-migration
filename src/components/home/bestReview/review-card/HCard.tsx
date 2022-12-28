@@ -55,6 +55,7 @@ const ImgSection = styled.div`
   width: 100%;
   height: 250px;
   border: 1px solid ${palette.black};
+  position: relative;
 `;
 
 const InfoSection = styled(VStack)`
