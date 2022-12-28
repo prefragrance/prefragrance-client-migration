@@ -1,5 +1,6 @@
 export enum RouterUrl {
   Base = "/",
+  Product = "/product",
   SearchResult = "/search-result",
   Login = "/login",
   Register = "/register",

@@ -1,18 +1,21 @@
 import styled from "@emotion/styled";
 import React from "react";
 import InfoBox from "./InfoBox";
+import { HStack } from "@common-components";
+import { fontWeight } from "@src/styles/styles";
+import { BigTitle } from "@src/styles/textComponents";
 
 const Recommendation = () => {
   return (
     <>
-      <Header>
+      <Header align="space-between">
         <Title>금주의 핫한 취향</Title>
         <FilterUl>
           <li>리뷰순</li>
           <li>조회순</li>
         </FilterUl>
       </Header>
-      <Body>
+      <Body gap="md">
         <InfoBox />
         <InfoBox />
         <InfoBox />
@@ -23,16 +26,12 @@ const Recommendation = () => {
   );
 };
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
+const Header = styled(HStack)`
+  width: 100%;
 `;
 
-const Title = styled.div`
-  font-size: 1.75rem;
-  font-weight: 700;
+const Title = styled(BigTitle)`
+  font-weight: ${fontWeight.bold};
 `;
 
 const FilterUl = styled.ul`
@@ -47,9 +46,8 @@ const FilterUl = styled.ul`
   }
 `;
 
-const Body = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+const Body = styled(HStack)`
+  width: 100%;
 `;
 
 export default Recommendation;

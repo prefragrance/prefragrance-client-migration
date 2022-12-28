@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { palette } from "@src/styles/styles";
 import React from "react";
 
 const InfoBox = () => {
@@ -22,7 +23,7 @@ const InfoSection = styled.div`
 const Img = styled.img`
   width: 180px;
   height: 250px;
-  background-color: #f0f0f0;
+  background-color: ${palette.gray.lighter};
 `;
 
 const Title = styled.div`

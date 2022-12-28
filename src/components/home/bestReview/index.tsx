@@ -1,11 +1,14 @@
 import styled from "@emotion/styled";
-import React from "react";
-import ReviewBox from "./ReviewBox";
+import { fontWeight, palette } from "@src/styles/styles";
+import { HStack, VStack } from "@common-components";
+import { BigTitle } from "@src/styles/textComponents";
+import VCard from "./review-card/VCard";
+import HCard from "./review-card/HCard";
 
 const RAW_DATA = [
   {
     product_id: 1,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -16,7 +19,7 @@ const RAW_DATA = [
   },
   {
     product_id: 2,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -27,7 +30,7 @@ const RAW_DATA = [
   },
   {
     product_id: 3,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -38,7 +41,7 @@ const RAW_DATA = [
   },
   {
     product_id: 4,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -49,7 +52,7 @@ const RAW_DATA = [
   },
   {
     product_id: 5,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -60,7 +63,7 @@ const RAW_DATA = [
   },
   {
     product_id: 6,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -74,53 +77,47 @@ const RAW_DATA = [
 const BestReview = () => {
   return (
     <>
-      <Header>
+      <Header align="space-between">
         <Title>베스트 리뷰 상품</Title>
       </Header>
       <Body>
-        <ColumnSection>
+        <HSection gap="lg">
           {RAW_DATA.slice(0, 3).map((obj) => (
-            <ReviewBox key={obj.product_id} {...obj} />
+            <HCard key={obj.product_id} {...obj} />
           ))}
-        </ColumnSection>
-        <RowSection>
+        </HSection>
+        <VSection gap="lg">
           {RAW_DATA.slice(3).map((obj) => (
-            <ReviewBox key={obj.product_id} {...obj} />
+            <VCard key={obj.product_id} {...obj} />
           ))}
-        </RowSection>
+        </VSection>
       </Body>
     </>
   );
 };
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
+const Header = styled(HStack)`
+  width: 100%;
 `;
 
-const Title = styled.div`
-  font-size: 1.75rem;
-  font-weight: 700;
+const Title = styled(BigTitle)`
+  font-weight: ${fontWeight.bold};
 `;
 
-const Body = styled.div`
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  background-color: #ededed;
-  gap: 1rem;
-  padding: 1rem;
+const Body = styled(VStack)`
+  background-color: ${palette.gray.lighter};
+  padding: 3rem;
+  gap: 3rem;
 `;
 
-const ColumnSection = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+const HSection = styled(HStack)`
+  gap: 3rem;
+  width: 100%;
 `;
 
-const RowSection = styled.div`
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
+const VSection = styled(VStack)`
+  gap: 0;
+  width: 100%;
 `;
 
 export default BestReview;

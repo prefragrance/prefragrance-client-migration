@@ -10,7 +10,7 @@ import React from "react";
 
 const Home: NextPage = () => {
   return (
-    <>
+    <HomeWrapper gap="lg">
       <BannerSection gap="lg">
         <Logo size="80px" spacing="-20px" />
         <Paragraph color={palette.white} style={{ marginLeft: "20px" }}>
@@ -18,39 +18,46 @@ const Home: NextPage = () => {
         </Paragraph>
         <SearchBar />
       </BannerSection>
-      <MagazineSection>
-        <Magazine />
-      </MagazineSection>
-      <RecommendationSection>
-        <Recommendation />
-      </RecommendationSection>
-      <BestReviewSection>
-        <BestReview />
-      </BestReviewSection>
-    </>
+      <HomeSection gap="lg">
+        <MagazineSection>
+          <Magazine />
+        </MagazineSection>
+        <RecommendationSection>
+          <Recommendation />
+        </RecommendationSection>
+        <BestReviewSection>
+          <BestReview />
+        </BestReviewSection>
+      </HomeSection>
+    </HomeWrapper>
   );
 };
 
+const HomeWrapper = styled(VStack)`
+  width: 100%;
+`;
+
 const BannerSection = styled(VStack)`
   height: 400px;
+  width: 100vw;
   background-color: ${palette.green.primary};
 `;
 
+const HomeSection = styled(VStack)`
+  width: 1000px;
+`;
+
 const MagazineSection = styled(VStack)`
-  height: 550px;
+  padding: 40px 0px;
 `;
 
-const RecommendationSection = styled.div`
+const RecommendationSection = styled(VStack)`
   height: 400px;
-  display: grid;
-  grid-template-rows: 1fr 6fr;
+  width: 100%;
 `;
 
-const BestReviewSection = styled.div`
-  height: 100%;
-  display: grid;
-  grid-template-rows: 50px auto;
-  gap: 1rem;
+const BestReviewSection = styled(VStack)`
+  width: 100%;
 `;
 
 export default Home;
