@@ -35,6 +35,7 @@ export const useSearchQuery = () => {
 };
 
 export const useSearchKeywordQuery = (currentTab: IOption) => {
+  // 추천/인기/최근검색어 api calling function
   const { data } = useQuery<ISearchKeywords>(
     ["search-keywords", currentTab.value],
     () => SearchApi.getSearchKeywords(currentTab.value),
