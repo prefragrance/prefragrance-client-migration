@@ -16,6 +16,7 @@ class SearchApi {
   }
 
   static async getSearchKeywords(tab: string): Promise<ISearchKeywords> {
+    // 추천/인기/최근검색어 탭을 의미함
     const response = await apiCall.get(
       `${ApiUrl.base}${ApiUrl.search}/?tab=${tab}`
     );
