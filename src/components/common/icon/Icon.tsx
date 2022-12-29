@@ -5,6 +5,7 @@ import React from "react";
 export enum IconTheme {
   Filled = "material-icons",
   Outlined = "material-icons-outlined",
+  Round = "material-icons-round",
 }
 
 interface IIcon {

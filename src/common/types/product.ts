@@ -42,12 +42,16 @@ export enum Strength {
   Three = 3,
 }
 
+export enum Category {
+  Perfume = "perfume",
+}
+
 export interface IProductDetailResponse {
   id: number;
-  category: string;
+  category: Category;
   name: string;
   producer: string;
-  tags: string;
+  tags: string[];
   codes: ICode[];
   feedback_cnt: number;
   review_cnt: number;
@@ -56,5 +60,4 @@ export interface IProductDetailResponse {
   rate_sum: number;
   rate: number;
   liked_users: number[];
-  reviews: IReview[];
 }

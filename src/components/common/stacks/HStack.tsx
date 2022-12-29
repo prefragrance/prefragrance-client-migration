@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { calculateSize } from "@src/common/utils/calculateSize";
 import React from "react";
 
 type HStackProps = {
-  gap?: "none" | "xs" | "sm" | "md" | "lg";
+  gap?: "none" | "xs" | "sm" | "md" | "lg" | number;
   align?: "flex-start" | "flex-end" | "space-between" | "center";
   alignItems?: "stretch" | "flex-start" | "flex-end" | "center";
   wrap?: "wrap" | "no-wrap" | "wrap-reverse";
@@ -42,7 +43,7 @@ const HStack = ({
       align={align}
       alignItems={alignItems}
       wrap={wrap}
-      gap={getGap()}
+      gap={typeof gap === "string" ? getGap() : calculateSize(gap)}
       padding={padding}
       className={className}
     >
