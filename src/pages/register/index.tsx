@@ -29,12 +29,10 @@ const RegisterPage = () => {
     password1: "",
     password2: "",
     nickname: "",
-    name: "",
     age: 0,
     gender: Gender.M,
     agree_prefragrance: false,
     agree_personal_required: false,
-    agree_personal_optional: false,
   });
 
   const handleChangeStep = (step: RegisterSteps) => {

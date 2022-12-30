@@ -38,19 +38,23 @@ const Input = ({
   onBlur,
 }: IInput) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const [isValueReset, setIsValueReset] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(value ? `${value}` : "");
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> | undefined = (
-    event
+    e
   ) => {
-    setIsValueReset(false);
     setIsClicked(true);
-    onChange && onChange(event.target.value);
+    setInputValue(e.target.value);
+    onChange && onChange(e.target.value);
   };
 
   const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
     onBlur && onBlur(e);
+  };
+
+  const handleReset = () => {
+    setInputValue("");
   };
 
   return (
@@ -66,7 +70,7 @@ const Input = ({
           type={
             type === "password" ? (isPasswordVisible ? "text" : type) : type
           }
-          value={isValueReset ? "" : value}
+          value={inputValue}
           placeholder={placeholder}
           isClicked={isClicked}
           isError={isError}
@@ -79,11 +83,7 @@ const Input = ({
         />
         {hasResetIcon && (
           <IconContainer>
-            <Icon
-              color={palette.gray.dark}
-              onClick={() => setIsValueReset(true)}
-              asButton
-            >
+            <Icon color={palette.gray.dark} onClick={handleReset} asButton>
               cancel
             </Icon>
           </IconContainer>

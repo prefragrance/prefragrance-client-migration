@@ -7,7 +7,11 @@ import { checkLogin, currentUser } from "@src/common/store/user";
 import { useMutation } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 
-const useLogin = () => {
+interface IUseLogin {
+  onError?: () => void;
+}
+
+const useLogin = ({ onError }: IUseLogin) => {
   const setIsLoggedIn = useSetRecoilState(checkLogin);
   const setCurrentUser = useSetRecoilState(currentUser);
 
@@ -25,7 +29,8 @@ const useLogin = () => {
       setCurrentUser(data.user);
     },
     onError: () => {
-      alert("로그인 실패");
+      setIsLoggedIn(false);
+      onError && onError();
     },
   });
 
