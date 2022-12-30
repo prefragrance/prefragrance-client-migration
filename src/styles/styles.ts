@@ -16,7 +16,7 @@ export const palette = {
     rightLogo: "#D3ED91",
     300: "#589573",
   },
-  keyword: {
+  tags: {
     // 따뜻한 / 평화로운 / 상냥한 / 산뜻한 / 부드러운 / 차분한 / 자연스러운
     babypink: "#FF9999",
     // 매혹적인 / 세련된 / 섹시한 / 퇴폐적인

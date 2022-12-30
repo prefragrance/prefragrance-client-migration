@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { calculateSize } from "@src/common/utils/calculateSize";
 import React from "react";
 
 type VStackProps = {
@@ -50,7 +51,7 @@ const VStack = ({
       align={align}
       alignItems={alignItems}
       wrap={wrap}
-      gap={getGap()}
+      gap={typeof gap === "string" ? getGap() : calculateSize(gap)}
       padding={padding}
       className={className}
     >

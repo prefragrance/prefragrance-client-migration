@@ -6,7 +6,7 @@ interface IButton {
   width?: string;
   backgroundColor?: string;
   color?: string;
-  fontWeight?: string;
+  fontWeight?: string | number;
   borderRadius?: string;
   text: string;
   onClick?: () => void;

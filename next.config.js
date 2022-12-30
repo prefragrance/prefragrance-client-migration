@@ -9,6 +9,7 @@ const nextConfig = {
         hostname: "www.aesop.com",
       },
     ],
+    domains: ["fimgs.net"],
   },
 };
 
