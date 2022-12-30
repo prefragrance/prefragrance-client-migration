@@ -18,17 +18,17 @@ interface ITag {
 
 const ProductInfo = ({ productDetail }: IProductInfo) => {
   return (
-    <Container padding="50px" gap={20}>
+    <Container padding="50px" gap={30}>
       <ImageContainer>
-        {/* 이미지 없는 경우 고려? */}
         {productDetail.thumbnail_url && (
           <Image
             src={productDetail.thumbnail_url}
             layout={"fill"}
-            objectFit={"cover"}
+            objectFit={"contain"}
             alt={"thumbnail image"}
           />
         )}
+        {!productDetail.thumbnail_url && <NoImageBox>No Image</NoImageBox>}
       </ImageContainer>
 
       <RightContainer>
@@ -38,11 +38,13 @@ const ProductInfo = ({ productDetail }: IProductInfo) => {
               <BiggestText fontWeight={fontWeight.bold}>
                 {productDetail.name}
               </BiggestText>
-              <Stars
-                rate={productDetail.rate}
-                color={palette.green.primary}
-                size={30}
-              />
+              {productDetail.rate && (
+                <Stars
+                  rate={productDetail.rate}
+                  color={palette.green.primary}
+                  size={30}
+                />
+              )}
             </HStack>
             <MediumTitle
               color={palette.gray.dark}
@@ -54,17 +56,25 @@ const ProductInfo = ({ productDetail }: IProductInfo) => {
           <VStack alignItems={"flex-start"} gap={8}>
             <MediumTitle>메인 코드</MediumTitle>
             <TagWrapper>
-              {productDetail.codes.slice(0, 5).map((code) => (
-                <Tag content={code.name} key={code.id} />
-              ))}
+              {productDetail.codes.length > 5
+                ? productDetail.codes
+                    .slice(0, 5)
+                    .map((code) => <Tag content={code.name} key={code.id} />)
+                : productDetail.codes.map((code) => (
+                    <Tag content={code.name} key={code.id} />
+                  ))}
             </TagWrapper>
           </VStack>
           <VStack alignItems={"flex-start"} gap={8}>
             <MediumTitle>키워드</MediumTitle>
             <TagWrapper>
-              {productDetail.tags.slice(0, 5).map((tag, index) => (
-                <Tag content={tag} key={index} />
-              ))}
+              {productDetail.tags.length > 5
+                ? productDetail.tags
+                    .slice(0, 5)
+                    .map((tag, index) => <Tag content={tag} key={index} />)
+                : productDetail.tags.map((tag, index) => (
+                    <Tag content={tag} key={index} />
+                  ))}
             </TagWrapper>
           </VStack>
         </VStack>
@@ -97,6 +107,13 @@ const ImageContainer = styled.div`
   width: 450px;
   height: 450px;
   position: relative;
+  border: 1px solid ${palette.gray.background};
+`;
+
+const NoImageBox = styled(HStack)`
+  height: 100%;
+  color: ${palette.gray.dark};
+  font-weight: ${fontWeight.bold};
 `;
 
 const RightContainer = styled(VStack)`

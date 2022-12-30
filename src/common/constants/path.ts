@@ -4,7 +4,7 @@ export enum RouterUrl {
   SearchResult = "/search-result",
   Login = "/login",
   Register = "/register",
-  ProductDetail = "/product",
+  ProductDetail = "/product/detail",
 }
 
 export const ApiUrl = {
