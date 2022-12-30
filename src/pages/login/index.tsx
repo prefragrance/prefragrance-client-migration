@@ -27,7 +27,7 @@ const LoginPage = () => {
   return (
     <Container>
       <Image
-        src={"/assets/images/login3.png"}
+        src={"/assets/images/login.png"}
         layout={"fill"}
         objectFit={"cover"}
         alt={"login image"}
