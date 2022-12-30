@@ -1,4 +1,4 @@
-import { HStack, Input, VStack } from "@common-components";
+import { Input, VStack } from "@common-components";
 import styled from "@emotion/styled";
 import { RouterUrl } from "@src/common/constants/path";
 import { useIsLoggedIn } from "@src/common/hooks/useAuth";
@@ -25,66 +25,13 @@ const LoginPage = () => {
   }
 
   return (
-    <HStack>
-      {/* <Image
-        src={"/assets/images/login.png"}
+    <Container>
+      <Image
+        src={"/assets/images/login3.png"}
         layout={"fill"}
         objectFit={"cover"}
         alt={"login image"}
-      /> */}
-      {/* <Box>
-        <Form>
-          <VStack gap={24} alignItems={"flex-start"}>
-            <BodyText color={palette.red.primary}>
-              {loginError ? "아이디 또는 비밀번호가 일치하지 않습니다." : " "}
-            </BodyText>
-            <Input
-              placeholder={"아이디"}
-              hasResetIcon
-              onChange={(value) => setUsername(value)}
-              padding={"20px"}
-            />
-            <Input
-              type={"password"}
-              placeholder={"비밀번호"}
-              onChange={(value) => setPassword(value)}
-              padding={"20px"}
-            />
-            <ButtonContainer>
-              <ForgetPasswordButton>
-                <Span>아이디 / 비밀번호를 잊으셨나요?</Span>
-              </ForgetPasswordButton>
-            </ButtonContainer>
-          </VStack>
-          <VStack gap={20}>
-            <SubmitButton
-              onClick={() =>
-                postLogin({ username: username, password: password })
-              }
-            >
-              로그인
-            </SubmitButton>
-            <Link href={RouterUrl.Register}>
-              <a>
-                <SubmitButton
-                  type={"button"}
-                  backgroundColor={palette.gray.dark}
-                >
-                  회원가입
-                </SubmitButton>
-              </a>
-            </Link>
-          </VStack>
-        </Form>
-      </Box> */}
-      <LeftContainer>
-        <Image
-          src={"/assets/images/login.png"}
-          layout={"fill"}
-          objectFit={"cover"}
-          alt={"login image"}
-        />
-      </LeftContainer>
+      />
       <RightContainer>
         <Form>
           <VStack gap={24} alignItems={"flex-start"}>
@@ -105,7 +52,9 @@ const LoginPage = () => {
             />
             <ButtonContainer>
               <ForgetPasswordButton>
-                <Span>아이디 / 비밀번호를 잊으셨나요?</Span>
+                <Span color={palette.white}>
+                  아이디 / 비밀번호를 잊으셨나요?
+                </Span>
               </ForgetPasswordButton>
             </ButtonContainer>
           </VStack>
@@ -130,41 +79,23 @@ const LoginPage = () => {
           </VStack>
         </Form>
       </RightContainer>
-    </HStack>
+    </Container>
   );
 };
 
-// const Box2 = styled.section`
-//   width: 100%;
-//   height: calc(100vh - 80px);
-//   position: relative;
-//   display: flex;
-// `;
-
-// const Box = styled.section`
-//   width: 40%;
-//   height: 100%;
-//   position: absolute;
-//   right: 0;
-//   backdrop-filter: blur(10px);
-// `;
-
-const LeftContainer = styled.section`
-  width: 60%;
+const Container = styled.section`
+  width: 100%;
   height: calc(100vh - 80px);
-  background-color: ${palette.gray.background};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  display: flex;
 `;
 
 const RightContainer = styled.section`
   width: 40%;
-  height: calc(100vh - 80px);
-  background-color: ${palette.gray.light};
-  padding: 50px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const Form = styled.div`
@@ -173,11 +104,11 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 100px;
+  gap: 80px;
 `;
 
 const SubmitButton = styled.button<{ backgroundColor?: string }>`
-  width: 330px;
+  width: 300px;
   padding: 20px 30px;
   background-color: ${({ backgroundColor = palette.green.primary }) =>
     backgroundColor};

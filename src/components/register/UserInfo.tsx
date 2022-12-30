@@ -5,6 +5,7 @@ import {
   Select,
   VStack,
 } from "@common-components";
+import { RouterUrl } from "@src/common/constants/path";
 import {
   LocalStorageName,
   setLocalStorage,
@@ -14,7 +15,8 @@ import { Gender, IRegisterPayload } from "@src/common/types/user";
 import { RegisterSteps } from "@src/pages/register";
 import { fontSize } from "@src/styles/styles";
 import { Paragraph } from "@src/styles/textComponents";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { ITerms } from "./Terms";
 import { useRegister } from "./useRegister";
@@ -79,7 +81,9 @@ const UserInfo = ({ payload, handleChangeStep }: IUserInfo) => {
   const setIsLoggedIn = useSetRecoilState(checkLogin);
   const setCurrentUser = useSetRecoilState(currentUser);
 
+  const router = useRouter();
   const [error, setError] = useState<boolean[]>(new Array(4).fill(false));
+  const [canClickNext, setCanClickNext] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<UserInfo>({
     age: payload.age,
     email: payload.email,
@@ -103,7 +107,32 @@ const UserInfo = ({ payload, handleChangeStep }: IUserInfo) => {
       setCurrentUser(data.user);
       handleChangeStep(RegisterSteps.Done);
     },
+    onError: (error) => {
+      if (error.status === 400) {
+        setError([false, false, false, true]);
+      } else {
+        alert("회원가입에 실패했습니다.");
+        router.push(RouterUrl.Base);
+      }
+    },
   });
+
+  useEffect(() => {
+    if (
+      error.includes(true) ||
+      !(
+        userInfo.username &&
+        userInfo.password1 &&
+        userInfo.password2 &&
+        userInfo.nickname &&
+        userInfo.email
+      )
+    ) {
+      setCanClickNext(false);
+      return;
+    }
+    setCanClickNext(true);
+  }, [userInfo, error]);
 
   const handleInputChange = (value: string | number, info: keyof UserInfo) => {
     setUserInfo({
@@ -229,6 +258,7 @@ const UserInfo = ({ payload, handleChangeStep }: IUserInfo) => {
           placeholder={"사용자 닉네임"}
           padding={"10px 16px"}
           fontSize={fontSize.body}
+          isRequired
         />
         <Input
           labelText={"이메일을 입력해주세요."}
@@ -269,7 +299,7 @@ const UserInfo = ({ payload, handleChangeStep }: IUserInfo) => {
       <Button
         text={"가입하기"}
         onClick={handleSubmit}
-        disabled={error.includes(true)}
+        disabled={!canClickNext}
       />
     </VStack>
   );
