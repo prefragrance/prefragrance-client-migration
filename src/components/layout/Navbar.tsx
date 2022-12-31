@@ -28,10 +28,8 @@ const Navbar = () => {
         </a>
       </Link>
       {!(router.pathname in NoneSearchBarUrl) && <SearchBar />}
-      <TemporaryAuthBox isLoggedIn={isLoggedIn} />
-      <Icon color={palette.white} size={fontSize.extraBigText}>
-        person
-      </Icon>
+      {(router.pathname in NoneSearchBarUrl) && <Blank />}
+      <TemporaryAuthBox isLoggedIn={isLoggedIn}/>
     </Container>
   );
 };
@@ -53,20 +51,32 @@ const TemporaryAuthBox = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <>
       {!isLoggedIn && (
-        <HStack gap={"xs"}>
-          <Link href={RouterUrl.Login}>
-            <a>
-              <AuthButton>로그인</AuthButton>
-            </a>
-          </Link>
-          <Link href={RouterUrl.Register}>
-            <a>
-              <AuthButton>회원가입</AuthButton>
-            </a>
-          </Link>
-        </HStack>
+       <AuthArea>
+          <HStack gap={"xs"}>
+            <Link href={RouterUrl.Login}>
+              <a>
+                <AuthButton>로그인</AuthButton>
+              </a>
+            </Link>
+            <Link href={RouterUrl.Register}>
+              <a>
+                <AuthButton>회원가입</AuthButton>
+              </a>
+            </Link>
+            <Icon color={palette.white} size={fontSize.extraBigText}>
+              person
+            </Icon>
+          </HStack>
+       </AuthArea>
       )}
-      {isLoggedIn && <AuthButton onClick={handleLogout}>로그아웃</AuthButton>}
+      {isLoggedIn && (
+        <AuthArea>
+          <AuthButton onClick={handleLogout}>로그아웃</AuthButton>
+          <Icon color={palette.white} size={fontSize.extraBigText}>
+            person
+          </Icon>
+        </AuthArea>
+      )}
     </>
   );
 };
@@ -89,5 +99,13 @@ const Container = styled.div`
   height: 80px;
   background-color: ${palette.green.primary};
 `;
-
+const AuthArea = styled.div`
+  display: flex;
+  justify-content: right;
+`;
+const Blank = styled.div`
+  display: flex;
+  justify-content: right;
+  padding-left: 1000px;
+`;
 export default Navbar;

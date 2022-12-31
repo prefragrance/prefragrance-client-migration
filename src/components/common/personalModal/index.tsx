@@ -1,27 +1,11 @@
+import React, { PropsWithChildren } from "react";
 import styled from "@emotion/styled";
-import React from "react";
-import MagazineBox from "./magazineBox";
-import { IMagazineProduct } from '@src/common/types/magazine';
-import { QueryClient } from "@tanstack/query-core";
-import { QueryClientProvider } from "@tanstack/react-query";
-
-// import { useQuery } from "@tanstack/react-query";
-// import { useState } from "react";
-import MagazineApi from "@src/common/api/magazine";
-
-export interface IMagazineProductData {
-  movieData: {
-    magazineProductArr: IMagazineProduct[];
-    productName: string;
-  };
-}
-
-const client = new QueryClient();
+import RecentItems from "./recentItems";
 
 const RAW_DATA = [
   {
     product_id: 1,
-    thumbnail_url: "/public/assets/images/취향로고.png",
+    thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -32,7 +16,7 @@ const RAW_DATA = [
   },
   {
     product_id: 2,
-    thumbnail_url: "/public/assets/images/취향로고.png",
+    thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -43,7 +27,7 @@ const RAW_DATA = [
   },
   {
     product_id: 3,
-    thumbnail_url: "/public/assets/images/취향로고.png",
+    thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -54,7 +38,7 @@ const RAW_DATA = [
   },
   {
     product_id: 4,
-    thumbnail_url: "/public/assets/images/취향로고.png",
+    thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -65,7 +49,7 @@ const RAW_DATA = [
   },
   {
     product_id: 5,
-    thumbnail_url: "/public/assets/images/취향로고.png",
+    thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -76,7 +60,7 @@ const RAW_DATA = [
   },
   {
     product_id: 6,
-    thumbnail_url: "/public/assets/images/취향로고.png",
+    thumbnail_url: "@public/assets/images/취향로고.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -87,55 +71,50 @@ const RAW_DATA = [
   },
 ];
 
-const MagazineDetail = () => {
-  
-  // const [mIndex, setMIndex] = useState(0);
-  // const IncreaseMIndex = () => setMIndex((prev: number)=>(prev+1));
-  // // const navigate = useNavigate();
-  // // const onBoxClicked = (id: number) => {
-  // //   navigate(`/product/${RAW_DATA.id}`);
-  // // };
+interface ModalDefaultType {
+  onClickToggleModal: () => void;
+}
 
-
+function PersonalModal({
+  onClickToggleModal,
+}: PropsWithChildren<ModalDefaultType>) {
   return (
-    <QueryClientProvider client={client}>
-      <Theme>
-        <Title>상큼한 향 베스트 20</Title>
-      </Theme>
-      <SubTitle>상큼한 취향을 가진 당신에게 추천합니다</SubTitle>
+    <ModalContainer>
       <Body>
         <RowSection>
           {RAW_DATA.slice().map((obj) => (
-            <MagazineBox key={obj.id} {...obj} />
+            <RecentItems key={obj.product_id} {...obj} />
           ))}
         </RowSection>
       </Body>
-    </QueryClientProvider>
+      <Backdrop
+        onClick={(e: React.MouseEvent) => {
+          e.preventDefault();
+
+          if (onClickToggleModal) {
+            onClickToggleModal();
+          }
+        }}
+      />
+    </ModalContainer>
   );
-};
+}
 
-
-
-const Theme = styled.div`
+const ModalContainer = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ededed;
-  padding: 5rem;
-  padding-bottom: 1rem;
+  position: fixed;
 `;
 
-const Title = styled.div`
-  font-size: 3.5rem;
-  font-weight: 700;
-`;
-const SubTitle = styled.div`
-  font-size: 1rem;
-  background-color: #ededed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 5rem;
+const Backdrop = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
 `;
 
 const Body = styled.div`
@@ -143,7 +122,7 @@ const Body = styled.div`
   grid-template-rows: repeat(2, 1fr);
   background-color: #ededed;
   gap: 1rem;
-  padding: 1rem;
+  margin-left: 67rem;
 `;
 
 const RowSection = styled.div`
@@ -151,4 +130,4 @@ const RowSection = styled.div`
   grid-template-rows: repeat(3, 1fr);
 `;
 
-export default MagazineDetail;
+export default PersonalModal;
