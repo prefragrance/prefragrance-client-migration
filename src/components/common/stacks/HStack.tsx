@@ -4,7 +4,12 @@ import React from "react";
 
 type HStackProps = {
   gap?: "none" | "xs" | "sm" | "md" | "lg" | number;
-  align?: "flex-start" | "flex-end" | "space-between" | "center";
+  align?:
+    | "flex-start"
+    | "flex-end"
+    | "space-between"
+    | "center"
+    | "space-evenly";
   alignItems?: "stretch" | "flex-start" | "flex-end" | "center";
   wrap?: "wrap" | "no-wrap" | "wrap-reverse";
   padding?: string;

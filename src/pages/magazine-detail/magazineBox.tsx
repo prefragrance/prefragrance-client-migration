@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { palette } from "../../styles/styles";
-import { IMagazineProduct } from '@src/common/types/magazine';
+import { IMagazineProduct } from "@src/common/types/magazine";
 
 const MagazineBox = ({
   id,

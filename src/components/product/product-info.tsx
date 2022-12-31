@@ -4,7 +4,7 @@ import { calculateSize } from "@src/common/utils/calculateSize";
 import { fontWeight, palette } from "@src/styles/styles";
 import { BiggestText, MediumTitle } from "@src/styles/textComponents";
 import Image from "next/image";
-import { Button, HStack, Stars, VStack } from "../common";
+import { Button, HStack, Stars, VStack } from "@common-components";
 
 interface IProductInfo {
   productDetail: IProductDetailResponse;
@@ -118,7 +118,7 @@ const NoImageBox = styled(HStack)`
 
 const RightContainer = styled(VStack)`
   height: 450px;
-  flex: 1;
+  width: 500px;
   justify-content: space-between;
   align-items: flex-start;
 `;
