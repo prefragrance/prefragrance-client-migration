@@ -4,6 +4,7 @@ export enum RouterUrl {
   SearchResult = "/search-result",
   Login = "/login",
   Register = "/register",
+  ProductDetail = "/product/detail",
 }
 
 export const ApiUrl = {
@@ -15,12 +16,13 @@ export const ApiUrl = {
     passwordChange: "/accounts/password/change/",
     register: "/accounts/register/",
     tokenVerify: "/accounts/token/verify/",
-    tokenRefresh: "/accounts/token/refresh",
-    user: "/accounts/user",
+    tokenRefresh: "/accounts/token/refresh/",
+    user: "/accounts/user/",
   },
   product: {
     hot: "/product/hot/",
     magazine: "/product/magazine/",
     userMagazine: "/product/user-magazine/",
+    detail: "/product",
   },
 };

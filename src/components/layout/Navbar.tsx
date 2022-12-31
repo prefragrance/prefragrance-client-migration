@@ -29,10 +29,7 @@ const Navbar = () => {
       </Link>
       {!(router.pathname in NoneSearchBarUrl) && <SearchBar />}
       {(router.pathname in NoneSearchBarUrl) && <Blank />}
-      <TemporaryAuthBox isLoggedIn={isLoggedIn} />
-      <Icon color={palette.white} size={fontSize.extraBigText}>
-        person
-      </Icon>
+      <TemporaryAuthBox isLoggedIn={isLoggedIn}/>
     </Container>
   );
 };
@@ -66,10 +63,20 @@ const TemporaryAuthBox = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
                 <AuthButton>회원가입</AuthButton>
               </a>
             </Link>
+            <Icon color={palette.white} size={fontSize.extraBigText}>
+              person
+            </Icon>
           </HStack>
        </AuthArea>
       )}
-      {isLoggedIn && <AuthArea><AuthButton onClick={handleLogout}>로그아웃</AuthButton></AuthArea>}
+      {isLoggedIn && (
+        <AuthArea>
+          <AuthButton onClick={handleLogout}>로그아웃</AuthButton>
+          <Icon color={palette.white} size={fontSize.extraBigText}>
+            person
+          </Icon>
+        </AuthArea>
+      )}
     </>
   );
 };

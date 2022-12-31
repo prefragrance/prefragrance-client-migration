@@ -42,12 +42,10 @@ export interface IRegisterPayload {
   password1: string;
   password2: string;
   nickname: string;
-  name: string;
   age: number;
   gender: Gender;
   agree_prefragrance: boolean;
   agree_personal_required: boolean;
-  agree_personal_optional: boolean;
 }
 
 export interface IRegisterResponse {

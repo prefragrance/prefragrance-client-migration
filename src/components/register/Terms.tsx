@@ -34,7 +34,6 @@ const Terms = ({
     handleChangeRegisterPayload({
       ...payload,
       agree_prefragrance: checkTerms.useTerm,
-      agree_personal_optional: checkTerms.infoTerm,
       agree_personal_required: checkTerms.infoTerm,
     });
     handleChangeStep(RegisterSteps.UserInfo);
@@ -104,7 +103,11 @@ const Terms = ({
             <Button text={"취소"} backgroundColor={palette.gray.dark} />
           </a>
         </Link>
-        <Button text={"확인"} onClick={handleConfirm} />
+        <Button
+          text={"확인"}
+          onClick={handleConfirm}
+          disabled={!(checkTerms.useTerm && checkTerms.infoTerm)}
+        />
       </HStack>
     </VStack>
   );

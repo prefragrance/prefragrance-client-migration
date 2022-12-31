@@ -1,11 +1,11 @@
-import { HStack, Input, VStack } from "@common-components";
+import { Input, VStack } from "@common-components";
 import styled from "@emotion/styled";
 import { RouterUrl } from "@src/common/constants/path";
 import { useIsLoggedIn } from "@src/common/hooks/useAuth";
-import LoadingSpinner from "@src/components/common/loading-spinner/LoadingSpinner";
 import useLogin from "@src/components/login/useLogin";
 import { fontSize, palette } from "@src/styles/styles";
-import { Span } from "@src/styles/textComponents";
+import { BodyText, Span } from "@src/styles/textComponents";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -13,7 +13,10 @@ import { useState } from "react";
 const LoginPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { postLogin, isLoginLoading } = useLogin();
+  const [loginError, setLoginError] = useState<boolean>(false);
+  const { postLogin } = useLogin({
+    onError: () => setLoginError(true),
+  });
   const isLoggedIn = useIsLoggedIn();
   const router = useRouter();
 
@@ -21,31 +24,37 @@ const LoginPage = () => {
     router.push(RouterUrl.Base);
   }
 
-  if (isLoginLoading && !isLoggedIn) {
-    return <LoadingSpinner />;
-  }
-
   return (
-    <HStack>
-      <LeftContainer>이미지</LeftContainer>
+    <Container>
+      <Image
+        src={"/assets/images/login.png"}
+        layout={"fill"}
+        objectFit={"cover"}
+        alt={"login image"}
+      />
       <RightContainer>
         <Form>
-          <VStack gap={24}>
+          <VStack gap={24} alignItems={"flex-start"}>
+            <BodyText color={palette.red.primary}>
+              {loginError ? "아이디 또는 비밀번호가 일치하지 않습니다." : " "}
+            </BodyText>
             <Input
-              placeholder={"Username"}
+              placeholder={"아이디"}
               hasResetIcon
               onChange={(value) => setUsername(value)}
               padding={"20px"}
             />
             <Input
               type={"password"}
-              placeholder={"Password"}
+              placeholder={"비밀번호"}
               onChange={(value) => setPassword(value)}
               padding={"20px"}
             />
             <ButtonContainer>
               <ForgetPasswordButton>
-                <Span>아이디 / 비밀번호를 잊으셨나요?</Span>
+                <Span color={palette.white}>
+                  아이디 / 비밀번호를 잊으셨나요?
+                </Span>
               </ForgetPasswordButton>
             </ButtonContainer>
           </VStack>
@@ -70,25 +79,23 @@ const LoginPage = () => {
           </VStack>
         </Form>
       </RightContainer>
-    </HStack>
+    </Container>
   );
 };
 
-const LeftContainer = styled.section`
-  width: 60vw;
+const Container = styled.section`
+  width: 100%;
   height: calc(100vh - 80px);
-  background-color: ${palette.gray.background};
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const RightContainer = styled.section`
-  width: 40vw;
-  height: calc(100vh - 80px);
-  background-color: ${palette.gray.light};
-  padding: 50px;
+  width: 40%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const Form = styled.div`
@@ -97,11 +104,11 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 100px;
+  gap: 80px;
 `;
 
 const SubmitButton = styled.button<{ backgroundColor?: string }>`
-  width: 330px;
+  width: 300px;
   padding: 20px 30px;
   background-color: ${({ backgroundColor = palette.green.primary }) =>
     backgroundColor};
