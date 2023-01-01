@@ -1,40 +1,55 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { IOption } from "../categoryDropdown";
-import { palette } from "@src/styles/styles";
+import { fontSize, palette } from "@src/styles/styles";
 import { SearchModalCategoriesName } from "./CategoryTab";
 import { Icon } from "@common-components";
 import styled from "@emotion/styled";
 import useRecentSearch from "../useRecentSearch";
 import { useRouter } from "next/router";
 import { RouterUrl } from "@src/common/constants/path";
+import { useSetRecoilState } from "recoil";
+import {
+  getSearchQuerySelector,
+  ISearchQuery,
+} from "@src/common/store/searchInput";
+import { categoryList } from "../categoryDropdown";
 
 interface IKeywordItem {
-  text: string;
+  query: ISearchQuery; // 이제 앞으로 쿼리는 문자열 배열이 아니라 ISearchQuery 배열임
   currentTab: IOption;
   recentUpdate: number;
   setRecentUpdate: Dispatch<SetStateAction<number>>;
 }
 
 const KeywordItem = ({
-  text,
+  query,
   currentTab,
   recentUpdate,
   setRecentUpdate,
 }: IKeywordItem) => {
   const { deleteRecentSearchEach } = useRecentSearch();
   const router = useRouter();
+  const setSearchParam = useSetRecoilState(getSearchQuerySelector);
 
   // 최근검색어 개별 삭제 -> 검색어 바껴야하니까 recentUpdate + 1
-  const onDeleteRecentKeyword = () => {
-    deleteRecentSearchEach({ value: text });
+  const onDeleteRecentKeyword = (event: React.MouseEvent<HTMLDivElement>) => {
+    event?.stopPropagation(); // 삭제버튼 클릭 시 검색되는 이벤트 버블링 방지
+    deleteRecentSearchEach(query);
     setRecentUpdate(recentUpdate + 1);
   };
 
   // 검색어블록 클릭했을 때도 검색되도록 함
   const submitSearchQuery = () => {
+    setSearchParam({
+      q_field: query.q_field,
+      searchText: query.searchText,
+    });
     router.push({
       pathname: RouterUrl.SearchResult,
-      query: { search: text },
+      query:
+        query.q_field === "whole"
+          ? { search: query.searchText }
+          : { q_field: query.q_field, search: query.searchText },
     });
   };
 
@@ -42,14 +57,16 @@ const KeywordItem = ({
     <Wrapper onClick={submitSearchQuery}>
       <QuerySection>
         <Icon color={palette.gray.dark}>search</Icon>
-        <span>{text}</span>
+        <span>{query.searchText}</span>
+        <span>
+          {categoryList.find((ele) => ele.value == query.q_field)?.label}
+        </span>
       </QuerySection>
       <DeleteBtnSection
         disabled={currentTab.value !== SearchModalCategoriesName.Recent}
+        onClick={onDeleteRecentKeyword}
       >
-        <Icon color={palette.gray.dark} onClick={onDeleteRecentKeyword}>
-          close
-        </Icon>
+        <Icon color={palette.gray.dark}>close</Icon>
       </DeleteBtnSection>
     </Wrapper>
   );
@@ -71,8 +88,12 @@ const QuerySection = styled.div`
   display: flex;
   & > span {
     display: flex;
-    // align-items: center;
+    font-size: ${fontSize.body};
     line-height: 1.7rem;
+  }
+  & > span:last-child {
+    font-size: 0.5rem;
+    color: ${palette.gray.dark};
   }
 `;
 const DeleteBtnSection = styled.div<{ disabled: boolean }>`

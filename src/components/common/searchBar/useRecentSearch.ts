@@ -1,19 +1,22 @@
+import { ISearchQuery } from "@src/common/store/searchInput";
 import {
   deleteLocalStorage,
   emptyLocalStorage,
-  getLocalStorage,
-  ILocalStorage,
   LocalStorageName,
   setLocalStorage,
 } from "@src/common/hooks/useLocalStorage";
 
 const useRecentSearch = () => {
   // 최근검색어 업데이트
-  const updateRecentSearch = ({ value }: ILocalStorage) => {
+  const updateRecentSearch = (value: ISearchQuery) => {
     // localStorage에서 가져오고 validation check
-    let recentSearchList = emptyLocalStorage(LocalStorageName.RecentSearchList);
-    // recentSearchList에 value가 이미 있는지 check
-    const already = recentSearchList.indexOf(value);
+    const isEmpty = emptyLocalStorage(LocalStorageName.RecentSearchList);
+    // emptyLocalStorage()로 가져오는 값은 문자열화돼있는 배열이거나 빈 배열임
+    let recentSearchList = isEmpty.length > 0 ? JSON.parse(isEmpty) : isEmpty;
+    // recentSearchList에 value가 이미 있는지 check. 빈 배열이거나 객체로 채워져있는 배열 모두 비교 가능
+    const already = recentSearchList.findIndex(
+      (ele: ISearchQuery) => JSON.stringify(ele) == JSON.stringify(value)
+    );
     // recentSearchList에 value가 이미 있으면
     if (already >= 0) {
       // 기존에 있던 검색어 삭제하고
@@ -35,11 +38,12 @@ const useRecentSearch = () => {
   };
 
   // 최근검색어 하나 삭제
-  const deleteRecentSearchEach = ({ value }: ILocalStorage) => {
-    const recentSearchList = JSON.parse(
-      getLocalStorage(LocalStorageName.RecentSearchList) || ""
+  const deleteRecentSearchEach = (value: ISearchQuery) => {
+    const isEmpty = emptyLocalStorage(LocalStorageName.RecentSearchList);
+    const recentSearchList = isEmpty.length > 0 ? JSON.parse(isEmpty) : isEmpty;
+    const already = recentSearchList.findIndex(
+      (ele: ISearchQuery) => JSON.stringify(ele) == JSON.stringify(value)
     );
-    const already = recentSearchList.indexOf(value);
     if (already >= 0) {
       recentSearchList.splice(already, 1);
     }

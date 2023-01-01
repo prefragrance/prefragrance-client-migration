@@ -3,9 +3,10 @@ import KeywordItem from "./KeywordItem";
 import { ISearchModal } from ".";
 import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
+import { ISearchQuery } from "@src/common/store/searchInput";
 
 interface IKeywordList extends ISearchModal {
-  searchKeywords: string[];
+  searchKeywords: ISearchQuery[]; // 검색어 데이터는 ISearchQuery 배열 형태임
 }
 
 const KeywordList = ({
@@ -19,8 +20,8 @@ const KeywordList = ({
       {searchKeywords && searchKeywords.length > 0 ? (
         searchKeywords.map((keyword) => (
           <KeywordItem
-            key={keyword}
-            text={keyword}
+            key={JSON.stringify(Object.values(keyword))}
+            query={keyword}
             currentTab={currentTab}
             recentUpdate={recentUpdate}
             setRecentUpdate={setRecentUpdate}

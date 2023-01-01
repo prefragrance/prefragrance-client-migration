@@ -1,6 +1,8 @@
+import { ISearchQuery } from "../store/searchInput";
+
 export interface ILocalStorage {
   name?: LocalStorageName | "";
-  value?: string;
+  value?: ISearchQuery[] | string;
 }
 
 export enum LocalStorageName {
@@ -17,7 +19,7 @@ export function emptyLocalStorage(name: LocalStorageName) {
 
 // get, set, delete localStorage
 export function setLocalStorage({ name = "", value = "" }: ILocalStorage) {
-  window.localStorage.setItem(name, value);
+  window.localStorage.setItem(name, JSON.stringify(value));
 }
 
 export function getLocalStorage(name: LocalStorageName) {

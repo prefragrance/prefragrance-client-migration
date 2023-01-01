@@ -14,7 +14,6 @@ export interface ICurrentCategory {
 const SearchResultPage = () => {
   const { searchResult } = useSearchQuery();
   const [currentCate, setCurrentCate] = useState<string>("향수");
-  console.log(searchResult);
 
   return (
     <CenterWrapper>

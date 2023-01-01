@@ -28,10 +28,11 @@ const SearchModal = ({
   setCurrentTab,
 }: ISearchModal) => {
   const { deleteRecentSearchAll } = useRecentSearch();
-  const { searchKeywords } = useSearchKeywordQuery(currentTab); // 추천/인기/최근 검색어
-  const recentSearchKeywords: string[] = emptyLocalStorage(
-    LocalStorageName.RecentSearchList
-  );
+  const { searchKeywords } = useSearchKeywordQuery(currentTab); // 추천/인기 검색어 데이터
+  const recentSearchKeywords =
+    emptyLocalStorage(LocalStorageName.RecentSearchList).length > 0
+      ? JSON.parse(emptyLocalStorage(LocalStorageName.RecentSearchList))
+      : emptyLocalStorage(LocalStorageName.RecentSearchList);
 
   const handleDeleteRecentSearchAll = () => {
     deleteRecentSearchAll();
