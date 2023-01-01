@@ -9,7 +9,7 @@ const SearchResultBlock = ({ data }: { data: ISearchResult }) => {
   return (
     <Container>
       <ImgWrapper>
-        <Avatar url={data?.thumbnail_url} width="5rem" height="5rem" />
+        <Avatar url={data?.thumbnail_url} width={80} height={80} />
       </ImgWrapper>
       <Wrapper>
         <ProductTitle>

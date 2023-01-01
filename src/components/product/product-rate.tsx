@@ -1,29 +1,22 @@
-import {
-  HBar,
-  HDivider,
-  HStack,
-  Icon,
-  Stars,
-  VBar,
-  VStack,
-} from "@common-components";
+import { HBar, HStack, Icon, VStack } from "@common-components";
 import styled from "@emotion/styled";
 import { IProductDetailResponse } from "@src/common/types/product";
 import { calculateSize } from "@src/common/utils/calculateSize";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
-import { BigTitle, BodyText, SmallTitle } from "@src/styles/textComponents";
+import { SmallTitle } from "@src/styles/textComponents";
 import { IconTheme } from "../common/icon/Icon";
 
 interface IProductRate {
   productDetail: IProductDetailResponse;
 }
 
-interface IGraphLabel {
+export interface IGraphLabel {
   width?: number;
   textAlign?: "left" | "center";
 }
 
 const ProductRate = ({ productDetail }: IProductRate) => {
+  console.log(productDetail);
   return (
     <VStack gap={"none"}>
       <VStack padding={"30px 0px 50px 0px"} gap={60}>
@@ -36,8 +29,6 @@ const ProductRate = ({ productDetail }: IProductRate) => {
           <Strength />
         </HStack>
       </VStack>
-      <HDivider />
-      <Review productDetail={productDetail} />
     </VStack>
   );
 };
@@ -148,73 +139,6 @@ const Strength = () => {
   );
 };
 
-const Review = ({ productDetail }: IProductRate) => {
-  return (
-    <ReviewWrapper>
-      <SmallTitle>리뷰</SmallTitle>
-      <HStack gap={60}>
-        <VStack gap={"sm"}>
-          <BodyText fontWeight={fontWeight.bold}>
-            총 {productDetail.rate_sum}건
-          </BodyText>
-          <HStack gap={4} alignItems={"baseline"}>
-            <BigTitle>4.5</BigTitle>
-            <SmallTitle>점</SmallTitle>
-          </HStack>
-          <Stars rate={productDetail.rate} size={30} />
-        </VStack>
-        <HStack gap={"sm"}>
-          <VStack gap={"xs"}>
-            <GraphLabel width={40} textAlign={"center"}>
-              86%
-            </GraphLabel>
-            <VBar value={86} />
-            <GraphLabel width={40} textAlign={"center"}>
-              5점
-            </GraphLabel>
-          </VStack>
-          <VStack gap={"xs"}>
-            <GraphLabel width={40} textAlign={"center"}>
-              86%
-            </GraphLabel>
-            <VBar value={86} />
-            <GraphLabel width={40} textAlign={"center"}>
-              4점
-            </GraphLabel>
-          </VStack>
-          <VStack gap={"xs"}>
-            <GraphLabel width={40} textAlign={"center"}>
-              86%
-            </GraphLabel>
-            <VBar value={86} />
-            <GraphLabel width={40} textAlign={"center"}>
-              3점
-            </GraphLabel>
-          </VStack>
-          <VStack gap={"xs"}>
-            <GraphLabel width={40} textAlign={"center"}>
-              86%
-            </GraphLabel>
-            <VBar value={86} />
-            <GraphLabel width={40} textAlign={"center"}>
-              2점
-            </GraphLabel>
-          </VStack>
-          <VStack gap={"xs"}>
-            <GraphLabel width={40} textAlign={"center"}>
-              86%
-            </GraphLabel>
-            <VBar value={86} />
-            <GraphLabel width={40} textAlign={"center"}>
-              1점
-            </GraphLabel>
-          </VStack>
-        </HStack>
-      </HStack>
-    </ReviewWrapper>
-  );
-};
-
 const InfoWrapper = styled(VStack)`
   width: 500px;
   align-items: flex-start;
@@ -228,7 +152,7 @@ const DescText = styled(HStack)`
   font-weight: ${fontWeight.bold};
 `;
 
-const GraphLabel = styled.span<IGraphLabel>`
+export const GraphLabel = styled.span<IGraphLabel>`
   display: inline-block;
   width: ${({ width = 80 }) => calculateSize(width)};
   font-size: ${fontSize.body};
@@ -239,13 +163,6 @@ const ColoredSpan = styled.span`
   font-size: ${fontSize.body};
   font-weight: ${fontWeight.bold};
   color: ${palette.green.primary};
-`;
-
-const ReviewWrapper = styled.div`
-  width: 1080px;
-  display: flex;
-  flex-direction: column;
-  padding: 30px 0px;
 `;
 
 export default ProductRate;

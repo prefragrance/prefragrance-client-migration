@@ -7,8 +7,9 @@ import { fontWeight, palette } from "@src/styles/styles";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ProductReview from "@src/components/product/product-review";
+import { useProductReview } from "@src/components/product/useProductReview";
 
-const detailTabs: string[] = ["제품상세", "리뷰쓰기"];
+const detailTabs: string[] = ["제품상세", "리뷰"];
 
 interface ITabItem {
   active: boolean;
@@ -23,13 +24,14 @@ const ProductDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const { productDetail, isProductDetailLoading } = useProductDetail(id);
+  const { productReview, isProductReviewLoading } = useProductReview(id);
   const [activeTab, setActiveTab] = useState<string>(detailTabs[0]);
 
   const changeTab = (tab: string) => {
     setActiveTab(tab);
   };
 
-  if (!productDetail || isProductDetailLoading) {
+  if (!productDetail || isProductDetailLoading || isProductReviewLoading) {
     return <LoadingSpinner />;
   }
 
@@ -42,8 +44,17 @@ const ProductDetailPage = () => {
           <VStack gap={"none"}>
             <ProductRate productDetail={productDetail} />
             <HDivider />
-            <ProductReview />
+            <ProductReview
+              productDetail={productDetail}
+              productReview={productReview}
+            />
           </VStack>
+        )}
+        {activeTab === detailTabs[1] && (
+          <ProductReview
+            productDetail={productDetail}
+            productReview={productReview}
+          />
         )}
       </InfoContainer>
     </VStack>
