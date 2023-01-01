@@ -36,14 +36,16 @@ const ProductDetailPage = () => {
   return (
     <VStack gap={20}>
       <ProductInfo productDetail={productDetail} />
-      <Tab activeTab={activeTab} changeTab={changeTab} />
-      {activeTab === detailTabs[0] && (
-        <VStack gap={"none"}>
-          <ProductRate productDetail={productDetail} />
-          <HDivider />
-          <ProductReview />
-        </VStack>
-      )}
+      <InfoContainer>
+        <Tab activeTab={activeTab} changeTab={changeTab} />
+        {activeTab === detailTabs[0] && (
+          <VStack gap={"none"}>
+            <ProductRate productDetail={productDetail} />
+            <HDivider />
+            <ProductReview />
+          </VStack>
+        )}
+      </InfoContainer>
     </VStack>
   );
 };
@@ -87,6 +89,11 @@ const TabContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+`;
+
+const InfoContainer = styled.section`
+  display: flex;
+  flex-direction: column;
 `;
 
 export default ProductDetailPage;
