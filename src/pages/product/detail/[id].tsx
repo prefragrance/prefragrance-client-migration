@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
-import { LoadingSpinner, VStack } from "@src/components/common";
+import { HDivider, LoadingSpinner, VStack } from "@common-components";
 import ProductInfo from "@src/components/product/product-info";
 import ProductRate from "@src/components/product/product-rate";
 import { useProductDetail } from "@src/components/product/useProductDetail";
 import { fontWeight, palette } from "@src/styles/styles";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import ProductReview from "@src/components/product/product-review";
 
-export const detailTabs: string[] = ["제품상세", "리뷰쓰기"];
+const detailTabs: string[] = ["제품상세", "리뷰쓰기"];
 
 interface ITabItem {
   active: boolean;
@@ -28,7 +29,7 @@ const ProductDetailPage = () => {
     setActiveTab(tab);
   };
 
-  if (isProductDetailLoading) {
+  if (!productDetail || isProductDetailLoading) {
     return <LoadingSpinner />;
   }
 
@@ -36,7 +37,13 @@ const ProductDetailPage = () => {
     <VStack gap={20}>
       <ProductInfo productDetail={productDetail} />
       <Tab activeTab={activeTab} changeTab={changeTab} />
-      <ProductRate activeTab={activeTab} />
+      {activeTab === detailTabs[0] && (
+        <VStack gap={"none"}>
+          <ProductRate productDetail={productDetail} />
+          <HDivider />
+          <ProductReview />
+        </VStack>
+      )}
     </VStack>
   );
 };
