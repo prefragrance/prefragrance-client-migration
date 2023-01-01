@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { calculateSize } from "@src/common/utils/calculateSize";
 import { fontSize, palette } from "@src/styles/styles";
 import React from "react";
 
@@ -10,7 +11,7 @@ export enum IconTheme {
 
 interface IIcon {
   theme?: IconTheme;
-  size?: string;
+  size?: string | number;
   color?: string;
   backgroundColor?: string;
   onClick?: () => void;
@@ -32,7 +33,7 @@ const Icon = ({
   return (
     <IconContainer
       className={theme}
-      size={size}
+      size={typeof size === "string" ? size : calculateSize(size)}
       color={color}
       backgroundColor={backgroundColor}
       onClick={onClick}
