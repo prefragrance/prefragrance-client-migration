@@ -1,6 +1,15 @@
-import { HDivider, HStack, Icon, Stars, VStack } from "@common-components";
+import {
+  HBar,
+  HDivider,
+  HStack,
+  Icon,
+  Stars,
+  VBar,
+  VStack,
+} from "@common-components";
 import styled from "@emotion/styled";
 import { IProductDetailResponse } from "@src/common/types/product";
+import { calculateSize } from "@src/common/utils/calculateSize";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { BigTitle, BodyText, SmallTitle } from "@src/styles/textComponents";
 import { IconTheme } from "../common/icon/Icon";
@@ -9,10 +18,15 @@ interface IProductRate {
   productDetail: IProductDetailResponse;
 }
 
+interface IGraphLabel {
+  width?: number;
+  textAlign?: "left" | "center";
+}
+
 const ProductRate = ({ productDetail }: IProductRate) => {
   return (
     <VStack gap={"none"}>
-      <VStack padding={"30px 0px"} gap={60}>
+      <VStack padding={"30px 0px 50px 0px"} gap={60}>
         <HStack align={"space-between"}>
           <Season />
           <Time />
@@ -90,16 +104,19 @@ const Duration = () => {
       <SmallTitle>지속력</SmallTitle>
       <VStack alignItems={"flex-start"}>
         <HStack>
-          <BodyText>오래가요</BodyText>
-          <BodyText>23%</BodyText>
+          <GraphLabel>오래가요</GraphLabel>
+          <HBar value={23} />
+          <GraphLabel>23%</GraphLabel>
         </HStack>
         <HStack>
-          <BodyText>보통이에요</BodyText>
-          <BodyText>23%</BodyText>
+          <GraphLabel>보통이에요</GraphLabel>
+          <HBar value={23} />
+          <GraphLabel>23%</GraphLabel>
         </HStack>
         <HStack>
-          <BodyText>짧아요</BodyText>
-          <BodyText>23%</BodyText>
+          <GraphLabel>짧아요</GraphLabel>
+          <HBar value={23} />
+          <GraphLabel>23%</GraphLabel>
         </HStack>
       </VStack>
     </InfoWrapper>
@@ -112,16 +129,19 @@ const Strength = () => {
       <SmallTitle>향 강도</SmallTitle>
       <VStack alignItems={"flex-start"}>
         <HStack>
-          <BodyText>강해요</BodyText>
-          <BodyText>23%</BodyText>
+          <GraphLabel>강해요</GraphLabel>
+          <HBar value={23} />
+          <GraphLabel>23%</GraphLabel>
         </HStack>
         <HStack>
-          <BodyText>보통이에요</BodyText>
-          <BodyText>23%</BodyText>
+          <GraphLabel>보통이에요</GraphLabel>
+          <HBar value={23} />
+          <GraphLabel>23%</GraphLabel>
         </HStack>
         <HStack>
-          <BodyText>약해요</BodyText>
-          <BodyText>23%</BodyText>
+          <GraphLabel>약해요</GraphLabel>
+          <HBar value={23} />
+          <GraphLabel>23%</GraphLabel>
         </HStack>
       </VStack>
     </InfoWrapper>
@@ -145,24 +165,49 @@ const Review = ({ productDetail }: IProductRate) => {
         </VStack>
         <HStack gap={"sm"}>
           <VStack gap={"xs"}>
-            <BodyText fontWeight={fontWeight.demiLight}>86%</BodyText>
-            <BodyText fontWeight={fontWeight.demiLight}>5점</BodyText>
+            <GraphLabel width={40} textAlign={"center"}>
+              86%
+            </GraphLabel>
+            <VBar value={86} />
+            <GraphLabel width={40} textAlign={"center"}>
+              5점
+            </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
-            <BodyText fontWeight={fontWeight.demiLight}>86%</BodyText>
-            <BodyText fontWeight={fontWeight.demiLight}>4점</BodyText>
+            <GraphLabel width={40} textAlign={"center"}>
+              86%
+            </GraphLabel>
+            <VBar value={86} />
+            <GraphLabel width={40} textAlign={"center"}>
+              4점
+            </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
-            <BodyText fontWeight={fontWeight.demiLight}>86%</BodyText>
-            <BodyText fontWeight={fontWeight.demiLight}>3점</BodyText>
+            <GraphLabel width={40} textAlign={"center"}>
+              86%
+            </GraphLabel>
+            <VBar value={86} />
+            <GraphLabel width={40} textAlign={"center"}>
+              3점
+            </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
-            <BodyText fontWeight={fontWeight.demiLight}>86%</BodyText>
-            <BodyText fontWeight={fontWeight.demiLight}>2점</BodyText>
+            <GraphLabel width={40} textAlign={"center"}>
+              86%
+            </GraphLabel>
+            <VBar value={86} />
+            <GraphLabel width={40} textAlign={"center"}>
+              2점
+            </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
-            <BodyText fontWeight={fontWeight.demiLight}>86%</BodyText>
-            <BodyText fontWeight={fontWeight.demiLight}>1점</BodyText>
+            <GraphLabel width={40} textAlign={"center"}>
+              86%
+            </GraphLabel>
+            <VBar value={86} />
+            <GraphLabel width={40} textAlign={"center"}>
+              1점
+            </GraphLabel>
           </VStack>
         </HStack>
       </HStack>
@@ -181,6 +226,13 @@ const DescWrapper = styled(VStack)`
 
 const DescText = styled(HStack)`
   font-weight: ${fontWeight.bold};
+`;
+
+const GraphLabel = styled.span<IGraphLabel>`
+  display: inline-block;
+  width: ${({ width = 80 }) => calculateSize(width)};
+  font-size: ${fontSize.body};
+  text-align: ${({ textAlign = "left" }) => textAlign};
 `;
 
 const ColoredSpan = styled.span`
