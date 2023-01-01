@@ -100,7 +100,7 @@ const MagazineDetail = () => {
       <Body>
         <RowSection>
           {RAW_DATA.slice().map((obj) => (
-            <div key={obj.product_id}></div>
+            <div key={obj.id}></div>
             // type error : need to fix
             // <MagazineBox key={obj.id} {...obj} />
           ))}
