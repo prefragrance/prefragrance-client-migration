@@ -3,6 +3,7 @@ import { ISearchKeywords, ISearchResult } from "@src/common/types/search";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { IOption } from "./categoryDropdown";
+import { SearchModalCategoriesName } from "./searchModal/CategoryTab";
 
 export const useSearchQuery = () => {
   const router = useRouter();
@@ -39,6 +40,7 @@ export const useSearchKeywordQuery = (currentTab: IOption) => {
     ["search-keywords", currentTab.value],
     () => SearchApi.getSearchKeywords(currentTab.value),
     {
+      enabled: currentTab.value !== SearchModalCategoriesName.Recent,
       initialData: {
         keywords: [],
       },

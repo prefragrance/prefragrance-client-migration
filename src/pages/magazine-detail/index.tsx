@@ -1,13 +1,9 @@
 import styled from "@emotion/styled";
-import React from "react";
-import MagazineBox from "./magazineBox";
-import { IMagazineProduct } from '@src/common/types/magazine';
+import { IMagazineProduct } from "@src/common/types/magazine";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 // import { useQuery } from "@tanstack/react-query";
-// import { useState } from "react";
-import MagazineApi from "@src/common/api/magazine";
 
 export interface IMagazineProductData {
   movieData: {
@@ -88,14 +84,12 @@ const RAW_DATA = [
 ];
 
 const MagazineDetail = () => {
-  
   // const [mIndex, setMIndex] = useState(0);
   // const IncreaseMIndex = () => setMIndex((prev: number)=>(prev+1));
   // // const navigate = useNavigate();
   // // const onBoxClicked = (id: number) => {
   // //   navigate(`/product/${RAW_DATA.id}`);
   // // };
-
 
   return (
     <QueryClientProvider client={client}>
@@ -106,15 +100,15 @@ const MagazineDetail = () => {
       <Body>
         <RowSection>
           {RAW_DATA.slice().map((obj) => (
-            <MagazineBox key={obj.id} {...obj} />
+            <div key={obj.product_id}></div>
+            // type error : need to fix
+            // <MagazineBox key={obj.id} {...obj} />
           ))}
         </RowSection>
       </Body>
     </QueryClientProvider>
   );
 };
-
-
 
 const Theme = styled.div`
   display: flex;
