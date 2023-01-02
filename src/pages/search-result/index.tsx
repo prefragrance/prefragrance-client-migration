@@ -1,42 +1,79 @@
-import React, { useState } from "react";
-import Categories from "@src/components/search-result/Categories";
-import { SelectTab } from "@src/components/search-result";
-import SearchResultList from "@src/components/search-result/SearchResultList";
-import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
+import React from "react";
 import styled from "@emotion/styled";
-import { LoadingSpinner, VStack } from "@src/components/common";
+import { fontSize, fontWeight, palette } from "@src/styles/styles";
+import SearchResultItem from "@src/components/search-result/SearchResultList/SearchResultItem";
+import { ISearchResult } from "@src/common/types/search";
+import Select, { IOrderProps } from "@src/components/common/select/Select";
+import { HStack, LoadingSpinner, VStack } from "@common-components";
+import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
 
-export interface ICurrentCategory {
-  currentCate: string;
-  setCurrentCate: React.Dispatch<React.SetStateAction<string>>;
-}
+const orderList: IOrderProps[] = [
+  { label: "조회순", value: "" },
+  { label: "별점순", value: "" },
+  { label: "리뷰 많은 순", value: "" },
+];
 
-const SearchResultPage = () => {
-  const { searchResult, isSearchLoading } = useSearchQuery();
-  const [currentCate, setCurrentCate] = useState<string>("향수");
+const SearchResultList = () => {
+  const { searchResult, fetchStatus } = useSearchQuery();
+  const searchResultCount = Object(searchResult).length | 0;
 
-  if (isSearchLoading) {
+  // console.log(fetchStatus);
+  if (fetchStatus === "fetching" || !searchResult) {
     return <LoadingSpinner />;
   }
 
   return (
-    <CenterWrapper>
-      <PageWrapper>
-        <Categories currentCate={currentCate} setCurrentCate={setCurrentCate} />
-        <SelectTab searchResultCount={Object(searchResult).length} />
-        <SearchResultList searchResult={searchResult} />
-      </PageWrapper>
-    </CenterWrapper>
+    <Wrapper>
+      <InfoWrapper align="space-between" padding="0rem 0.5rem">
+        <span>검색결과: 총 {searchResultCount}개</span>
+        <Select optionList={orderList} value={""} />
+      </InfoWrapper>
+      <ListWrapper>
+        {Object(searchResult).length > 0 ? (
+          Object(searchResult).map((result: ISearchResult) => (
+            <SearchResultItem key={result.id} data={result} />
+          ))
+        ) : (
+          <NotFound>원하는 검색 결과를 찾지 못했습니다.</NotFound>
+        )}
+      </ListWrapper>
+    </Wrapper>
   );
 };
 
-const PageWrapper = styled(VStack)`
-  width: 1000px;
+const Wrapper = styled(VStack)`
+  width: 70vw;
 `;
-const CenterWrapper = styled.div`
+
+const ListWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  // min-height: 100%; // 세로 최솟값 더 정확하게 연동시키는 방법?
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  & > a {
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.6rem;
+    margin: 0.5rem 0rem;
+  }
+`;
+
+const InfoWrapper = styled(HStack)`
+  width: 100%;
+  span {
+    font-weight: ${fontWeight.semiBold};
+  }
+`;
+
+const NotFound = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: ${fontSize.mediumTitle}
+  border: 1px solid ${palette.gray}
+  width: 100%;
+  height: 50vh;
 `;
 
-export default SearchResultPage;
+export default SearchResultList;
