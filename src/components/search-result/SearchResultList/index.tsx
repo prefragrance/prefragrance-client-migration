@@ -3,13 +3,8 @@ import styled from "@emotion/styled";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import SearchResultItem from "./SearchResultItem";
 import { ISearchResult } from "@src/common/types/search";
-import Select from "@src/components/common/select/Select";
+import Select, { IOrderProps } from "@src/components/common/select/Select";
 import { HStack, VStack } from "@common-components";
-
-export interface IOrderProps {
-  label: string;
-  value: string;
-}
 
 const orderList: IOrderProps[] = [
   { label: "조회순", value: "" },
