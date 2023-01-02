@@ -61,3 +61,12 @@ export interface IProductDetailResponse {
   rate: number;
   liked_users: number[];
 }
+
+export interface IProductReviewResponse {
+  id: number;
+  nickname: string;
+  profile_img: string | null;
+  content: string;
+  pub_date: Date;
+  feedback_cnt: number;
+}

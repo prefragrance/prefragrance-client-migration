@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { RouterUrl } from "@src/common/constants/path";
 import { useIsLoggedIn } from "@src/common/hooks/useAuth";
 import useLogin from "@src/components/login/useLogin";
-import { fontSize, palette } from "@src/styles/styles";
+import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { BodyText, Span } from "@src/styles/textComponents";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,7 +35,7 @@ const LoginPage = () => {
       <RightContainer>
         <Form>
           <VStack gap={24} alignItems={"flex-start"}>
-            <BodyText color={palette.red.primary}>
+            <BodyText color={palette.red.primary} fontWeight={fontWeight.bold}>
               {loginError ? "아이디 또는 비밀번호가 일치하지 않습니다." : " "}
             </BodyText>
             <Input

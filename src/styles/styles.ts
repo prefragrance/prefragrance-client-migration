@@ -7,6 +7,8 @@ export const palette = {
   gray: {
     lighter: "#E0E0E0",
     light: "#F0F0F0",
+    medium: "#9E9E9E",
+    mediumLight: "#BEBEBE",
     dark: "#6B6A6A",
     background: "#EDEDED",
   },
