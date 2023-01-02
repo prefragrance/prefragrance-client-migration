@@ -12,3 +12,4 @@ export { default as SearchBar } from "./searchBar/SearchBar";
 export { default as Select } from "./select/Select";
 export { default as Stars } from "./stars/Stars";
 export { default as LoadingSpinner } from "./loading-spinner/LoadingSpinner";
+export { default as Modal } from "./modal/Modal";

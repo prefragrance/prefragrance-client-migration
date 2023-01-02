@@ -30,10 +30,12 @@ const filteringButtons: IFilteringItem[] = [
 interface IProductReview {
   productDetail: IProductDetailResponse;
   productReview: IProductReviewResponse[];
+  handleModalOpen: () => void;
 }
 
 interface IReview {
   productReview: IProductReviewResponse[];
+  handleModalOpen: () => void;
 }
 
 interface IReviewItem {
@@ -49,7 +51,11 @@ interface IFilteringItem {
   value: number;
 }
 
-const ProductReview = ({ productDetail, productReview }: IProductReview) => {
+const ProductReview = ({
+  productDetail,
+  productReview,
+  handleModalOpen,
+}: IProductReview) => {
   // TODO : need to add ordering state
   // const [ordering, setOrdering] = useState<>()
 
@@ -57,7 +63,7 @@ const ProductReview = ({ productDetail, productReview }: IProductReview) => {
     <ReviewContainer>
       <Statistics productDetail={productDetail} />
       <HDivider />
-      <Review productReview={productReview} />
+      <Review productReview={productReview} handleModalOpen={handleModalOpen} />
     </ReviewContainer>
   );
 };
@@ -132,7 +138,7 @@ const Statistics = ({
   );
 };
 
-const Review = ({ productReview }: IReview) => {
+const Review = ({ productReview, handleModalOpen }: IReview) => {
   return (
     <ReviewWrapper>
       <HStack align={"space-between"}>
@@ -150,7 +156,12 @@ const Review = ({ productReview }: IReview) => {
             ))}
           </HStack>
         </HStack>
-        <Button text={"리뷰 쓰기"} width={"200px"} padding={"10px 0px"} />
+        <Button
+          text={"리뷰 쓰기"}
+          width={"200px"}
+          padding={"10px 0px"}
+          onClick={handleModalOpen}
+        />
       </HStack>
       <ReviewListWrapper>
         {productReview.map((review, index) => (

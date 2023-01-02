@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { HDivider, LoadingSpinner, VStack } from "@common-components";
+import { HDivider, LoadingSpinner, Modal, VStack } from "@common-components";
 import ProductInfo from "@src/components/product/product-info";
 import ProductRate from "@src/components/product/product-rate";
 import { useProductDetail } from "@src/components/product/useProductDetail";
@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import ProductReview from "@src/components/product/product-review";
 import { useProductReview } from "@src/components/product/useProductReview";
+import { useCommonModal } from "@src/common/hooks/useCommonModal";
 
 const detailTabs: string[] = ["제품상세", "리뷰"];
 
@@ -25,6 +26,7 @@ const ProductDetailPage = () => {
   const { id } = router.query;
   const { productDetail, isProductDetailLoading } = useProductDetail(id);
   const { productReview, isProductReviewLoading } = useProductReview(id);
+  const { isModalOpen, handleModalOpen, handleModalClose } = useCommonModal();
   const [activeTab, setActiveTab] = useState<string>(detailTabs[0]);
 
   const changeTab = (tab: string) => {
@@ -47,6 +49,7 @@ const ProductDetailPage = () => {
             <ProductReview
               productDetail={productDetail}
               productReview={productReview}
+              handleModalOpen={handleModalOpen}
             />
           </VStack>
         )}
@@ -54,9 +57,15 @@ const ProductDetailPage = () => {
           <ProductReview
             productDetail={productDetail}
             productReview={productReview}
+            handleModalOpen={handleModalOpen}
           />
         )}
       </InfoContainer>
+      {isModalOpen && (
+        <Modal open={isModalOpen} onInteractOutside={handleModalClose}>
+          <div>test</div>
+        </Modal>
+      )}
     </VStack>
   );
 };
