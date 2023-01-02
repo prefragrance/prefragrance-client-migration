@@ -9,7 +9,6 @@ const SearchResultList = ({
 }: {
   searchResult: ISearchResult;
 }) => {
-  console.log(searchResult);
   return (
     <ListWrapper>
       {Object(searchResult).length > 0 ? (

@@ -1,3 +1,5 @@
+import { ISearchQuery } from "../store/searchInput";
+
 export interface ISearchResult {
   id: number;
   name: string;
@@ -14,5 +16,5 @@ export interface ISearchResult {
 }
 
 export interface ISearchKeywords {
-  keywords: string[];
+  keywords: ISearchQuery[];
 }

@@ -8,6 +8,8 @@ import CategoryDropdown, { categoryList, IOption } from "./categoryDropdown";
 import SearchModal from "./searchModal";
 import { SearchModalCategories } from "./searchModal/CategoryTab";
 import useRecentSearch from "./useRecentSearch";
+import { getSearchQuerySelector } from "@src/common/store/searchInput";
+import { useRecoilState } from "recoil";
 
 export interface ISearchPayload {
   category: string;
@@ -21,8 +23,12 @@ const SearchBar = () => {
     handleComponentVisible,
   } = useComponentVisible(); // 검색바 온오프 영역설정 커스텀 훅
   const { updateRecentSearch } = useRecentSearch(); // 최근검색어 훅에서 최근검색어 업데이트 함수 가져오기
-  const [searchInput, setSearchInput] = useState<string>(""); // 검색어 쿼리 상태값
-  const [category, setCategory] = useState<IOption>(categoryList[0]); // 통합검색/제품명/브랜드/키워드 확인 상태값
+  const [searchParam, setSearchParam] = useRecoilState(getSearchQuerySelector); // 검색어 쿼리 실시간 연동용 atom. 기능 구현 미완
+  const [searchInput, setSearchInput] = useState(searchParam.searchText); // 검색어 쿼리 상태값
+  const [category, setCategory] = useState<IOption>(
+    categoryList.find((ele) => ele.value == searchParam.q_field) ||
+      categoryList[0] // recoil atom값이랑 일치하는 최신 값 동기화
+  ); // 통합검색/제품명/브랜드/키워드 확인 상태값
   const [recentUpdate, setRecentUpdate] = useState<number>(0); // 업데이트 여부 확인용 상태값
   const [currentTab, setCurrentTab] = useState<IOption>(
     SearchModalCategories[2]
@@ -34,7 +40,14 @@ const SearchBar = () => {
       alert("검색어를 입력해주세요.");
       return;
     }
-    updateRecentSearch({ value: searchInput }); // 최근검색어 업데이트
+    setSearchParam({
+      q_field: category.value,
+      searchText: searchInput,
+    }); // searchQuery atom에 업데이트
+    updateRecentSearch({
+      q_field: category.value,
+      searchText: searchInput,
+    }); // 최근검색어 업데이트
     setRecentUpdate(recentUpdate + 1); // 검색창 최신화
     router.push({
       // next router훅 사용해 검색결과페이지로 넘어감
