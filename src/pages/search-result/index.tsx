@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
+import dynamic from "next/dynamic";
 import Categories from "@src/components/search-result/Categories";
-import { SelectTab } from "@src/components/search-result";
-import SearchResultList from "@src/components/search-result/SearchResultList";
 import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
 import styled from "@emotion/styled";
 import { VStack } from "@src/components/common";
+import LoadingSpinner from "@src/components/common/loading-spinner/LoadingSpinner";
 
 export interface ICurrentCategory {
   currentCate: string;
   setCurrentCate: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const SearchResultList = dynamic(
+  () => import("@src/components/search-result/SearchResultList"),
+  { suspense: true }
+);
 
 const SearchResultPage = () => {
   const { searchResult } = useSearchQuery();
@@ -19,8 +24,9 @@ const SearchResultPage = () => {
     <CenterWrapper>
       <PageWrapper>
         <Categories currentCate={currentCate} setCurrentCate={setCurrentCate} />
-        <SelectTab searchResultCount={Object(searchResult).length} />
-        <SearchResultList searchResult={searchResult} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <SearchResultList searchResult={searchResult} />
+        </Suspense>
       </PageWrapper>
     </CenterWrapper>
   );

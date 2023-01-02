@@ -30,6 +30,7 @@ export const useSearchQuery = () => {
         tags: "",
         codes: [],
       },
+      suspense: true,
     }
   );
   return { searchResult: data };
