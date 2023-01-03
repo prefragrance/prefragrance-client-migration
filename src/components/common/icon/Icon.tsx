@@ -9,7 +9,7 @@ export enum IconTheme {
   Round = "material-icons-round",
 }
 
-interface IIcon {
+export interface IIcon {
   theme?: IconTheme;
   size?: string | number;
   color?: string;
@@ -18,7 +18,13 @@ interface IIcon {
   children: React.ReactNode;
   asButton?: boolean;
   rotateDeg?: number;
+  hoverColor?: string;
 }
+
+type IconContainerProps = Pick<
+  IIcon,
+  "asButton" | "backgroundColor" | "color" | "size" | "rotateDeg" | "hoverColor"
+>;
 
 const Icon = ({
   theme = IconTheme.Filled,
@@ -29,6 +35,7 @@ const Icon = ({
   children,
   asButton,
   rotateDeg,
+  hoverColor,
 }: IIcon) => {
   return (
     <IconContainer
@@ -39,21 +46,24 @@ const Icon = ({
       onClick={onClick}
       asButton={asButton}
       rotateDeg={rotateDeg}
+      hoverColor={hoverColor}
     >
       {children}
     </IconContainer>
   );
 };
 
-const IconContainer = styled.span<
-  Pick<IIcon, "color" | "size" | "backgroundColor" | "asButton" | "rotateDeg">
->`
+const IconContainer = styled.span<IconContainerProps>`
   font-size: ${({ size }) => size};
   color: ${({ color }) => color};
   background-color: ${({ backgroundColor }) => backgroundColor};
   vertical-align: middle;
   transform: ${({ rotateDeg }) => rotateDeg && `rotate(${rotateDeg}deg)`};
   cursor: ${({ asButton }) => asButton && "pointer"};
+
+  :hover {
+    color: ${({ hoverColor }) => hoverColor && hoverColor};
+  }
 `;
 
 export default Icon;

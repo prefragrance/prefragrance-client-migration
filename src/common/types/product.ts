@@ -1,3 +1,5 @@
+import { TagsType } from "../constants/colors";
+
 export interface ICode {
   id: number;
   name: string;
@@ -7,10 +9,10 @@ export interface IReview {
   id: number;
   user: string;
   product: number;
-  season: Season;
-  time: Time;
+  season: SeasonType;
+  time: TimeType;
   duration: Duration;
-  strength: Strength;
+  strength: StrengthType;
   content: string;
   rate: number;
   pub_date: Date;
@@ -18,25 +20,27 @@ export interface IReview {
   tags: string;
 }
 
-export enum Season {
+export enum SeasonType {
   Spring = "SPRING",
   Summer = "SUMMER",
   Autumn = "AUTUMN",
   Winter = "WINTER",
+  None = "NONE",
 }
 
-export enum Time {
+export enum TimeType {
   Day = "DAY",
   Night = "NIGHT",
+  None = "NONE",
 }
 
-export enum Duration {
+export enum DurationType {
   One = 1,
   Two = 2,
   Three = 3,
 }
 
-export enum Strength {
+export enum StrengthType {
   One = 1,
   Two = 2,
   Three = 3,
@@ -69,4 +73,15 @@ export interface IProductReviewResponse {
   content: string;
   pub_date: Date;
   feedback_cnt: number;
+}
+
+export interface IPostReviewPayload {
+  id: string;
+  season: SeasonType;
+  time: TimeType;
+  duration: DurationType;
+  strength: StrengthType;
+  content: string;
+  rate: number;
+  tags: TagsType[];
 }

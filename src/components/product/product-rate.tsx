@@ -1,10 +1,15 @@
-import { HBar, HStack, Icon, VStack } from "@common-components";
+import { HBar, HStack, VStack } from "@common-components";
 import styled from "@emotion/styled";
-import { IProductDetailResponse } from "@src/common/types/product";
+import {
+  IProductDetailResponse,
+  SeasonType,
+  TimeType,
+} from "@src/common/types/product";
 import { calculateSize } from "@src/common/utils/calculateSize";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { SmallTitle } from "@src/styles/textComponents";
-import { IconTheme } from "../common/icon/Icon";
+import Season from "./review/season";
+import Time from "./review/time";
 
 interface IProductRate {
   productDetail: IProductDetailResponse;
@@ -21,8 +26,8 @@ const ProductRate = ({ productDetail }: IProductRate) => {
     <VStack gap={"none"}>
       <VStack padding={"30px 0px 50px 0px"} gap={60}>
         <HStack align={"space-between"}>
-          <Season />
-          <Time />
+          <SeasonSection />
+          <TimeSection />
         </HStack>
         <HStack align={"space-between"}>
           <Duration />
@@ -33,35 +38,12 @@ const ProductRate = ({ productDetail }: IProductRate) => {
   );
 };
 
-const OutlinedIcon = ({
-  name,
-  selected,
-}: {
-  name: string;
-  selected: boolean;
-}) => {
-  return (
-    <Icon
-      theme={IconTheme.Outlined}
-      color={selected ? palette.green.primary : palette.gray.background}
-      size={44}
-    >
-      {name}
-    </Icon>
-  );
-};
-
-const Season = () => {
+const SeasonSection = () => {
   return (
     <InfoWrapper>
       <SmallTitle>잘 어울리는 계절</SmallTitle>
       <DescWrapper>
-        <HStack padding="10px 0px" gap={32}>
-          <OutlinedIcon name={"filter_vintage"} selected />
-          <OutlinedIcon name={"beach_access"} selected={false} />
-          <OutlinedIcon name={"eco"} selected={false} />
-          <OutlinedIcon name={"ac_unit"} selected={false} />
-        </HStack>
+        <Season selectedValue={SeasonType.Spring} />
         <DescText gap={4}>
           <ColoredSpan>68%</ColoredSpan>의 사용자가
           <ColoredSpan>봄</ColoredSpan>에 어울린다고 답변했어
@@ -71,15 +53,12 @@ const Season = () => {
   );
 };
 
-const Time = () => {
+const TimeSection = () => {
   return (
     <InfoWrapper>
       <SmallTitle>잘 어울리는 시간</SmallTitle>
       <DescWrapper>
-        <HStack padding="10px 0px" gap={60}>
-          <OutlinedIcon name={"light_mode"} selected />
-          <OutlinedIcon name={"bedtime"} selected={false} />
-        </HStack>
+        <Time selectedValue={TimeType.Day} />
         <DescText gap={4}>
           <ColoredSpan>81%</ColoredSpan>의 사용자가
           <ColoredSpan>낮</ColoredSpan>에 어울린다고 답변했어

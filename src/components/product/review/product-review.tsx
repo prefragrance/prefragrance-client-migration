@@ -15,9 +15,9 @@ import {
 import { DateFormatTypes, formatDate } from "@src/common/utils/formatDate";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { BigTitle, BodyText, SmallTitle } from "@src/styles/textComponents";
-import Avatar from "../common/avatar/Avatar";
-import { IconTheme } from "../common/icon/Icon";
-import { GraphLabel } from "./product-rate";
+import Avatar from "../../common/avatar/Avatar";
+import { IconTheme } from "../../common/icon/Icon";
+import { GraphLabel } from "../product-rate";
 
 const filteringButtons: IFilteringItem[] = [
   { label: "5점", value: 5 },
