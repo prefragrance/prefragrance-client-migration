@@ -48,8 +48,10 @@ const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  & > div:not(:last-child) {
-    border-bottom: 1px solid ${palette.gray.dark};
+  & > a {
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.6rem;
+    margin: 0.5rem 0rem;
   }
 `;
 
