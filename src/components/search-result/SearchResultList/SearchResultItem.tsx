@@ -5,36 +5,38 @@ import Avatar from "@src/components/common/avatar/Avatar";
 import { Icon, VStack } from "@src/components/common";
 import { ISearchResult } from "@src/common/types/search";
 import { HStack } from "@common-components";
+import Link from "next/link";
+import { RouterUrl } from "@src/common/constants/path";
 
 const SearchResultItem = ({ data }: { data: ISearchResult }) => {
-  console.log(data);
   const rate = data.rate.toFixed(2);
   return (
-    <ItemContainer align="flex-start" padding="1rem">
-      <ImgWrapper>
-        <Avatar url={data?.thumbnail_url} width="5rem" height="5rem" />
-      </ImgWrapper>
-      <InfoWrapper alignItems="flex-start" gap="xs">
-        <ProductTitle>{data.name}</ProductTitle>
-        <Producer>{data.producer}</Producer>
+    <Link href={`${RouterUrl.ProductDetail}/${data.id}`} key={data.id}>
+      <ItemContainer align="flex-start" padding="1rem">
+        <ImgWrapper>
+          <Avatar url={data?.thumbnail_url} width="5rem" height="5rem" />
+        </ImgWrapper>
+        <InfoWrapper alignItems="flex-start" gap="xs">
+          <ProductTitle>{data.name}</ProductTitle>
+          <Producer>{data.producer}</Producer>
 
-        <ProductInfo align="flex-start" gap="xs">
-          <VisitWrapper gap={4}>
-            <Icon size={`${fontSize.body}`}>visibility</Icon>
-            {data.visit_cnt}
-          </VisitWrapper>
-          <ReviewWrapper gap={4}>
-            <Icon size={`${fontSize.body}`}>rate_review</Icon>
-            {data.review_cnt}
-          </ReviewWrapper>
-          <RateWrapper gap={4}>
-            <Icon size={`${fontSize.body}`}>star</Icon>
-            <span>{rate}</span>
-          </RateWrapper>
-        </ProductInfo>
-      </InfoWrapper>
-    </ItemContainer>
-    // <Link href={pathname: RouteUrl.ProductDetail, query: {id: id}}
+          <ProductInfo align="flex-start" gap="xs">
+            <VisitWrapper gap={4}>
+              <Icon size={`${fontSize.body}`}>visibility</Icon>
+              {data.visit_cnt}
+            </VisitWrapper>
+            <ReviewWrapper gap={4}>
+              <Icon size={`${fontSize.body}`}>rate_review</Icon>
+              {data.review_cnt}
+            </ReviewWrapper>
+            <RateWrapper gap={4}>
+              <Icon size={`${fontSize.body}`}>star</Icon>
+              <span>{rate}</span>
+            </RateWrapper>
+          </ProductInfo>
+        </InfoWrapper>
+      </ItemContainer>
+    </Link>
   );
 };
 
