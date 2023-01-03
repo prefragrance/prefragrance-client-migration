@@ -1,32 +1,22 @@
-import React, { useState, Suspense } from "react";
-import dynamic from "next/dynamic";
+import React, { useState } from "react";
 import Categories from "@src/components/search-result/Categories";
-import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
 import styled from "@emotion/styled";
 import { VStack } from "@src/components/common";
-import LoadingSpinner from "@src/components/common/loading-spinner/LoadingSpinner";
+import SearchResultList from "@src/components/search-result/SearchResultList";
 
 export interface ICurrentCategory {
   currentCate: string;
   setCurrentCate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchResultList = dynamic(
-  () => import("@src/components/search-result/SearchResultList"),
-  { suspense: true }
-);
-
 const SearchResultPage = () => {
-  const { searchResult } = useSearchQuery();
   const [currentCate, setCurrentCate] = useState<string>("향수");
 
   return (
     <CenterWrapper>
       <PageWrapper>
         <Categories currentCate={currentCate} setCurrentCate={setCurrentCate} />
-        <Suspense fallback={<LoadingSpinner />}>
-          <SearchResultList searchResult={searchResult} />
-        </Suspense>
+        <SearchResultList />
       </PageWrapper>
     </CenterWrapper>
   );

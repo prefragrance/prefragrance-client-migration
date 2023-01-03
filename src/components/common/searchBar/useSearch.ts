@@ -1,6 +1,6 @@
 import SearchApi from "@src/common/api/search";
 import { ISearchKeywords, ISearchResult } from "@src/common/types/search";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { IOption } from "./categoryDropdown";
 import { SearchModalCategoriesName } from "./searchModal/CategoryTab";
@@ -12,7 +12,7 @@ export const useSearchQuery = () => {
   const apiQuery = query.q_field
     ? `q_field=${query.q_field}&search=${query.search}`
     : `search=${query.search}`;
-  const { data } = useQuery<ISearchResult>(
+  const { fetchStatus, data } = useQuery<ISearchResult>(
     ["search", query.search],
     () => SearchApi.getSearchData(apiQuery),
     {
@@ -30,10 +30,25 @@ export const useSearchQuery = () => {
         tags: "",
         codes: [],
       },
-      suspense: true,
+      refetchOnWindowFocus: false,
     }
   );
-  return { searchResult: data };
+  const { mutate } = useMutation(
+    () => SearchApi.postSearchData(`search=${query.search}`)
+    // {
+    //   onSettled: () => {
+    //     console.log("end");
+    //   },
+    //   onError: (error) => {
+    //     console.log(error);
+    //   },
+    // }
+  ); // 백엔드 작업 끝나면 apiQuery 넘겨야 함
+  return {
+    searchResult: data,
+    fetchStatus,
+    postSearchQuery: mutate,
+  };
 };
 
 export const useSearchKeywordQuery = (currentTab: IOption) => {

@@ -4,7 +4,8 @@ import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import SearchResultItem from "./SearchResultItem";
 import { ISearchResult } from "@src/common/types/search";
 import Select, { IOrderProps } from "@src/components/common/select/Select";
-import { HStack, VStack } from "@common-components";
+import { HStack, LoadingSpinner, VStack } from "@common-components";
+import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
 
 const orderList: IOrderProps[] = [
   { label: "조회순", value: "" },
@@ -12,12 +13,15 @@ const orderList: IOrderProps[] = [
   { label: "리뷰 많은 순", value: "" },
 ];
 
-const SearchResultList = ({
-  searchResult,
-}: {
-  searchResult: ISearchResult;
-}) => {
+const SearchResultList = () => {
+  const { searchResult, fetchStatus } = useSearchQuery();
   const searchResultCount = Object(searchResult).length | 0;
+
+  // console.log(fetchStatus);
+  if (fetchStatus === "fetching" || !searchResult) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <Wrapper>
       <InfoWrapper align="space-between" padding="0rem 0.5rem">
