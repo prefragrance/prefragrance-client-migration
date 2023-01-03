@@ -12,30 +12,32 @@ const SearchResultItem = ({ data }: { data: ISearchResult }) => {
   const rate = data.rate.toFixed(2);
   return (
     <Link href={`${RouterUrl.ProductDetail}/${data.id}`} key={data.id}>
-      <ItemContainer align="flex-start" padding="1rem">
-        <ImgWrapper>
-          <Avatar url={data?.thumbnail_url} width="5rem" height="5rem" />
-        </ImgWrapper>
-        <InfoWrapper alignItems="flex-start" gap="xs">
-          <ProductTitle>{data.name}</ProductTitle>
-          <Producer>{data.producer}</Producer>
+      <a>
+        <ItemContainer align="flex-start" padding="1rem">
+          <ImgWrapper>
+            <Avatar url={data?.thumbnail_url} width="5rem" height="5rem" />
+          </ImgWrapper>
+          <InfoWrapper alignItems="flex-start" gap="xs">
+            <ProductTitle>{data.name}</ProductTitle>
+            <Producer>{data.producer}</Producer>
 
-          <ProductInfo align="flex-start" gap="xs">
-            <VisitWrapper gap={4}>
-              <Icon size={`${fontSize.body}`}>visibility</Icon>
-              {data.visit_cnt}
-            </VisitWrapper>
-            <ReviewWrapper gap={4}>
-              <Icon size={`${fontSize.body}`}>rate_review</Icon>
-              {data.review_cnt}
-            </ReviewWrapper>
-            <RateWrapper gap={4}>
-              <Icon size={`${fontSize.body}`}>star</Icon>
-              <span>{rate}</span>
-            </RateWrapper>
-          </ProductInfo>
-        </InfoWrapper>
-      </ItemContainer>
+            <ProductInfo align="flex-start" gap="xs">
+              <VisitWrapper gap={4}>
+                <Icon size={`${fontSize.body}`}>visibility</Icon>
+                {data.visit_cnt}
+              </VisitWrapper>
+              <ReviewWrapper gap={4}>
+                <Icon size={`${fontSize.body}`}>rate_review</Icon>
+                {data.review_cnt}
+              </ReviewWrapper>
+              <RateWrapper gap={4}>
+                <Icon size={`${fontSize.body}`}>star</Icon>
+                <span>{rate}</span>
+              </RateWrapper>
+            </ProductInfo>
+          </InfoWrapper>
+        </ItemContainer>
+      </a>
     </Link>
   );
 };
