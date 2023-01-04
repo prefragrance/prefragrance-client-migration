@@ -8,7 +8,13 @@ import "@public/assets/fonts/fonts.css";
 import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
   const [showChild, setShowChild] = useState(false);
   useEffect(() => {
     setShowChild(true);
