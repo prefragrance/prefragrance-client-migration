@@ -14,3 +14,5 @@ export { default as Stars } from "./stars/Stars";
 export { default as StarInput } from "./stars/StarInput";
 export { default as LoadingSpinner } from "./loading-spinner/LoadingSpinner";
 export { default as Modal } from "./modal/Modal";
+export { default as RadioGroup } from "./radio-group/RadioGroup";
+export { default as Textarea } from "./textarea/Textarea";

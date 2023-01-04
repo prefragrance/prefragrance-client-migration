@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@common-components";
 import styled from "@emotion/styled";
+import { RouterUrl } from "@src/common/constants/path";
 import {
   IProductDetailResponse,
   IProductReviewResponse,
@@ -15,6 +16,7 @@ import {
 import { DateFormatTypes, formatDate } from "@src/common/utils/formatDate";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { BigTitle, BodyText, SmallTitle } from "@src/styles/textComponents";
+import { useRouter } from "next/router";
 import Avatar from "../../common/avatar/Avatar";
 import { IconTheme } from "../../common/icon/Icon";
 import { GraphLabel } from "../product-rate";
@@ -31,11 +33,12 @@ interface IProductReview {
   productDetail: IProductDetailResponse;
   productReview: IProductReviewResponse[];
   handleModalOpen: () => void;
+  isLoggedIn: boolean;
 }
 
 interface IReview {
   productReview: IProductReviewResponse[];
-  handleModalOpen: () => void;
+  handleLoginCheck: () => void;
 }
 
 interface IReviewItem {
@@ -55,15 +58,29 @@ const ProductReview = ({
   productDetail,
   productReview,
   handleModalOpen,
+  isLoggedIn,
 }: IProductReview) => {
+  const router = useRouter();
   // TODO : need to add ordering state
   // const [ordering, setOrdering] = useState<>()
+
+  const handleLoginCheck = () => {
+    if (isLoggedIn) {
+      handleModalOpen();
+      return;
+    }
+    alert("로그인이 필요한 기능입니다.");
+    router.replace(RouterUrl.Login);
+  };
 
   return (
     <ReviewContainer>
       <Statistics productDetail={productDetail} />
       <HDivider />
-      <Review productReview={productReview} handleModalOpen={handleModalOpen} />
+      <Review
+        productReview={productReview}
+        handleLoginCheck={handleLoginCheck}
+      />
     </ReviewContainer>
   );
 };
@@ -138,7 +155,7 @@ const Statistics = ({
   );
 };
 
-const Review = ({ productReview, handleModalOpen }: IReview) => {
+const Review = ({ productReview, handleLoginCheck }: IReview) => {
   return (
     <ReviewWrapper>
       <HStack align={"space-between"}>
@@ -160,21 +177,27 @@ const Review = ({ productReview, handleModalOpen }: IReview) => {
           text={"리뷰 쓰기"}
           width={"200px"}
           padding={"10px 0px"}
-          onClick={handleModalOpen}
+          onClick={handleLoginCheck}
         />
       </HStack>
       <ReviewListWrapper>
-        {productReview.map((review, index) => (
-          <div key={review.id}>
-            <ReviewItem review={review} />
-            {index < productReview.length - 1 && (
-              <HDivider
-                backgroundColor={palette.gray.mediumLight}
-                height={"1.5px"}
-              />
-            )}
-          </div>
-        ))}
+        {productReview.length === 0 && (
+          <VStack align={"center"} padding="80px 0px">
+            <BodyText>리뷰가 없습니다.</BodyText>
+          </VStack>
+        )}
+        {productReview.length > 0 &&
+          productReview.map((review, index) => (
+            <div key={review.id}>
+              <ReviewItem review={review} />
+              {index < productReview.length - 1 && (
+                <HDivider
+                  backgroundColor={palette.gray.mediumLight}
+                  height={"1.5px"}
+                />
+              )}
+            </div>
+          ))}
       </ReviewListWrapper>
     </ReviewWrapper>
   );
@@ -231,6 +254,7 @@ const ReviewWrapper = styled.div`
 const ReviewListWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 200px;
 `;
 
 const ReviewItemWrapper = styled.div`

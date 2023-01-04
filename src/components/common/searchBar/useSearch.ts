@@ -12,7 +12,7 @@ export const useSearchQuery = () => {
   const apiQuery = query.q_field
     ? `q_field=${query.q_field}&search=${query.search}`
     : `search=${query.search}`;
-  const { data } = useQuery<ISearchResult>(
+  const { data, isLoading } = useQuery<ISearchResult>(
     ["search", query.search],
     () => SearchApi.getSearchData(apiQuery),
     {
@@ -32,7 +32,7 @@ export const useSearchQuery = () => {
       },
     }
   );
-  return { searchResult: data };
+  return { searchResult: data, isSearchLoading: isLoading };
 };
 
 export const useSearchKeywordQuery = (currentTab: IOption) => {

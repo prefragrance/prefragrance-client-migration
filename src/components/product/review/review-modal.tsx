@@ -5,9 +5,11 @@ import {
   Icon,
   LoadingSpinner,
   StarInput,
+  Textarea,
   VStack,
 } from "@common-components";
 import styled from "@emotion/styled";
+import { TagsType } from "@src/common/constants/colors";
 import {
   DurationType,
   IPostReviewPayload,
@@ -17,13 +19,17 @@ import {
   TimeType,
 } from "@src/common/types/product";
 import { calculateSize } from "@src/common/utils/calculateSize";
+import RadioGroup, {
+  IRadioOption,
+} from "@src/components/common/radio-group/RadioGroup";
 import { fontWeight, palette } from "@src/styles/styles";
 import { BodyText, SmallTitle } from "@src/styles/textComponents";
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { IModal } from "../../common/modal/Modal";
 import { usePostReview } from "../usePostReview";
 import Season from "./season";
+import { TagsSelectBox } from "./tags-select-box";
 import Time from "./time";
 
 interface IReviewModalContent extends IModal {
@@ -31,6 +37,18 @@ interface IReviewModalContent extends IModal {
   handleModalClose?: () => void;
   id: string;
 }
+
+const durationOptionList: IRadioOption[] = [
+  { label: "매우 약함", value: DurationType.One },
+  { label: "보통", value: DurationType.Two },
+  { label: "매우 강함", value: DurationType.Three },
+];
+
+const strengthOptionList: IRadioOption[] = [
+  { label: "매우 약함", value: StrengthType.One },
+  { label: "보통", value: StrengthType.Two },
+  { label: "매우 강함", value: StrengthType.Three },
+];
 
 const ReviewModal = ({
   productDetail,
@@ -47,9 +65,10 @@ const ReviewModal = ({
     content: "",
     tags: [],
   });
-  const { postReview, isPostReviewLoading } = usePostReview({ id });
-
-  console.log(payload);
+  const { postReview, isPostReviewLoading } = usePostReview({
+    id,
+    onSuccess: handleModalClose,
+  });
 
   const handleRateChange = (value: number) => {
     setPayload({ ...payload, rate: value });
@@ -61,6 +80,22 @@ const ReviewModal = ({
 
   const handleTimeChange = (value: TimeType) => {
     setPayload({ ...payload, time: value });
+  };
+
+  const handleDurationChange = (value: DurationType) => {
+    setPayload({ ...payload, duration: value });
+  };
+
+  const handleStrengthChange = (value: StrengthType) => {
+    setPayload({ ...payload, strength: value });
+  };
+
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setPayload({ ...payload, content: e.target.value });
+  };
+
+  const handleTagsChange = (value: TagsType[]) => {
+    setPayload({ ...payload, tags: value });
   };
 
   const handleSubmit = () => {
@@ -126,20 +161,43 @@ const ReviewModal = ({
           <BodyText fontWeight={fontWeight.bold}>
             향의 지속력은 어땠나요?
           </BodyText>
+          <RadioGroup
+            optionList={durationOptionList}
+            onChange={handleDurationChange}
+          />
         </VStack>
         <HDivider />
         <VStack padding="10px 0px">
           <BodyText fontWeight={fontWeight.bold}>
             향의 강도는 어땠나요?
           </BodyText>
+          <RadioGroup
+            optionList={strengthOptionList}
+            onChange={handleStrengthChange}
+          />
         </VStack>
         <HDivider />
         <VStack padding="10px 0px">
           <BodyText fontWeight={fontWeight.bold}>
             향에 대해 느낀점을 말해주세요!
           </BodyText>
+          <Textarea
+            value={payload.content}
+            onChange={handleContentChange}
+            maxLength={1500}
+            placeholder={"내용을 입력해주세요."}
+          />
         </VStack>
         <HDivider />
+        <VStack padding="10px 0px">
+          <BodyText fontWeight={fontWeight.bold}>
+            향을 가장 잘 나타내는 키워드를 골라주세요.
+          </BodyText>
+          <TagsSelectBox
+            payloadList={payload.tags}
+            onChange={handleTagsChange}
+          />
+        </VStack>
       </InputWrapper>
 
       <Footer>
@@ -156,6 +214,7 @@ const ReviewModal = ({
           backgroundColor={palette.green.primary}
           color={palette.white}
           onClick={handleSubmit}
+          disabled={payload.rate === 0}
         />
       </Footer>
     </VStack>

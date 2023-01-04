@@ -36,7 +36,7 @@ class ProductApi {
   ): Promise<unknown> {
     const { id, ...rest } = payload;
     const response = await apiCall.post(
-      `${ApiUrl.base}${ApiUrl.product}/${parseInt(id)}/review/`,
+      `${ApiUrl.base}${ApiUrl.product.detail}/${parseInt(id)}/review/`,
       rest
     );
 

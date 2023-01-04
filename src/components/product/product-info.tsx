@@ -1,14 +1,17 @@
 import { Button, HStack, Stars, VStack } from "@common-components";
 import styled from "@emotion/styled";
+import { RouterUrl } from "@src/common/constants/path";
 import { IProductDetailResponse } from "@src/common/types/product";
 import { calculateSize } from "@src/common/utils/calculateSize";
 import { fontWeight, palette } from "@src/styles/styles";
 import { BiggestText, MediumTitle } from "@src/styles/textComponents";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface IProductInfo {
   productDetail: IProductDetailResponse;
   handleModalOpen: () => void;
+  isLoggedIn: boolean;
 }
 
 interface ITag {
@@ -17,7 +20,22 @@ interface ITag {
   color?: string;
 }
 
-const ProductInfo = ({ productDetail, handleModalOpen }: IProductInfo) => {
+const ProductInfo = ({
+  productDetail,
+  handleModalOpen,
+  isLoggedIn,
+}: IProductInfo) => {
+  const router = useRouter();
+
+  const handleLoginCheck = () => {
+    if (isLoggedIn) {
+      handleModalOpen();
+      return;
+    }
+    alert("로그인이 필요한 기능입니다.");
+    router.replace(RouterUrl.Login);
+  };
+
   return (
     <Container padding="50px" gap={30}>
       <ImageContainer>
@@ -84,7 +102,7 @@ const ProductInfo = ({ productDetail, handleModalOpen }: IProductInfo) => {
           width={"100%"}
           fontWeight={fontWeight.bold}
           padding="12px 0px"
-          onClick={handleModalOpen}
+          onClick={handleLoginCheck}
         />
       </RightContainer>
     </Container>
