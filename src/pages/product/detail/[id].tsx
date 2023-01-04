@@ -1,14 +1,16 @@
-import styled from "@emotion/styled";
 import { HDivider, LoadingSpinner, Modal, VStack } from "@common-components";
+import styled from "@emotion/styled";
+import { useIsLoggedIn } from "@src/common/hooks/useAuth";
+import { useCommonModal } from "@src/common/hooks/useCommonModal";
 import ProductInfo from "@src/components/product/product-info";
 import ProductRate from "@src/components/product/product-rate";
+import ProductReview from "@src/components/product/review/product-review";
+import ReviewModal from "@src/components/product/review/review-modal";
 import { useProductDetail } from "@src/components/product/useProductDetail";
+import { useProductReview } from "@src/components/product/useProductReview";
 import { fontWeight, palette } from "@src/styles/styles";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import ProductReview from "@src/components/product/product-review";
-import { useProductReview } from "@src/components/product/useProductReview";
-import { useCommonModal } from "@src/common/hooks/useCommonModal";
 
 const detailTabs: string[] = ["제품상세", "리뷰"];
 
@@ -28,6 +30,7 @@ const ProductDetailPage = () => {
   const { productReview, isProductReviewLoading } = useProductReview(id);
   const { isModalOpen, handleModalOpen, handleModalClose } = useCommonModal();
   const [activeTab, setActiveTab] = useState<string>(detailTabs[0]);
+  const isLoggedIn = useIsLoggedIn();
 
   const changeTab = (tab: string) => {
     setActiveTab(tab);
@@ -39,7 +42,11 @@ const ProductDetailPage = () => {
 
   return (
     <VStack gap={20}>
-      <ProductInfo productDetail={productDetail} />
+      <ProductInfo
+        productDetail={productDetail}
+        handleModalOpen={handleModalOpen}
+        isLoggedIn={isLoggedIn}
+      />
       <InfoContainer>
         <Tab activeTab={activeTab} changeTab={changeTab} />
         {activeTab === detailTabs[0] && (
@@ -50,6 +57,7 @@ const ProductDetailPage = () => {
               productDetail={productDetail}
               productReview={productReview}
               handleModalOpen={handleModalOpen}
+              isLoggedIn={isLoggedIn}
             />
           </VStack>
         )}
@@ -58,12 +66,21 @@ const ProductDetailPage = () => {
             productDetail={productDetail}
             productReview={productReview}
             handleModalOpen={handleModalOpen}
+            isLoggedIn={isLoggedIn}
           />
         )}
       </InfoContainer>
       {isModalOpen && (
-        <Modal open={isModalOpen} onInteractOutside={handleModalClose}>
-          <div>test</div>
+        <Modal
+          open={isModalOpen}
+          onInteractOutside={handleModalClose}
+          width={600}
+        >
+          <ReviewModal
+            productDetail={productDetail}
+            handleModalClose={handleModalClose}
+            id={id as string}
+          />
         </Modal>
       )}
     </VStack>

@@ -57,6 +57,7 @@ const StyledButton = styled.button<IButton>`
   :disabled {
     background-color: ${palette.gray.background};
     color: ${palette.gray.dark};
+    cursor: not-allowed;
   }
 `;
 

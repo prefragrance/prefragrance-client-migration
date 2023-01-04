@@ -11,5 +11,8 @@ export { default as VStack } from "./stacks/VStack";
 export { default as SearchBar } from "./searchBar/SearchBar";
 export { default as Select } from "./select/Select";
 export { default as Stars } from "./stars/Stars";
+export { default as StarInput } from "./stars/StarInput";
 export { default as LoadingSpinner } from "./loading-spinner/LoadingSpinner";
 export { default as Modal } from "./modal/Modal";
+export { default as RadioGroup } from "./radio-group/RadioGroup";
+export { default as Textarea } from "./textarea/Textarea";

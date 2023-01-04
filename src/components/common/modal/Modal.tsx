@@ -5,14 +5,11 @@ import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
 import { calculateSize } from "@src/common/utils/calculateSize";
 
-export interface IModal extends IModalContent {
+export interface IModal {
   children?: React.ReactNode;
   open?: boolean;
-}
-
-export interface IModalContent {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   onInteractOutside?: (event: unknown) => void;
 }
 
@@ -54,7 +51,7 @@ const StyledOverlay = styled(DialogPrimitive.Overlay)({
   zIndex: 10,
 });
 
-const StyledContent = styled(DialogPrimitive.Content)<IModalContent>`
+const StyledContent = styled(DialogPrimitive.Content)<IModal>`
   background-color: ${palette.white};
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
@@ -62,12 +59,13 @@ const StyledContent = styled(DialogPrimitive.Content)<IModalContent>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: ${({ width }) => calculateSize(width)};
-  height: ${({ height }) => calculateSize(height)};
+  width: ${({ width }) =>
+    typeof width === "number" ? calculateSize(width) : width};
+  height: fit-content;
   overflow-y: auto;
   z-index: 100;
-  max-height: 10vh;
-  border-radius: 16px;
+  max-height: 85vh;
+  border-radius: 5px;
 
   &:focus {
     outline: none;

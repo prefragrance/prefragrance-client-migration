@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Icon, { IconTheme } from "../icon/Icon";
 import HStack from "../stacks/HStack";
 
-interface IStars {
+export interface IStars {
   rate: number;
   size?: number;
   color?: string;

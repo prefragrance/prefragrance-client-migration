@@ -1,5 +1,6 @@
 import { ApiUrl } from "@src/common/constants/path";
 import {
+  IPostReviewPayload,
   IProductDetailResponse,
   IProductReviewResponse,
 } from "@src/common/types/product";
@@ -25,6 +26,22 @@ class ProductApi {
 
     if (response.status !== 200) {
       throw new Error("Unable to get product review");
+    }
+
+    return response.data;
+  }
+
+  static async postProductReview(
+    payload: IPostReviewPayload
+  ): Promise<unknown> {
+    const { id, ...rest } = payload;
+    const response = await apiCall.post(
+      `${ApiUrl.base}${ApiUrl.product.detail}/${parseInt(id)}/review/`,
+      rest
+    );
+
+    if (response.status !== 200) {
+      throw new Error("Unable to post product review");
     }
 
     return response.data;
