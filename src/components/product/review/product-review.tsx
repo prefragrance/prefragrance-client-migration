@@ -9,6 +9,7 @@ import {
 } from "@common-components";
 import styled from "@emotion/styled";
 import { RouterUrl } from "@src/common/constants/path";
+import { checkLogin } from "@src/common/store/user";
 import {
   IProductDetailResponse,
   IProductReviewResponse,
@@ -17,6 +18,7 @@ import { DateFormatTypes, formatDate } from "@src/common/utils/formatDate";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { BigTitle, BodyText, SmallTitle } from "@src/styles/textComponents";
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
 import Avatar from "../../common/avatar/Avatar";
 import { IconTheme } from "../../common/icon/Icon";
 import { GraphLabel } from "../product-rate";
@@ -33,7 +35,6 @@ interface IProductReview {
   productDetail: IProductDetailResponse;
   productReview: IProductReviewResponse[];
   handleModalOpen: () => void;
-  isLoggedIn: boolean;
 }
 
 interface IReview {
@@ -58,9 +59,10 @@ const ProductReview = ({
   productDetail,
   productReview,
   handleModalOpen,
-  isLoggedIn,
 }: IProductReview) => {
   const router = useRouter();
+  const isLoggedIn = useRecoilValue(checkLogin);
+
   // TODO : need to add ordering state
   // const [ordering, setOrdering] = useState<>()
 
@@ -235,7 +237,8 @@ const ReviewItem = ({ review }: IReviewItem) => {
 const ReviewContainer = styled.section`
   display: flex;
   flex-direction: column;
-  width: 1080px;
+  width: 100%;
+  min-width: 900px;
 `;
 
 const StatisticsWrapper = styled.div`

@@ -1,17 +1,18 @@
 import { Button, HStack, Stars, VStack } from "@common-components";
 import styled from "@emotion/styled";
 import { RouterUrl } from "@src/common/constants/path";
+import { checkLogin } from "@src/common/store/user";
 import { IProductDetailResponse } from "@src/common/types/product";
 import { calculateSize } from "@src/common/utils/calculateSize";
 import { fontWeight, palette } from "@src/styles/styles";
 import { BiggestText, MediumTitle } from "@src/styles/textComponents";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
 
 interface IProductInfo {
   productDetail: IProductDetailResponse;
   handleModalOpen: () => void;
-  isLoggedIn: boolean;
 }
 
 interface ITag {
@@ -20,12 +21,9 @@ interface ITag {
   color?: string;
 }
 
-const ProductInfo = ({
-  productDetail,
-  handleModalOpen,
-  isLoggedIn,
-}: IProductInfo) => {
+const ProductInfo = ({ productDetail, handleModalOpen }: IProductInfo) => {
   const router = useRouter();
+  const isLoggedIn = useRecoilValue(checkLogin);
 
   const handleLoginCheck = () => {
     if (isLoggedIn) {
@@ -119,8 +117,9 @@ const Tag = ({ content, backgroundColor, color }: ITag) => {
 
 const Container = styled(HStack)`
   height: max-content;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
+  min-width: 900px;
 `;
 
 const ImageContainer = styled.div`
