@@ -2,6 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import { palette } from "../../styles/styles";
 import { IMagazineProduct } from "@src/common/types/magazine";
+import Link from "next/link";
+import { RouterUrl } from "@src/common/constants/path";
 
 const MagazineBox = ({
   id,
@@ -24,7 +26,13 @@ const MagazineBox = ({
       <ProfileImg src={thumbnail_url} />
       <Content>내용 ~.~</Content>
       <InfoSection>
-        <ToDetail>제품 자세히 보기</ToDetail>
+        <ToDetail>
+          <Link href={RouterUrl.ProductDetail}>
+            <a>
+                제품 자세히 보기
+            </a>
+          </Link>
+        </ToDetail>
       </InfoSection>
     </ReviewSection>
   );

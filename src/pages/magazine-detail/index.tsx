@@ -2,15 +2,14 @@ import styled from "@emotion/styled";
 import { IMagazineProduct } from "@src/common/types/magazine";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
+import MagazineBox from "./magazineBox";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
+import MagazineApi from "@src/common/api/magazine";
+import ProductApi from "@src/common/api/product";
 
-// import { useQuery } from "@tanstack/react-query";
-
-export interface IMagazineProductData {
-  movieData: {
-    magazineProductArr: IMagazineProduct[];
-    productName: string;
-  };
-}
+const NEW_MAGAZINE = MagazineApi.getMagazineData('tag','clean')
+console.log(NEW_MAGAZINE)
 
 const client = new QueryClient();
 
@@ -82,27 +81,27 @@ const RAW_DATA = [
     pub_date: "2022.08.19",
   },
 ];
+console.log(RAW_DATA)
+
 
 const MagazineDetail = () => {
-  // const [mIndex, setMIndex] = useState(0);
-  // const IncreaseMIndex = () => setMIndex((prev: number)=>(prev+1));
-  // // const navigate = useNavigate();
-  // // const onBoxClicked = (id: number) => {
-  // //   navigate(`/product/${RAW_DATA.id}`);
-  // // };
+
+  const GetMagazine = async () => {
+    const response = await fetch("http://127.0.0.1:8000/api/product/magazine/?tag=clean")
+    const data = await response.json()
+    console.log(data)
+  }
+
+  GetMagazine()
 
   return (
     <QueryClientProvider client={client}>
-      <Theme>
-        <Title>상큼한 향 베스트 20</Title>
-      </Theme>
-      <SubTitle>상큼한 취향을 가진 당신에게 추천합니다</SubTitle>
       <Body>
         <RowSection>
           {RAW_DATA.slice().map((obj) => (
-            <div key={obj.id}></div>
-            // type error : need to fix
-            // <MagazineBox key={obj.id} {...obj} />
+            <div key={obj.id}>
+              <MagazineBox key={obj.id} {...obj} />
+            </div>
           ))}
         </RowSection>
       </Body>
@@ -110,27 +109,27 @@ const MagazineDetail = () => {
   );
 };
 
-const Theme = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ededed;
-  padding: 5rem;
-  padding-bottom: 1rem;
-`;
+// const Theme = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: #ededed;
+//   padding: 5rem;
+//   padding-bottom: 1rem;
+// `;
 
-const Title = styled.div`
-  font-size: 3.5rem;
-  font-weight: 700;
-`;
-const SubTitle = styled.div`
-  font-size: 1rem;
-  background-color: #ededed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 5rem;
-`;
+// const Title = styled.div`
+//   font-size: 3.5rem;
+//   font-weight: 700;
+// `;
+// const SubTitle = styled.div`
+//   font-size: 1rem;
+//   background-color: #ededed;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding-bottom: 5rem;
+// `;
 
 const Body = styled.div`
   display: grid;

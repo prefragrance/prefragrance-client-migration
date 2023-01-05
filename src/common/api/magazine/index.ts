@@ -8,7 +8,7 @@ class MagazineApi {
     query: string
   ): Promise<IMagazineProduct> {
     const response = await apiCall.get(
-      `${ApiUrl.base}${ApiUrl.product.magazine}/?${type}=${query}`
+      `${ApiUrl.base}${ApiUrl.product.magazine}?${type}=${query}`
     );
 
     if (response.status !== 200) {
