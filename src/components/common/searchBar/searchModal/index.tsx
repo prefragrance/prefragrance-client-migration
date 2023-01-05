@@ -79,6 +79,7 @@ const ModalSection = styled.div`
   border: 1px solid ${palette.gray.light};
   border-radius: 0.4rem;
   box-sizing: border-box;
+  box-shadow: 0 0.1rem 2rem rgba(0, 0, 0, 0.2);
   padding: 0.4rem;
 `;
 
