@@ -9,7 +9,7 @@ export const useIsLoggedIn = () => {
 
   const fetchUser = async () => {
     try {
-      const token = getLocalStorage(LocalStorageName.AccessToken);
+      const token = getLocalStorage(LocalStorageName.RefreshToken);
       if (token) {
         const responseStatus = await AuthApi.verifyToken(token);
         setIsLoggedIn(responseStatus === 200);

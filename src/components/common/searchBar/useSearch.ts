@@ -16,6 +16,7 @@ export const useSearchQuery = () => {
     ["search", query.search],
     () => SearchApi.getSearchData(apiQuery),
     {
+      enabled: !!query.search,
       initialData: {
         id: 0,
         name: "",
@@ -34,7 +35,7 @@ export const useSearchQuery = () => {
     }
   );
   const { mutate } = useMutation(
-    () => SearchApi.postSearchData(`search=${query.search}`)
+    () => SearchApi.postSearchData(query.search as string)
     // {
     //   onSettled: () => {
     //     console.log("end");

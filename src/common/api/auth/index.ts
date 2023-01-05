@@ -32,7 +32,7 @@ class AuthApi {
       }
     );
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       throw new Error("Unable to login");
     }
 

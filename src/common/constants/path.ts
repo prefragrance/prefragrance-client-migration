@@ -9,7 +9,7 @@ export enum RouterUrl {
 
 export const ApiUrl = {
   base: "http://127.0.0.1:8000/api",
-  search: "/search",
+  search: "/search/",
   accounts: {
     login: "/accounts/login/",
     logout: "/accounts/logout/",

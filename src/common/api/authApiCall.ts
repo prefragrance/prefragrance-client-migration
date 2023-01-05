@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { ApiUrl } from "../constants/path";
+import { ApiUrl, RouterUrl } from "../constants/path";
 import {
+  deleteLocalStorage,
   getLocalStorage,
   LocalStorageName,
   setLocalStorage,
@@ -35,7 +36,7 @@ const responseInterceptorError = () => async (error: any) => {
 
     if (currentRefreshToken) {
       try {
-        // deleteLocalStorage(LocalStorageName.AccessToken);
+        deleteLocalStorage(LocalStorageName.AccessToken);
         originalConfig.headers.authorization = null;
 
         const { access } = await AuthApi.postRefreshToken(currentRefreshToken);
@@ -44,23 +45,24 @@ const responseInterceptorError = () => async (error: any) => {
           value: access,
         });
       } catch (error) {
-        // deleteLocalStorageAll();
-        // window.location.assign(RouterUrl.Login);
+        deleteLocalStorage(LocalStorageName.AccessToken);
+        deleteLocalStorage(LocalStorageName.RefreshToken);
+        window.location.assign(RouterUrl.Login);
         return Promise.reject(error);
       }
       originalConfig._retry = true;
       return authApiCall(originalConfig);
     } else {
-      // deleteLocalStorage(LocalStorageName.RefreshToken);
-      // window.location.assign(RouterUrl.Login);
+      deleteLocalStorage(LocalStorageName.RefreshToken);
+      window.location.assign(RouterUrl.Login);
       return Promise.reject(error);
     }
   }
 
   if (status === 403) {
-    // deleteLocalStorage(LocalStorageName.AccessToken);
-    // deleteLocalStorage(LocalStorageName.RefreshToken);
-    // window.location.assign(RouterUrl.Login);
+    deleteLocalStorage(LocalStorageName.AccessToken);
+    deleteLocalStorage(LocalStorageName.RefreshToken);
+    window.location.assign(RouterUrl.Login);
     return Promise.reject(error);
   }
 

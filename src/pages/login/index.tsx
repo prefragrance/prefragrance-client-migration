@@ -1,7 +1,7 @@
 import { Input, VStack } from "@common-components";
 import styled from "@emotion/styled";
 import { RouterUrl } from "@src/common/constants/path";
-import { useIsLoggedIn } from "@src/common/hooks/useAuth";
+import { checkLogin } from "@src/common/store/user";
 import useLogin from "@src/components/login/useLogin";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { BodyText, Span } from "@src/styles/textComponents";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 
 const LoginPage = () => {
   const [username, setUsername] = useState<string>("");
@@ -17,7 +18,7 @@ const LoginPage = () => {
   const { postLogin } = useLogin({
     onError: () => setLoginError(true),
   });
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = useRecoilValue(checkLogin);
   const router = useRouter();
 
   if (isLoggedIn) {

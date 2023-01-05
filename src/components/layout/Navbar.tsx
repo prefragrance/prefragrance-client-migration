@@ -9,7 +9,6 @@ import {
 import styled from "@emotion/styled";
 import AuthApi from "@src/common/api/auth";
 import { RouterUrl } from "@src/common/constants/path";
-import { useIsLoggedIn } from "@src/common/hooks/useAuth";
 import { deleteLocalStorageAll } from "@src/common/hooks/useLocalStorage";
 import { checkLogin, currentUser } from "@src/common/store/user";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
@@ -17,7 +16,7 @@ import { BodyText } from "@src/styles/textComponents";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 
 enum NoneSearchBarUrl {
   Base = RouterUrl.Base,
@@ -27,7 +26,7 @@ enum NoneSearchBarUrl {
 
 const Navbar = () => {
   const router = useRouter();
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = useRecoilValue(checkLogin);
   const [isBoxOpen, setIsBoxOpen] = useState<boolean>(false);
   const resetUser = useResetRecoilState(currentUser);
   const resetIsLoggedIn = useResetRecoilState(checkLogin);
@@ -73,6 +72,7 @@ const Navbar = () => {
                     text={"로그아웃"}
                     onClick={handleLogout}
                     padding={"5px 10px"}
+                    width={"100px"}
                   />
                 )}
                 {!isLoggedIn && (
