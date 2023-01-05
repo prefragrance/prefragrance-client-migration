@@ -49,6 +49,7 @@ const HCard = ({
 
 const CardSection = styled(VStack)`
   background: ${palette.white};
+  width: 300px;
 `;
 
 const ImgSection = styled.div`

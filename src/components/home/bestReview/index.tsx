@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { fontWeight, palette } from "@src/styles/styles";
 import { HStack, VStack } from "@common-components";
+import styled from "@emotion/styled";
+import { palette } from "@src/styles/styles";
 import { BigTitle } from "@src/styles/textComponents";
-import VCard from "./review-card/VCard";
 import HCard from "./review-card/HCard";
+import VCard from "./review-card/VCard";
 
 const RAW_DATA = [
   {
@@ -76,47 +76,48 @@ const RAW_DATA = [
 
 const BestReview = () => {
   return (
-    <>
+    <Wrapper>
       <Header align="space-between">
-        <Title>베스트 리뷰 상품</Title>
+        <BigTitle>베스트 리뷰 상품</BigTitle>
       </Header>
-      <Body>
-        <HSection gap="lg">
+      <Body gap={"lg"}>
+        <HSection gap={"lg"}>
           {RAW_DATA.slice(0, 3).map((obj) => (
             <HCard key={obj.product_id} {...obj} />
           ))}
         </HSection>
-        <VSection gap="lg">
+        <VSection gap="none">
           {RAW_DATA.slice(3).map((obj) => (
             <VCard key={obj.product_id} {...obj} />
           ))}
         </VSection>
       </Body>
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0px;
+  row-gap: 20px;
+`;
 
 const Header = styled(HStack)`
   width: 100%;
 `;
 
-const Title = styled(BigTitle)`
-  font-weight: ${fontWeight.bold};
-`;
-
 const Body = styled(VStack)`
+  width: 100%;
   background-color: ${palette.gray.lighter};
-  padding: 3rem;
-  gap: 3rem;
+  padding: 30px;
 `;
 
 const HSection = styled(HStack)`
-  gap: 3rem;
   width: 100%;
 `;
 
 const VSection = styled(VStack)`
-  gap: 0;
   width: 100%;
 `;
 
