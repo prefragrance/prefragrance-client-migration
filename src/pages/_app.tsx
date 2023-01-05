@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Layout from "@src/components/layout/Layout";
 import "@public/assets/fonts/fonts.css";
 import { RecoilRoot } from "recoil";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -28,14 +29,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <div></div>;
   } else {
     return (
-      <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </RecoilRoot>
+      <>
+        <Head>
+          <title>prefragrance</title>
+        </Head>
+        <RecoilRoot>
+          <QueryClientProvider client={queryClient}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </RecoilRoot>
+      </>
     );
   }
 }

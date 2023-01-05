@@ -39,8 +39,8 @@ const Magazine = () => {
   // }, []);
 
   return (
-    <MagazineWrapper gap="lg">
-      <BoxWrapper>
+    <MagazineWrapper gap={"xs"}>
+      <HStack gap={"xs"}>
         <Button
           onClick={() => setNowPage(nowPage - 1)}
           disabled={nowPage === 1}
@@ -62,7 +62,7 @@ const Magazine = () => {
         >
           <Icon size={fontSize.extraBigText}>chevron_right</Icon>
         </Button>
-      </BoxWrapper>
+      </HStack>
       <RadioSection>
         {pages.map((idx) => (
           <RadioBtn
@@ -78,10 +78,8 @@ const Magazine = () => {
 
 const MagazineWrapper = styled(VStack)`
   width: 100%;
-  position: relative;
+  padding: 40px 0px;
 `;
-
-const BoxWrapper = styled(HStack)``;
 
 const BoxSection = styled.div`
   height: 400px;
@@ -94,20 +92,13 @@ const BoxSection = styled.div`
 `;
 
 const Button = styled.button`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
   font-size: 3rem;
   color: ${palette.gray.dark};
-  &:first-of-type {
-    left: -5rem;
+
+  :disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
   }
-  &:last-of-type {
-    right: -5rem;
-  }
-  ${(props) => props.disabled && "opacity: 0.2; pointer-events: none;"};
 `;
 
 const RadioSection = styled.div`
