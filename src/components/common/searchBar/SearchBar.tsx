@@ -93,7 +93,7 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  width: 600px;
+  width: 500px;
   height: 50px;
   font-family: "NotoSansKR_regular", sans-serif;
   padding-left: 20px;
