@@ -5,7 +5,7 @@ import RecentItems from "./recentItems";
 const RAW_DATA = [
   {
     product_id: 1,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/assets/images/logo.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -16,7 +16,7 @@ const RAW_DATA = [
   },
   {
     product_id: 2,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/assets/images/logo.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -27,7 +27,7 @@ const RAW_DATA = [
   },
   {
     product_id: 3,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/assets/images/logo.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -38,7 +38,7 @@ const RAW_DATA = [
   },
   {
     product_id: 4,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/assets/images/logo.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -49,7 +49,7 @@ const RAW_DATA = [
   },
   {
     product_id: 5,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/assets/images/logo.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 
@@ -60,7 +60,7 @@ const RAW_DATA = [
   },
   {
     product_id: 6,
-    thumbnail_url: "@public/assets/images/취향로고.png",
+    thumbnail_url: "/assets/images/logo.png",
     producer: "ADOPT",
     name: "어돕트 프랑수 향수",
 

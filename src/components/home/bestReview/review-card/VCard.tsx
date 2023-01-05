@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { fontSize, palette } from "@src/styles/styles";
 import Image from "next/image";
-import logo from "/public/assets/images/취향로고.png";
 import { HStack, VStack } from "@src/components/common";
 
 interface IReviewBox {
@@ -16,7 +15,7 @@ interface IReviewBox {
 }
 
 const VCard = ({
-  thumbnail_url = logo.src,
+  thumbnail_url = "",
   content,
   nickname,
   pub_date,

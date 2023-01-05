@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { calculateSize } from "@src/common/utils/calculateSize";
 import { palette } from "@src/styles/styles";
 import Image from "next/image";
-import logo from "/public/assets/images/취향로고.png";
 
 interface AvatarProps {
   width?: number;
@@ -10,7 +9,7 @@ interface AvatarProps {
   url: string | null;
 }
 
-const Avatar = ({ width = 70, height = 70, url = logo.src }: AvatarProps) => {
+const Avatar = ({ width = 70, height = 70, url = "" }: AvatarProps) => {
   return (
     <Container width={width} height={height}>
       {url && <Image src={url} alt="Picture of me" layout="fill" />}
