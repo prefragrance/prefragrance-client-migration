@@ -1,24 +1,55 @@
-import { HStack } from "@common-components";
+import { HStack, LoadingSpinner } from "@common-components";
 import styled from "@emotion/styled";
 import { BigTitle } from "@src/styles/textComponents";
 import InfoBox from "./InfoBox";
+import { useState } from "react";
+import { useProductHot } from "./useProductHot";
+import { IProductHotResponse } from "@src/common/types/product";
+import { IOption } from "@src/components/common/searchBar/categoryDropdown";
+import { palette } from "@src/styles/styles";
+
+const SortProductHotKeywords: IOption[] = [
+  { label: "리뷰순", value: "review" },
+  { label: "조회순", value: "visit" },
+];
 
 const Recommendation = () => {
+  const [currentSort, setCurrentSort] = useState<string>(
+    SortProductHotKeywords[0].label
+  );
+  const { productHot, fetchStatus } = useProductHot(currentSort);
+  const handleClickSort = (e: React.MouseEvent) => {
+    setCurrentSort((e.target as HTMLInputElement).textContent as string);
+  };
+
+  if (fetchStatus === "fetching" || !productHot) {
+  }
+
   return (
     <Wrapper>
       <Header align="space-between">
         <BigTitle>금주의 핫한 취향</BigTitle>
-        <FilterUl>
-          <li>리뷰순</li>
-          <li>조회순</li>
-        </FilterUl>
+        <SortTab gap="sm">
+          {SortProductHotKeywords.map((keyword) => (
+            <Label
+              key={keyword.value}
+              className={keyword.label === currentSort ? "currentSort" : ""}
+              onClick={handleClickSort}
+            >
+              {keyword.label}
+            </Label>
+          ))}
+        </SortTab>
       </Header>
       <Body gap="md">
-        <InfoBox />
-        <InfoBox />
-        <InfoBox />
-        <InfoBox />
-        <InfoBox />
+        {!productHot || fetchStatus === "fetching" ? (
+          <LoadingSpinner />
+        ) : (
+          productHot.length > 0 &&
+          productHot.map((data: IProductHotResponse) => (
+            <InfoBox key={data.id} {...data} />
+          ))
+        )}
       </Body>
     </Wrapper>
   );
@@ -29,21 +60,21 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 40px 0px;
   row-gap: 20px;
+  min-width: 1000px;
 `;
 
 const Header = styled(HStack)`
-  width: 100%;
+  width: inherit;
 `;
 
-const FilterUl = styled.ul`
-  display: flex;
-  & > li::after {
-    font-size: 1rem;
-    content: "|";
-    padding: 0 0.4rem;
-  }
-  & > li:last-child::after {
-    content: "";
+const SortTab = styled(HStack)``;
+
+const Label = styled.li`
+  &.currentSort {
+    background-color: ${palette.green.primary};
+    color: ${palette.green.rightLogo};
+    border-radius: 0.5rem;
+    border: 0.4rem solid ${palette.green.primary};
   }
 `;
 
