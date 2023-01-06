@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useProductHot } from "./useProductHot";
 import { IProductHotResponse } from "@src/common/types/product";
 import { IOption } from "@src/components/common/searchBar/categoryDropdown";
-import { palette } from "@src/styles/styles";
+import { palette, fontWeight, fontSize } from "@src/styles/styles";
 
 const SortProductHotKeywords: IOption[] = [
   { label: "리뷰순", value: "review" },
@@ -43,7 +43,12 @@ const Recommendation = () => {
       </Header>
       <Body gap="md">
         {!productHot || fetchStatus === "fetching" ? (
-          <LoadingSpinner />
+          <LoadingSpinner
+            height="310px"
+            backgroundColor={palette.gray.background}
+            fontWeight={fontWeight.bold}
+            fontSize={fontSize.bigTitle}
+          />
         ) : (
           productHot.length > 0 &&
           productHot.map((data: IProductHotResponse) => (
