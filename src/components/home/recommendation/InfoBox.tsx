@@ -7,8 +7,6 @@ import { calculateSize } from "@src/common/utils/calculateSize";
 import { VStack } from "@common-components";
 import Link from "next/link";
 import { RouterUrl } from "@src/common/constants/path";
-import { useScrollRestoration } from "@src/common/utils/useScrollRestoration";
-import { useRouter } from "next/router";
 
 interface HotImageProps {
   width?: number;
@@ -17,8 +15,6 @@ interface HotImageProps {
 
 const InfoBox = (data: IProductHotResponse) => {
   const { thumbnail_url, name, producer, id } = data;
-  const router = useRouter();
-  useScrollRestoration(router);
   return (
     <Link href={`${RouterUrl.ProductDetail}/${id}`}>
       <a>
@@ -36,7 +32,7 @@ const InfoBox = (data: IProductHotResponse) => {
 
 const InfoSection = styled(VStack)`
   gap: 0.5rem;
-  width: 180px;
+  width: 196px;
   position: relative;
   pointer: cursor;
 `;
@@ -54,7 +50,7 @@ const HotImage = styled.div<Pick<HotImageProps, "height" | "width">>`
 `;
 
 const Title = styled.div`
-  width: inherit;
+  width: 100%;
   font-size: ${fontSize.mediumTitle};
   font-weight: ${fontWeight.bold};
   margin-top: 0.25rem;
@@ -65,6 +61,7 @@ const Title = styled.div`
 
 const Brand = styled.div`
   font-size: ${fontSize.paragraph};
+  padding-bottom: 0.4rem;
 `;
 
 export default InfoBox;
