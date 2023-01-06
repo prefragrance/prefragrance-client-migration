@@ -50,7 +50,11 @@ export enum Category {
   Perfume = "perfume",
 }
 
-export interface IProductDetailResponse {
+export interface IProductDetailResponse extends IProductHotResponse {
+  liked_users: number[];
+}
+
+export interface IProductHotResponse {
   id: number;
   category: Category;
   name: string;
@@ -63,7 +67,6 @@ export interface IProductDetailResponse {
   thumbnail_url: string;
   rate_sum: number;
   rate: number;
-  liked_users: number[];
 }
 
 export interface IProductReviewResponse {

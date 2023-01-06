@@ -28,7 +28,7 @@ export const useSearchQuery = () => {
         thumbnail_url: "",
         rate_sum: 0,
         rate: 0,
-        tags: "",
+        tags: [],
         codes: [],
       },
       refetchOnWindowFocus: false,

@@ -2,6 +2,7 @@ import { ApiUrl } from "@src/common/constants/path";
 import {
   IPostReviewPayload,
   IProductDetailResponse,
+  IProductHotResponse,
   IProductReviewResponse,
 } from "@src/common/types/product";
 import apiCall from "../apiCall";
@@ -14,6 +15,18 @@ class ProductApi {
 
     if (response.status !== 200) {
       throw new Error("Unable to get product detail");
+    }
+
+    return response.data;
+  }
+
+  static async getProductHot(sort: string): Promise<IProductHotResponse[]> {
+    const response = await apiCall.get(
+      `${ApiUrl.base}${ApiUrl.product.hot}?s=${sort}`
+    );
+
+    if (response.status !== 200) {
+      throw new Error("Unable to get product hot");
     }
 
     return response.data;
