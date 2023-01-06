@@ -7,6 +7,8 @@ import { useProductHot } from "./useProductHot";
 import { IProductHotResponse } from "@src/common/types/product";
 import { IOption } from "@src/components/common/searchBar/categoryDropdown";
 import { palette, fontWeight, fontSize } from "@src/styles/styles";
+// import { useScrollRestoration } from "@src/common/utils/useScrollRestoration";
+// import { useRouter } from "next/router";
 
 const SortProductHotKeywords: IOption[] = [
   { label: "리뷰순", value: "review" },
@@ -14,6 +16,8 @@ const SortProductHotKeywords: IOption[] = [
 ];
 
 const Recommendation = () => {
+  // const router = useRouter();
+  // useScrollRestoration(router);
   const [currentSort, setCurrentSort] = useState<string>(
     SortProductHotKeywords[0].label
   );
@@ -41,10 +45,10 @@ const Recommendation = () => {
           ))}
         </SortTab>
       </Header>
-      <Body gap="md">
+      <Body gap="none">
         {!productHot || fetchStatus === "fetching" ? (
           <LoadingSpinner
-            height="310px"
+            height="316px"
             backgroundColor={palette.gray.background}
             fontWeight={fontWeight.bold}
             fontSize={fontSize.bigTitle}
@@ -78,6 +82,7 @@ const Label = styled.li`
   &.currentSort {
     background-color: ${palette.green.primary};
     color: ${palette.green.rightLogo};
+    padding: 0rem 0.2rem;
     border-radius: 0.5rem;
     border: 0.4rem solid ${palette.green.primary};
   }
