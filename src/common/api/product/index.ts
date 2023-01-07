@@ -53,7 +53,7 @@ class ProductApi {
       rest
     );
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       throw new Error("Unable to post product review");
     }
 

@@ -123,8 +123,8 @@ const Container = styled(HStack)`
 `;
 
 const ImageContainer = styled.div`
-  width: 450px;
-  height: 450px;
+  width: ${calculateSize(450)};
+  height: ${calculateSize(450)};
   position: relative;
   border: 1px solid ${palette.gray.background};
 `;
