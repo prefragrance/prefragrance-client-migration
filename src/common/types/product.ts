@@ -88,3 +88,8 @@ export interface IPostReviewPayload {
   rate: number;
   tags: TagsType[];
 }
+
+export interface IPostReviewLikePayload {
+  id: number;
+  review_id: number;
+}

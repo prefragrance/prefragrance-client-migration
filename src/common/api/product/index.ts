@@ -1,5 +1,6 @@
 import { ApiUrl } from "@src/common/constants/path";
 import {
+  IPostReviewLikePayload,
   IPostReviewPayload,
   IProductDetailResponse,
   IProductHotResponse,
@@ -34,7 +35,7 @@ class ProductApi {
 
   static async getProductReview(id: string): Promise<IProductReviewResponse[]> {
     const response = await apiCall.get(
-      `${ApiUrl.base}${ApiUrl.product.detail}/${parseInt(id)}/review/`
+      `${ApiUrl.base}${ApiUrl.product.detail}${parseInt(id)}/review/`
     );
 
     if (response.status !== 200) {
@@ -58,6 +59,16 @@ class ProductApi {
     }
 
     return response.data;
+  }
+
+  static async postProductReviewLike(payload: IPostReviewLikePayload) {
+    const response = await apiCall.post(
+      `${ApiUrl.base}${ApiUrl.product.detail}/${payload.id}/review/${payload.review_id}/like/`
+    );
+
+    if (response.status !== 201) {
+      throw new Error("Unable to post product review like");
+    }
   }
 }
 

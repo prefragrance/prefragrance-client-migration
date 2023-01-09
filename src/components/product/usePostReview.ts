@@ -2,12 +2,12 @@ import ProductApi from "@src/common/api/product";
 import { IPostReviewPayload } from "@src/common/types/product";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface IUserPostReview {
+interface IUsePostReview {
   id?: string | string[];
   onSuccess?: () => void;
 }
 
-export const usePostReview = ({ id, onSuccess }: IUserPostReview) => {
+export const usePostReview = ({ id, onSuccess }: IUsePostReview) => {
   const queryClient = useQueryClient();
   const { mutate, isLoading, data } = useMutation(
     (payload: IPostReviewPayload) => {
