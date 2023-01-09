@@ -6,7 +6,7 @@ class MagazineApi {
   static async getMagazineData(
     type: string,
     query: string
-  ): Promise<IMagazineProduct> {
+  ): Promise<IMagazineProduct[]> {
     const response = await apiCall.get(
       `${ApiUrl.base}${ApiUrl.product.magazine}?${type}=${query}`
     );

@@ -10,24 +10,32 @@ const MagazineBox = ({
   name,
   producer,
   thumbnail_url,
+  category,
+  feedback_cnt,
+  review_cnt,
+  visit_cnt,
+  rate_sum,
+  rate,
+  tags,
+  codes,
 }: IMagazineProduct) => {
   return (
     <ReviewSection>
       <Img src={thumbnail_url} />
-      <InfoSection>
+      <TitleRateSection>
         <Name>
-          {id}. {name}
+          {name}
         </Name>
-        <Rate>별점</Rate>
-      </InfoSection>
+        <Rate>{rate}</Rate>
+      </TitleRateSection>
       <InfoSection>
         <Producer>{producer}</Producer>
       </InfoSection>
-      <ProfileImg src={thumbnail_url} />
-      <Content>내용 ~.~</Content>
+      <ProfileImg src="/assets/images/blank-profile.png" />
+      <Content>리뷰</Content>
       <InfoSection>
         <ToDetail>
-          <Link href={RouterUrl.ProductDetail}>
+          <Link href={`product/detail/${id}`}>            
             <a>
                 제품 자세히 보기
             </a>
@@ -56,8 +64,8 @@ const Img = styled.img`
 
 const ProfileImg = styled.img`
   border: 1px solid ${palette.black};
-  width: 5rem;
-  height: 5rem;
+  width: 3rem;
+  height: 3rem;
   float: left;
   border-radius: 100rem;
   margin-right: 1rem;
@@ -69,10 +77,16 @@ const InfoSection = styled.div`
   justify-content: left;
   margin: 0rem;
 `;
+const TitleRateSection = styled.div`
+  display: flex;
+  align-items: left;
+  justify-content: left;
+`;
 
 const Content = styled.div`
   word-wrap: break-word;
   text-overflow: ellipsis;
+  margin-top: 1rem;
 `;
 
 const Name = styled.div`
@@ -95,8 +109,8 @@ const Producer = styled.div`
 const Rate = styled.div`
   font-size: 2rem;
   font-weight: 500;
-  margin-top: 5rem;
-  margin-left: 2.5rem;
+  margin-top: 5.3rem;
+  margin-left: 2rem;
   align-items: center;
   justify-content: center;
   color: ${palette.green.rightLogo};
@@ -109,7 +123,7 @@ const ToDetail = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 10rem;
-  margin-left: 30rem;
+  margin-left: 35rem;
 `;
 
 export default MagazineBox;
