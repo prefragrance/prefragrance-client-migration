@@ -124,6 +124,7 @@ const ReviewModal = ({
           layout={"fixed"}
           width={90}
           height={90}
+          alt={"No Image"}
         />
         <VStack alignItems={"flex-start"}>
           <SmallTitle>{productDetail.name}</SmallTitle>

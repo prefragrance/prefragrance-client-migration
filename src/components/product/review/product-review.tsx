@@ -18,10 +18,12 @@ import { DateFormatTypes, formatDate } from "@src/common/utils/formatDate";
 import { fontSize, fontWeight, palette } from "@src/styles/styles";
 import { BigTitle, BodyText, SmallTitle } from "@src/styles/textComponents";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import Avatar from "../../common/avatar/Avatar";
 import { IconTheme } from "../../common/icon/Icon";
 import { GraphLabel } from "../product-rate";
+import { usePostReviewLike } from "../usePostReviewLike";
 
 const filteringButtons: IFilteringItem[] = [
   { label: "5점", value: 5 },
@@ -39,10 +41,12 @@ interface IProductReview {
 
 interface IReview {
   productReview: IProductReviewResponse[];
-  handleLoginCheck: () => void;
+  openReviewModal: () => void;
+  handleReviewLike: (id: number) => void;
+  liked: boolean;
 }
 
-interface IReviewItem {
+interface IReviewItem extends Pick<IReview, "handleReviewLike" | "liked"> {
   review: IProductReviewResponse;
 }
 
@@ -62,13 +66,29 @@ const ProductReview = ({
 }: IProductReview) => {
   const router = useRouter();
   const isLoggedIn = useRecoilValue(checkLogin);
+  const [liked, setLiked] = useState<boolean>(false);
+  const { postReviewLike } = usePostReviewLike({
+    id: productDetail.id,
+    onSuccess: () => {
+      setLiked((prev) => !prev);
+    },
+  });
 
   // TODO : need to add ordering state
   // const [ordering, setOrdering] = useState<>()
 
-  const handleLoginCheck = () => {
+  const openReviewModal = () => {
     if (isLoggedIn) {
       handleModalOpen();
+      return;
+    }
+    alert("로그인이 필요한 기능입니다.");
+    router.replace(RouterUrl.Login);
+  };
+
+  const handleReviewLike = (review_id: number) => {
+    if (isLoggedIn) {
+      postReviewLike({ id: productDetail.id, review_id: review_id });
       return;
     }
     alert("로그인이 필요한 기능입니다.");
@@ -81,7 +101,9 @@ const ProductReview = ({
       <HDivider />
       <Review
         productReview={productReview}
-        handleLoginCheck={handleLoginCheck}
+        openReviewModal={openReviewModal}
+        handleReviewLike={handleReviewLike}
+        liked={liked}
       />
     </ReviewContainer>
   );
@@ -157,7 +179,12 @@ const Statistics = ({
   );
 };
 
-const Review = ({ productReview, handleLoginCheck }: IReview) => {
+const Review = ({
+  productReview,
+  openReviewModal,
+  handleReviewLike,
+  liked,
+}: IReview) => {
   return (
     <ReviewWrapper>
       <HStack align={"space-between"}>
@@ -179,7 +206,7 @@ const Review = ({ productReview, handleLoginCheck }: IReview) => {
           text={"리뷰 쓰기"}
           width={"200px"}
           padding={"10px 0px"}
-          onClick={handleLoginCheck}
+          onClick={openReviewModal}
         />
       </HStack>
       <ReviewListWrapper>
@@ -191,7 +218,11 @@ const Review = ({ productReview, handleLoginCheck }: IReview) => {
         {productReview.length > 0 &&
           productReview.map((review, index) => (
             <div key={review.id}>
-              <ReviewItem review={review} />
+              <ReviewItem
+                review={review}
+                handleReviewLike={handleReviewLike}
+                liked={liked}
+              />
               {index < productReview.length - 1 && (
                 <HDivider
                   backgroundColor={palette.gray.mediumLight}
@@ -205,7 +236,7 @@ const Review = ({ productReview, handleLoginCheck }: IReview) => {
   );
 };
 
-const ReviewItem = ({ review }: IReviewItem) => {
+const ReviewItem = ({ review, handleReviewLike, liked }: IReviewItem) => {
   return (
     <ReviewItemWrapper>
       <VStack>
@@ -223,8 +254,10 @@ const ReviewItem = ({ review }: IReviewItem) => {
       <VStack>
         <Icon
           size={40}
+          asButton
           theme={IconTheme.Filled}
-          color={palette.gray.mediumLight}
+          color={liked ? palette.gray.medium : palette.gray.mediumLight}
+          onClick={() => handleReviewLike(review.id)}
         >
           thumb_up
         </Icon>
