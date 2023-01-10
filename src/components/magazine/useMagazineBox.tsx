@@ -1,30 +1,40 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { palette } from "../../styles/styles";
 import { IMagazineProduct } from "@src/common/types/magazine";
+import Link from "next/link";
+import { palette } from "@src/styles/styles";
+import { useProductReview } from "@src/components/product/useProductReview";
+import { RouterUrl } from "@src/common/constants/path";
 
 const MagazineBox = ({
   id,
   name,
   producer,
   thumbnail_url,
+  rate,
 }: IMagazineProduct) => {
+  const { productReview, isProductReviewLoading } = useProductReview(
+    String(id)
+  );
+  console.log(isProductReviewLoading);
   return (
     <ReviewSection>
       <Img src={thumbnail_url} />
-      <InfoSection>
-        <Name>
-          {id}. {name}
-        </Name>
-        <Rate>별점</Rate>
-      </InfoSection>
+      <TitleRateSection>
+        <Name>{name}</Name>
+        <Rate>{rate}</Rate>
+      </TitleRateSection>
       <InfoSection>
         <Producer>{producer}</Producer>
       </InfoSection>
-      <ProfileImg src={thumbnail_url} />
-      <Content>내용 ~.~</Content>
+      <ProfileImg src="/assets/images/blank-profile.png" />
+      <Content>{productReview[0]?.content}</Content>
       <InfoSection>
-        <ToDetail>제품 자세히 보기</ToDetail>
+        <ToDetail>
+          <Link href={`${RouterUrl.ProductDetail}/${id}`}>
+            <a>제품 자세히 보기</a>
+          </Link>
+        </ToDetail>
       </InfoSection>
     </ReviewSection>
   );
@@ -48,8 +58,8 @@ const Img = styled.img`
 
 const ProfileImg = styled.img`
   border: 1px solid ${palette.black};
-  width: 5rem;
-  height: 5rem;
+  width: 3rem;
+  height: 3rem;
   float: left;
   border-radius: 100rem;
   margin-right: 1rem;
@@ -61,10 +71,16 @@ const InfoSection = styled.div`
   justify-content: left;
   margin: 0rem;
 `;
+const TitleRateSection = styled.div`
+  display: flex;
+  align-items: left;
+  justify-content: left;
+`;
 
 const Content = styled.div`
   word-wrap: break-word;
   text-overflow: ellipsis;
+  margin-top: 1rem;
 `;
 
 const Name = styled.div`
@@ -87,8 +103,8 @@ const Producer = styled.div`
 const Rate = styled.div`
   font-size: 2rem;
   font-weight: 500;
-  margin-top: 5rem;
-  margin-left: 2.5rem;
+  margin-top: 5.3rem;
+  margin-left: 2rem;
   align-items: center;
   justify-content: center;
   color: ${palette.green.rightLogo};
@@ -101,7 +117,7 @@ const ToDetail = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 10rem;
-  margin-left: 30rem;
+  margin-left: 35rem;
 `;
 
 export default MagazineBox;
