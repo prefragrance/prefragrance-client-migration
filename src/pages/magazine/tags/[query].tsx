@@ -14,6 +14,7 @@ const MagazinePage = () => {
     "tag",
     String(query)
   );
+  console.log(isMagazineProductLoading);
   return (
     <QueryClientProvider client={client}>
       <Body>

@@ -16,6 +16,7 @@ const MagazineBox = ({
   const { productReview, isProductReviewLoading } = useProductReview(
     String(id)
   );
+  console.log(isProductReviewLoading);
   return (
     <ReviewSection>
       <Img src={thumbnail_url} />
