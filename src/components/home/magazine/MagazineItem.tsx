@@ -2,6 +2,7 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
 import React from "react";
+import Link from "next/link";
 
 interface IMagazineItem {
   text: string;
@@ -9,9 +10,11 @@ interface IMagazineItem {
 
 const MagazineItem = ({ text }: IMagazineItem) => {
   return (
-    <MagazineItemSection>
-      <span>{text}</span>
-    </MagazineItemSection>
+    <Link href={`magazine/${text}`} key={text}>
+      <MagazineItemSection>
+        <span>{text}</span>
+      </MagazineItemSection>
+    </Link>
   );
 };
 
