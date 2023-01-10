@@ -10,7 +10,7 @@ import { VStack, HStack } from "@common-components";
 // text가 12개씩 들어온다 가정
 const text = [
   { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
-  { content: "남자 우디 향수 BEST 10", query: "cool" },
+  { content: "남자 우디 향수 BEST 10", query: "clean" },
   { content: "포근한 파우더 향 BEST 30", query: "cool" },
   { content: "상쾌한 시트러스 향 BEST 20 ", query: "cool" },
   { content: "호불호 없는 여자 향수 BEST 10", query: "cool" },
