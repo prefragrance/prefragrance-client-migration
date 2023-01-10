@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { palette } from "../../styles/styles";
 import { IMagazineProduct } from "@src/common/types/magazine";
 import Link from "next/link";
+import { palette } from "@src/styles/styles";
+import { useProductReview } from "@src/components/product/useProductReview";
 import { RouterUrl } from "@src/common/constants/path";
 
 const MagazineBox = ({
@@ -10,35 +11,28 @@ const MagazineBox = ({
   name,
   producer,
   thumbnail_url,
-  category,
-  feedback_cnt,
-  review_cnt,
-  visit_cnt,
-  rate_sum,
   rate,
-  tags,
-  codes,
 }: IMagazineProduct) => {
+  const { productReview, isProductReviewLoading } = useProductReview(
+    String(id)
+  );
+  console.log(isProductReviewLoading); //미사용 빨간줄 안보고싶어서
   return (
     <ReviewSection>
       <Img src={thumbnail_url} />
       <TitleRateSection>
-        <Name>
-          {name}
-        </Name>
+        <Name>{name}</Name>
         <Rate>{rate}</Rate>
       </TitleRateSection>
       <InfoSection>
         <Producer>{producer}</Producer>
       </InfoSection>
       <ProfileImg src="/assets/images/blank-profile.png" />
-      <Content>리뷰</Content>
+      <Content>{productReview[0]?.content}</Content>
       <InfoSection>
         <ToDetail>
-          <Link href={`product/detail/${id}`}>            
-            <a>
-                제품 자세히 보기
-            </a>
+          <Link href={`${RouterUrl.ProductDetail}/${id}`}>
+            <a>제품 자세히 보기</a>
           </Link>
         </ToDetail>
       </InfoSection>
