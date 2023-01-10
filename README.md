@@ -1,10 +1,8 @@
 
 ## Getting Started
 
-First, run the development server:
+api server not deployed yet
 
 ```bash
-npm run dev
-# or
-yarn dev
+https://prefragrance.vercel.app/
 ```

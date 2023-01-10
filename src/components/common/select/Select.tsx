@@ -1,7 +1,11 @@
 import React, { ChangeEventHandler } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
-import { IOrderProps } from "@src/components/search-result/SelectTab";
+
+export interface IOrderProps {
+  label: string;
+  value: string;
+}
 
 interface ISelect {
   placeHolder?: string;

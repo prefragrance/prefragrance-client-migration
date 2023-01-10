@@ -10,11 +10,7 @@ import { SearchModalCategories } from "./searchModal/CategoryTab";
 import useRecentSearch from "./useRecentSearch";
 import { getSearchQuerySelector } from "@src/common/store/searchInput";
 import { useRecoilState } from "recoil";
-
-export interface ISearchPayload {
-  category: string;
-  searchInput: string;
-}
+import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
 
 const SearchBar = () => {
   const {
@@ -33,6 +29,7 @@ const SearchBar = () => {
   const [currentTab, setCurrentTab] = useState<IOption>(
     SearchModalCategories[2]
   ); // 추천/인기/최근검색어 확인 상태값
+  const { postSearchQuery } = useSearchQuery();
   const router = useRouter();
 
   const handleSearchSubmit = () => {
@@ -49,6 +46,7 @@ const SearchBar = () => {
       searchText: searchInput,
     }); // 최근검색어 업데이트
     setRecentUpdate(recentUpdate + 1); // 검색창 최신화
+    postSearchQuery();
     router.push({
       // next router훅 사용해 검색결과페이지로 넘어감
       pathname: RouterUrl.SearchResult,
@@ -95,7 +93,7 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  width: 600px;
+  width: 500px;
   height: 50px;
   font-family: "NotoSansKR_regular", sans-serif;
   padding-left: 20px;

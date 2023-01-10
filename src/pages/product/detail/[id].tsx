@@ -1,6 +1,5 @@
-import { HDivider, LoadingSpinner, Modal, VStack } from "@common-components";
+import { HDivider, LoadingSpinner, Modal } from "@common-components";
 import styled from "@emotion/styled";
-import { useIsLoggedIn } from "@src/common/hooks/useAuth";
 import { useCommonModal } from "@src/common/hooks/useCommonModal";
 import ProductInfo from "@src/components/product/product-info";
 import ProductRate from "@src/components/product/product-rate";
@@ -30,7 +29,6 @@ const ProductDetailPage = () => {
   const { productReview, isProductReviewLoading } = useProductReview(id);
   const { isModalOpen, handleModalOpen, handleModalClose } = useCommonModal();
   const [activeTab, setActiveTab] = useState<string>(detailTabs[0]);
-  const isLoggedIn = useIsLoggedIn();
 
   const changeTab = (tab: string) => {
     setActiveTab(tab);
@@ -41,32 +39,29 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <VStack gap={20}>
+    <PageWrapper>
       <ProductInfo
         productDetail={productDetail}
         handleModalOpen={handleModalOpen}
-        isLoggedIn={isLoggedIn}
       />
       <InfoContainer>
         <Tab activeTab={activeTab} changeTab={changeTab} />
         {activeTab === detailTabs[0] && (
-          <VStack gap={"none"}>
+          <Container>
             <ProductRate productDetail={productDetail} />
             <HDivider />
             <ProductReview
               productDetail={productDetail}
               productReview={productReview}
               handleModalOpen={handleModalOpen}
-              isLoggedIn={isLoggedIn}
             />
-          </VStack>
+          </Container>
         )}
         {activeTab === detailTabs[1] && (
           <ProductReview
             productDetail={productDetail}
             productReview={productReview}
             handleModalOpen={handleModalOpen}
-            isLoggedIn={isLoggedIn}
           />
         )}
       </InfoContainer>
@@ -83,7 +78,7 @@ const ProductDetailPage = () => {
           />
         </Modal>
       )}
-    </VStack>
+    </PageWrapper>
   );
 };
 
@@ -102,6 +97,22 @@ const Tab = ({ activeTab, changeTab }: ITab) => {
     </TabContainer>
   );
 };
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 20px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  min-width: 900px;
+`;
 
 const TabItem = styled.button<ITabItem>`
   width: 540px;
@@ -122,6 +133,7 @@ const TabItem = styled.button<ITabItem>`
 
 const TabContainer = styled.div`
   width: 100%;
+  min-width: 900px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,6 +143,7 @@ const TabContainer = styled.div`
 const InfoContainer = styled.section`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export default ProductDetailPage;

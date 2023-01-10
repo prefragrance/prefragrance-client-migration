@@ -20,7 +20,8 @@ const Logo = ({ size = fontSize.extraBigText, spacing = "-10px" }: ILogo) => {
   );
 };
 
-const LogoContainer = styled.div<{ spacing: string }>`
+const LogoContainer = styled.div<{ spacing: string; width?: number }>`
+  width: max-content;
   letter-spacing: ${({ spacing }) => spacing};
 `;
 

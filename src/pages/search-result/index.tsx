@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Categories from "@src/components/search-result/Categories";
-import { SelectTab } from "@src/components/search-result";
-import SearchResultList from "@src/components/search-result/SearchResultList";
-import { useSearchQuery } from "@src/components/common/searchBar/useSearch";
 import styled from "@emotion/styled";
-import { LoadingSpinner, VStack } from "@src/components/common";
+import { VStack } from "@src/components/common";
+import SearchResultList from "@src/components/search-result/SearchResultList";
 
 export interface ICurrentCategory {
   currentCate: string;
@@ -12,19 +10,13 @@ export interface ICurrentCategory {
 }
 
 const SearchResultPage = () => {
-  const { searchResult, isSearchLoading } = useSearchQuery();
-  const [currentCate, setCurrentCate] = useState<string>("향수");
-
-  if (isSearchLoading) {
-    return <LoadingSpinner />;
-  }
+  const [currentCate, setCurrentCate] = useState<string>("전체");
 
   return (
     <CenterWrapper>
       <PageWrapper>
         <Categories currentCate={currentCate} setCurrentCate={setCurrentCate} />
-        <SelectTab searchResultCount={Object(searchResult).length} />
-        <SearchResultList searchResult={searchResult} />
+        <SearchResultList />
       </PageWrapper>
     </CenterWrapper>
   );

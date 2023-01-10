@@ -23,17 +23,15 @@ export interface IGraphLabel {
 const ProductRate = ({ productDetail }: IProductRate) => {
   console.log(productDetail);
   return (
-    <VStack gap={"none"}>
-      <VStack padding={"30px 0px 50px 0px"} gap={60}>
-        <HStack align={"space-between"}>
-          <SeasonSection />
-          <TimeSection />
-        </HStack>
-        <HStack align={"space-between"}>
-          <Duration />
-          <Strength />
-        </HStack>
-      </VStack>
+    <VStack padding={"30px 0px 50px 0px"} gap={60}>
+      <HStack align={"space-between"}>
+        <SeasonSection />
+        <TimeSection />
+      </HStack>
+      <HStack align={"space-between"}>
+        <Duration />
+        <Strength />
+      </HStack>
     </VStack>
   );
 };

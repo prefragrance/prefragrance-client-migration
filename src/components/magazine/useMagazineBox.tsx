@@ -16,7 +16,6 @@ const MagazineBox = ({
   const { productReview, isProductReviewLoading } = useProductReview(
     String(id)
   );
-  console.log(isProductReviewLoading); //미사용 빨간줄 안보고싶어서
   return (
     <ReviewSection>
       <Img src={thumbnail_url} />

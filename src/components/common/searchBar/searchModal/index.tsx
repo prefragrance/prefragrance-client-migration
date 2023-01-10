@@ -68,7 +68,7 @@ const SearchModal = ({
 const ModalSection = styled.div`
   // 모달창 크기
   // width - 검색바 크기(변수)랑 동기화시켜줘야 함
-  width: 800px;
+  width: 700px;
   min-height: 100px;
 
   position: absolute;
@@ -79,6 +79,7 @@ const ModalSection = styled.div`
   border: 1px solid ${palette.gray.light};
   border-radius: 0.4rem;
   box-sizing: border-box;
+  box-shadow: 0 0.1rem 2rem rgba(0, 0, 0, 0.2);
   padding: 0.4rem;
 `;
 

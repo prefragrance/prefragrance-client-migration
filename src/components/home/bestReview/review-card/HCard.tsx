@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { fontSize, palette } from "@src/styles/styles";
 import { Icon, VStack } from "@src/components/common";
 import Image from "next/image";
-import logo from "/public/assets/images/취향로고.png";
 
 interface IReviewBox {
   product_id: number;
@@ -16,7 +15,7 @@ interface IReviewBox {
 }
 
 const HCard = ({
-  thumbnail_url = logo.src,
+  thumbnail_url = "",
   content,
   nickname,
   pub_date,
@@ -49,6 +48,7 @@ const HCard = ({
 
 const CardSection = styled(VStack)`
   background: ${palette.white};
+  width: 300px;
 `;
 
 const ImgSection = styled.div`

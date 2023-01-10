@@ -1,4 +1,5 @@
 import { ISearchQuery } from "../store/searchInput";
+import { ICode } from "./product";
 
 export interface ISearchResult {
   id: number;
@@ -11,8 +12,8 @@ export interface ISearchResult {
   thumbnail_url: string;
   rate_sum: number;
   rate: number;
-  tags: string;
-  codes: string[];
+  tags: string[];
+  codes: ICode[];
 }
 
 export interface ISearchKeywords {
