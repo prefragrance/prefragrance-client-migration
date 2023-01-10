@@ -5,14 +5,16 @@ import React from "react";
 import Link from "next/link";
 
 interface IMagazineItem {
-  text: string;
+  content: string;
+  query: string;
 }
 
-const MagazineItem = ({ text }: IMagazineItem) => {
+const MagazineItem = (mag: IMagazineItem) => {
+  console.log(mag);
   return (
-    <Link href={`magazine/${text}`} key={text}>
+    <Link href={`magazine/tags/${mag.query}`} key={mag.query}>
       <MagazineItemSection>
-        <span>{text}</span>
+        <span>{mag.content}</span>
       </MagazineItemSection>
     </Link>
   );

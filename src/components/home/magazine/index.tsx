@@ -9,18 +9,18 @@ import { VStack, HStack } from "@common-components";
 
 // text가 12개씩 들어온다 가정
 const text = [
-  "여름밤의 촉촉한 향 BEST 10",
-  "달콤한 플로럴 향 BEST 20",
-  "남자 우디 향수 BEST 10",
-  "포근한 파우더 향 BEST 30",
-  "상쾌한 시트러스 향 BEST 20 ",
-  "호불호 없는 여자 향수 BEST 10",
-  "가나다라 BEST 10",
-  "마바사 BEST 20",
-  "아자차카 BEST 10",
-  "타파하 BEST 30",
-  "1234 BEST 20 ",
-  "5678 BEST 10",
+  { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
+  { content: "남자 우디 향수 BEST 10", query: "cool" },
+  { content: "포근한 파우더 향 BEST 30", query: "cool" },
+  { content: "상쾌한 시트러스 향 BEST 20 ", query: "cool" },
+  { content: "호불호 없는 여자 향수 BEST 10", query: "cool" },
+  { content: "달콤한 플로럴 향 BEST 20", query: "sweet" },
+  { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
+  { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
+  { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
+  { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
+  { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
+  { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
 ];
 
 const Magazine = () => {
@@ -52,7 +52,7 @@ const Magazine = () => {
           {text
             .slice(offset(nowPage), offset(nowPage) + limit)
             .map((t, index) => (
-              <MagazineItem key={index} text={t} />
+              <MagazineItem key={index} content={t.content} query={t.query} />
             ))}
         </BoxSection>
 
