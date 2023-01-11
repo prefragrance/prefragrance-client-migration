@@ -11,9 +11,9 @@ import { VStack, HStack } from "@common-components";
 const text = [
   { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
   { content: "남자 우디 향수 BEST 10", query: "clean" },
-  { content: "포근한 파우더 향 BEST 30", query: "cool" },
-  { content: "상쾌한 시트러스 향 BEST 20 ", query: "cool" },
-  { content: "호불호 없는 여자 향수 BEST 10", query: "cool" },
+  { content: "포근한 파우더 향 BEST 30", query: "calm" },
+  { content: "상쾌한 시트러스 향 BEST 20 ", query: "refreshing" },
+  { content: "호불호 없는 여자 향수 BEST 10", query: "romantic" },
   { content: "달콤한 플로럴 향 BEST 20", query: "sweet" },
   { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },
   { content: "여름밤의 촉촉한 향 BEST 10", query: "cool" },

@@ -10,7 +10,6 @@ interface IMagazineItem {
 }
 
 const MagazineItem = (mag: IMagazineItem) => {
-  console.log(mag);
   return (
     <Link href={`magazine/tags/${mag.query}`} key={mag.query}>
       <MagazineItemSection>
