@@ -35,7 +35,7 @@ class ProductApi {
 
   static async getProductReview(id: string): Promise<IProductReviewResponse[]> {
     const response = await apiCall.get(
-      `${ApiUrl.base}${ApiUrl.product.detail}${parseInt(id)}/review/`
+      `${ApiUrl.base}${ApiUrl.product.detail}/${parseInt(id)}/review/`
     );
 
     if (response.status !== 200) {

@@ -2,16 +2,20 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@src/styles/styles";
 import React from "react";
+import Link from "next/link";
 
 interface IMagazineItem {
-  text: string;
+  content: string;
+  query: string;
 }
 
-const MagazineItem = ({ text }: IMagazineItem) => {
+const MagazineItem = (mag: IMagazineItem) => {
   return (
-    <MagazineItemSection>
-      <span>{text}</span>
-    </MagazineItemSection>
+    <Link href={`magazine/tags/${mag.query}`} key={mag.query}>
+      <MagazineItemSection>
+        <span>{mag.content}</span>
+      </MagazineItemSection>
+    </Link>
   );
 };
 

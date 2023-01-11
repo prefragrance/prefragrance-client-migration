@@ -28,7 +28,12 @@ const MagazineBox = ({
         <Producer>{producer}</Producer>
       </InfoSection>
       <ProfileImg src="/assets/images/blank-profile.png" />
-      <Content>{productReview[0]?.content}</Content>
+      {productReview[0]?.content.length === 0 && (
+        <Content>너무 좋은 향이에요 !!</Content>
+      )}
+      {productReview[0]?.content.length > 0 && (
+        <Content>{productReview[0]?.content}</Content>
+      )}
       <InfoSection>
         <ToDetail>
           <Link href={`${RouterUrl.ProductDetail}/${id}`}>
