@@ -73,11 +73,13 @@ const ReviewSection = styled.div`
   width: 80rem;
   background: ${palette.white};
   margin: auto;
-  border-bottom: 0.5px solid;
+  border: 0.8px solid;
+  border-color: ${palette.green.primary};
+  border-radius: 0.5rem;
 `;
 
 const Img = styled.img`
-  border: 1px solid ${palette.black};
+  border: 1px solid ${palette.green.primary};
   width: 20rem;
   height: 20rem;
   float: left;
@@ -85,7 +87,7 @@ const Img = styled.img`
 `;
 
 const ProfileImg = styled.img`
-  border: 1px solid ${palette.black};
+  border: 1px solid ${palette.green.primary};
   width: 3rem;
   height: 3rem;
   float: left;
@@ -162,6 +164,7 @@ const ToDetail = styled.div`
   justify-content: center;
   margin-top: 6rem;
   margin-left: 35rem;
+  color: ${palette.black};
 `;
 
 const ReviewBox = styled.div<Pick<ITag, "backgroundColor" | "color">>`
