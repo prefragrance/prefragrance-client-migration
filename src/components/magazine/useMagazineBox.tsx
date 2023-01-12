@@ -29,10 +29,11 @@ const MagazineBox = ({
     <ReviewSection>
       <Img src={thumbnail_url} />
       <TitleRateSection>
+        <CraftmanImg src="/assets/images/icon-perfume.png" />
         <Name>{name}</Name>
       </TitleRateSection>
       <TitleRateSection>
-        <CraftmanImg src="/assets/images/craftman.png" />
+        <CraftmanImg src="/assets/images/icon-craftman.png" />
         <Producer>{producer}</Producer>
         <Star>
           <Icon size={`${fontSize.bigTitle}`} color={`${palette.tags.yellow}`}>
