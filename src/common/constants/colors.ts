@@ -53,7 +53,7 @@ export enum TagsType {
   Glamorous = "glamorous",
 }
 
-export const Tags: Record<TagsType, ITags> = {
+export const Tags: Record<string, ITags> = {
   [TagsType.Warm]: {
     label: "따뜻한",
     color: palette.tags.babypink,
