@@ -2,9 +2,17 @@ import React from "react";
 import styled from "@emotion/styled";
 import { IMagazineProduct } from "@src/common/types/magazine";
 import Link from "next/link";
-import { palette } from "@src/styles/styles";
+import { fontSize, palette, fontWeight } from "@src/styles/styles";
 import { useProductReview } from "@src/components/product/useProductReview";
 import { RouterUrl } from "@src/common/constants/path";
+import { Icon } from "@src/components/common";
+import { calculateSize } from "@src/common/utils/calculateSize";
+
+interface ITag {
+  content: string;
+  backgroundColor?: string;
+  color?: string;
+}
 
 const MagazineBox = ({
   id,
@@ -22,26 +30,42 @@ const MagazineBox = ({
       <Img src={thumbnail_url} />
       <TitleRateSection>
         <Name>{name}</Name>
+        <PerfumeImg src="/assets/images/icon-perfume.png" />
+      </TitleRateSection>
+      <TitleRateSection>
+        <CraftmanImg src="/assets/images/icon-craftman.png" />
+        <Producer>{producer}</Producer>
+        <Star>
+          <Icon size={`${fontSize.bigTitle}`} color={`${palette.tags.yellow}`}>
+            star
+          </Icon>
+        </Star>
         <Rate>{rate}</Rate>
       </TitleRateSection>
-      <InfoSection>
-        <Producer>{producer}</Producer>
-      </InfoSection>
+      <Tag content="Top Review" />
       <ProfileImg src="/assets/images/blank-profile.png" />
       {productReview[0]?.content.length === 0 && (
-        <Content>너무 좋은 향이에요 !!</Content>
+        <Content>&quot; 너무 좋은 향이에요 !! &quot;</Content>
       )}
       {productReview[0]?.content.length > 0 && (
-        <Content>{productReview[0]?.content}</Content>
+        <Content>&quot; {productReview[0]?.content} &quot;</Content>
       )}
       <InfoSection>
         <ToDetail>
           <Link href={`${RouterUrl.ProductDetail}/${id}`}>
-            <a>제품 자세히 보기</a>
+            <a>제품 자세히 보기 ➤➤ </a>
           </Link>
         </ToDetail>
       </InfoSection>
     </ReviewSection>
+  );
+};
+
+const Tag = ({ content, backgroundColor, color }: ITag) => {
+  return (
+    <ReviewBox backgroundColor={backgroundColor} color={color}>
+      {content}
+    </ReviewBox>
   );
 };
 
@@ -50,11 +74,13 @@ const ReviewSection = styled.div`
   width: 80rem;
   background: ${palette.white};
   margin: auto;
-  border-bottom: 0.5px solid;
+  border: 0.8px solid;
+  border-color: ${palette.green.primary};
+  border-radius: 0.5rem;
 `;
 
 const Img = styled.img`
-  border: 1px solid ${palette.black};
+  border: 1px solid ${palette.green.primary};
   width: 20rem;
   height: 20rem;
   float: left;
@@ -62,12 +88,28 @@ const Img = styled.img`
 `;
 
 const ProfileImg = styled.img`
-  border: 1px solid ${palette.black};
+  border: 1px solid ${palette.green.primary};
   width: 3rem;
   height: 3rem;
   float: left;
   border-radius: 100rem;
   margin-right: 1rem;
+`;
+
+const PerfumeImg = styled.img`
+  width: 3rem;
+  height: 3rem;
+  float: left;
+  margin-left: 0.5rem;
+  margin-top: 4.8rem;
+`;
+
+const CraftmanImg = styled.img`
+  width: 2rem;
+  height: 2rem;
+  float: left;
+  margin-right: 0.5rem;
+  margin-top: 0.1rem;
 `;
 
 const InfoSection = styled.div`
@@ -85,14 +127,16 @@ const TitleRateSection = styled.div`
 const Content = styled.div`
   word-wrap: break-word;
   text-overflow: ellipsis;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  font-weight: 300;
+  font-size: 1.2rem;
 `;
 
 const Name = styled.div`
   font-size: 3rem;
   font-weight: 700;
   margin-top: 4.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 `;
 
 const Producer = styled.div`
@@ -101,18 +145,24 @@ const Producer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2.5rem;
-  margin-left: 2.5rem;
+  margin-bottom: 3rem;
+  margin-top: 0.3rem;
 `;
 
 const Rate = styled.div`
   font-size: 2rem;
   font-weight: 500;
-  margin-top: 5.3rem;
-  margin-left: 2rem;
+  margin-left: 0.5rem;
   align-items: center;
   justify-content: center;
-  color: ${palette.green.rightLogo};
+  color: ${palette.tags.yellow};
+`;
+const Star = styled.div`
+  margin-top: 0.4rem;
+  margin-left: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  color: ${palette.tags.yellow};
 `;
 
 const ToDetail = styled.div`
@@ -121,8 +171,24 @@ const ToDetail = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10rem;
+  margin-top: 6rem;
   margin-left: 35rem;
+  color: ${palette.black};
+`;
+
+const ReviewBox = styled.div<Pick<ITag, "backgroundColor" | "color">>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ backgroundColor = palette.green.rightLogo }) =>
+    backgroundColor};
+  color: ${({ color = palette.green.primary }) => color};
+  width: 96px;
+  height: 32px;
+  border-radius: 6px;
+  font-weight: ${fontWeight.semiBold};
+  font-size: ${calculateSize(14)};
+  margin-bottom: 1rem;
 `;
 
 export default MagazineBox;
