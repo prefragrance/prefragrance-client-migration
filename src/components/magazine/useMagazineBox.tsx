@@ -29,8 +29,8 @@ const MagazineBox = ({
     <ReviewSection>
       <Img src={thumbnail_url} />
       <TitleRateSection>
-        <CraftmanImg src="/assets/images/icon-perfume.png" />
         <Name>{name}</Name>
+        <PerfumeImg src="/assets/images/icon-perfume.png" />
       </TitleRateSection>
       <TitleRateSection>
         <CraftmanImg src="/assets/images/icon-craftman.png" />
@@ -94,6 +94,14 @@ const ProfileImg = styled.img`
   float: left;
   border-radius: 100rem;
   margin-right: 1rem;
+`;
+
+const PerfumeImg = styled.img`
+  width: 3rem;
+  height: 3rem;
+  float: left;
+  margin-left: 0.5rem;
+  margin-top: 4.8rem;
 `;
 
 const CraftmanImg = styled.img`
