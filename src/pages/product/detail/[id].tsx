@@ -58,11 +58,13 @@ const ProductDetailPage = () => {
           </Container>
         )}
         {activeTab === detailTabs[1] && (
-          <ProductReview
-            productDetail={productDetail}
-            productReview={productReview}
-            handleModalOpen={handleModalOpen}
-          />
+          <Container>
+            <ProductReview
+              productDetail={productDetail}
+              productReview={productReview}
+              handleModalOpen={handleModalOpen}
+            />
+          </Container>
         )}
       </InfoContainer>
       {isModalOpen && (

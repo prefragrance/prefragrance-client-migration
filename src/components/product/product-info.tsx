@@ -1,5 +1,6 @@
 import { Button, HStack, Stars, VStack } from "@common-components";
 import styled from "@emotion/styled";
+import { Tags } from "@src/common/constants/colors";
 import { RouterUrl } from "@src/common/constants/path";
 import { checkLogin } from "@src/common/store/user";
 import { IProductDetailResponse } from "@src/common/types/product";
@@ -88,9 +89,19 @@ const ProductInfo = ({ productDetail, handleModalOpen }: IProductInfo) => {
               {productDetail.tags.length > 5
                 ? productDetail.tags
                     .slice(0, 5)
-                    .map((tag, index) => <Tag content={tag} key={index} />)
+                    .map((tag, index) => (
+                      <Tag
+                        content={Tags[tag].label}
+                        key={index}
+                        backgroundColor={Tags[tag].color}
+                      />
+                    ))
                 : productDetail.tags.map((tag, index) => (
-                    <Tag content={tag} key={index} />
+                    <Tag
+                      content={Tags[tag].label}
+                      key={index}
+                      backgroundColor={Tags[tag].color}
+                    />
                   ))}
             </TagWrapper>
           </VStack>
@@ -148,12 +159,12 @@ const TagBox = styled.div<Pick<ITag, "backgroundColor" | "color">>`
   align-items: center;
   background-color: ${({ backgroundColor = palette.gray.dark }) =>
     backgroundColor};
-  color: ${({ color = palette.white }) => color};
+  color: ${({ color = palette.black }) => color};
   width: 84px;
   height: 32px;
   border-radius: 6px;
-  font-weight: ${fontWeight.semiBold};
-  font-size: ${calculateSize(14)};
+  font-weight: ${fontWeight.bold};
+  font-size: ${calculateSize(16)};
 `;
 
 const TagWrapper = styled.div`

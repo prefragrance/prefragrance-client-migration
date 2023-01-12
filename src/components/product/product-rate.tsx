@@ -73,18 +73,18 @@ const Duration = () => {
       <VStack alignItems={"flex-start"}>
         <HStack>
           <GraphLabel>오래가요</GraphLabel>
-          <HBar value={23} />
-          <GraphLabel>23%</GraphLabel>
+          <HBar value={82} />
+          <GraphLabel>82%</GraphLabel>
         </HStack>
         <HStack>
           <GraphLabel>보통이에요</GraphLabel>
-          <HBar value={23} />
-          <GraphLabel>23%</GraphLabel>
+          <HBar value={14} />
+          <GraphLabel>14%</GraphLabel>
         </HStack>
         <HStack>
           <GraphLabel>짧아요</GraphLabel>
-          <HBar value={23} />
-          <GraphLabel>23%</GraphLabel>
+          <HBar value={4} />
+          <GraphLabel>4%</GraphLabel>
         </HStack>
       </VStack>
     </InfoWrapper>
@@ -98,18 +98,18 @@ const Strength = () => {
       <VStack alignItems={"flex-start"}>
         <HStack>
           <GraphLabel>강해요</GraphLabel>
-          <HBar value={23} />
-          <GraphLabel>23%</GraphLabel>
+          <HBar value={75} />
+          <GraphLabel>75%</GraphLabel>
         </HStack>
         <HStack>
           <GraphLabel>보통이에요</GraphLabel>
-          <HBar value={23} />
-          <GraphLabel>23%</GraphLabel>
+          <HBar value={13} />
+          <GraphLabel>13%</GraphLabel>
         </HStack>
         <HStack>
           <GraphLabel>약해요</GraphLabel>
-          <HBar value={23} />
-          <GraphLabel>23%</GraphLabel>
+          <HBar value={12} />
+          <GraphLabel>12%</GraphLabel>
         </HStack>
       </VStack>
     </InfoWrapper>

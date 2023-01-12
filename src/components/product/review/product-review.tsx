@@ -130,45 +130,45 @@ const Statistics = ({
           {/* TODO : mapping this later */}
           <VStack gap={"xs"}>
             <GraphLabel width={40} textAlign={"center"}>
-              86%
+              52%
             </GraphLabel>
-            <VBar value={86} />
+            <VBar value={52} />
             <GraphLabel width={40} textAlign={"center"}>
               5점
             </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
             <GraphLabel width={40} textAlign={"center"}>
-              86%
+              24%
             </GraphLabel>
-            <VBar value={86} />
+            <VBar value={24} />
             <GraphLabel width={40} textAlign={"center"}>
               4점
             </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
             <GraphLabel width={40} textAlign={"center"}>
-              86%
+              8%
             </GraphLabel>
-            <VBar value={86} />
+            <VBar value={8} />
             <GraphLabel width={40} textAlign={"center"}>
               3점
             </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
             <GraphLabel width={40} textAlign={"center"}>
-              86%
+              2%
             </GraphLabel>
-            <VBar value={86} />
+            <VBar value={2} />
             <GraphLabel width={40} textAlign={"center"}>
               2점
             </GraphLabel>
           </VStack>
           <VStack gap={"xs"}>
             <GraphLabel width={40} textAlign={"center"}>
-              86%
+              14%
             </GraphLabel>
-            <VBar value={86} />
+            <VBar value={14} />
             <GraphLabel width={40} textAlign={"center"}>
               1점
             </GraphLabel>
